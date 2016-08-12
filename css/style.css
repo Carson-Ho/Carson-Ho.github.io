@@ -2119,18 +2119,18 @@ a {
 #header .header-nav .social a:last-of-type {
   margin-right: 0;
 }
-#header .header-nav .social a.weibo {
-  background: url("/img/weibo.png") center no-repeat #f00;
+#header .header-nav .social a.CSDN {
+  background: url("/img/CSDN.png") center no-repeat #cb0000;
   border: 1px solid #f00;
 }
-#header .header-nav .social a.weibo:hover {
+#header .header-nav .social a.CSDN:hover {
   border: 1px solid #f00;
 }
-#header .header-nav .social a.rss {
-  background: url("/img/rss.png") center no-repeat #ef7522;
+#header .header-nav .social a.简书 {
+  background: url("/img/jianshu.png") center no-repeat #e48c7e;
   border: 1px solid #ef7522;
 }
-#header .header-nav .social a.rss:hover {
+#header .header-nav .social a.简书:hover {
   border: 1px solid #ef7522;
 }
 #header .header-nav .social a.github {
@@ -2182,11 +2182,11 @@ a {
 #header .header-nav .social a.douban:hover {
   border: 1px solid #06c611;
 }
-#header .header-nav .social a.mail {
+#header .header-nav .social a.E-mail {
   background: url("/img/mail.png") center no-repeat #00abff;
   border: 1px solid #00abff;
 }
-#header .header-nav .social a.mail:hover {
+#header .header-nav .social a.E-mail:hover {
   border: 1px solid #00abff;
 }
 #header .switch-part {
