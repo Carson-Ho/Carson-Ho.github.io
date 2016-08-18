@@ -17,7 +17,7 @@
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-3a654c47005484ec.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-6908dd95a1b00d86.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-783bc46b43828acd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2016-08-12T00:45:27.000Z">
+<meta property="og:updated_time" content="2016-08-18T13:15:14.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Handler源码分析">
 <meta name="twitter:description" content="全面解析Android中的Handler异步通信机制">
@@ -75,6 +75,39 @@
         
         
         
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
 
         <div id="switch-area" class="switch-area">
             <div class="switch-wrap">
@@ -99,6 +132,12 @@
                     </nav>
                 </section>
                 
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+                    </div>
+                </section>
                 
                 
                 
@@ -184,7 +223,7 @@
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Handler/">Handler</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -194,7 +233,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>#前言<br>最近刚好在做关于异步通信的需求，那么，今天我们来讲解下Android开发中的Handler异步通信传递机制（包括Looper、Message Queue）</p>
+        <p>#前言</p>
+<p>最近刚好在做关于异步通信的需求，那么，今天我们来讲解下Android开发中的Handler异步通信传递机制（包括Looper、Message Queue）</p>
 <hr>
 <p>#目录</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/944365-71b48b7864a8b062.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Handler.png"></p>
@@ -404,7 +444,7 @@
         <p><span>本文标题:</span><a href="/2016/01/11/Handler源码分析/">Handler源码分析</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Carson_Ho 的个人博客">Carson_Ho</a></p>
         <p><span>发布时间:</span>2016年01月11日 - 19时33分</p>
-        <p><span>最后更新:</span>2016年08月12日 - 08时45分</p>
+        <p><span>最后更新:</span>2016年08月18日 - 21时15分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2016/01/11/Handler源码分析/" title="Handler源码分析">http://yoursite.com/2016/01/11/Handler源码分析/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/01/11/Handler源码分析/　　作者: Carson_Ho" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
