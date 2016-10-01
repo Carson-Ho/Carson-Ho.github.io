@@ -3,24 +3,24 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Handler源码分析 | Carson_Ho Blog</title>
+  <title>Android开发：Handler异步通信机制全面解析（包含Looper、Message Queue） | Carson_Ho Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="全面解析Android中的Handler异步通信机制">
+  <meta name="description" content="Android开发：Handler异步通信机制全面解析（包含Looper、Message Queue）">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Handler源码分析">
+<meta property="og:title" content="Android开发：Handler异步通信机制全面解析（包含Looper、Message Queue）">
 <meta property="og:url" content="http://yoursite.com/2016/01/11/Handler源码分析/index.html">
 <meta property="og:site_name" content="Carson_Ho Blog">
-<meta property="og:description" content="全面解析Android中的Handler异步通信机制">
+<meta property="og:description" content="Android开发：Handler异步通信机制全面解析（包含Looper、Message Queue）">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-71b48b7864a8b062.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-783bc46b43828acd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-41b56c716246243f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-3a654c47005484ec.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-6908dd95a1b00d86.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-783bc46b43828acd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2016-08-18T13:15:14.000Z">
+<meta property="og:updated_time" content="2016-10-01T14:08:38.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Handler源码分析">
-<meta name="twitter:description" content="全面解析Android中的Handler异步通信机制">
+<meta name="twitter:title" content="Android开发：Handler异步通信机制全面解析（包含Looper、Message Queue）">
+<meta name="twitter:description" content="Android开发：Handler异步通信机制全面解析（包含Looper、Message Queue）">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/944365-71b48b7864a8b062.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
   
     <link rel="alternative" href="/atom.xml" title="Carson_Ho Blog" type="application/atom+xml">
@@ -135,7 +135,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+                        <a href="/tags/Android基础/" style="font-size: 10px;">Android基础</a> <a href="/tags/源码分析-多线程-源码分析/" style="font-size: 10px;">源码分析 多线程&源码分析</a>
                     </div>
                 </section>
                 
@@ -212,7 +212,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Handler源码分析
+      Android开发：Handler异步通信机制全面解析（包含Looper、Message Queue）
     </h1>
   
 
@@ -223,7 +223,7 @@
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码分析-多线程-源码分析/">源码分析 多线程&源码分析</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -233,21 +233,19 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>#前言</p>
-<p>最近刚好在做关于异步通信的需求，那么，今天我们来讲解下Android开发中的Handler异步通信传递机制（包括Looper、Message Queue）</p>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近刚好在做关于异步通信的需求，那么，今天我们来讲解下Android开发中的Handler异步通信传递机制（包括Looper、Message Queue）</p>
 <hr>
-<p>#目录</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/944365-71b48b7864a8b062.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Handler.png"></p>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><p><img src="http://upload-images.jianshu.io/upload_images/944365-71b48b7864a8b062.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Handler.png"></p>
 <hr>
-<p>#定义<br>Android提供的一套消息传递机制</p>
+<h1 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h1><p>Android提供的一套消息传递机制</p>
 <hr>
-<p>#作用<br>用于实现子线程对UI线程的更新，实现异步消息的处理：</p>
+<h1 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h1><p>用于实现子线程对UI线程的更新，实现异步消息的处理：</p>
 <ul>
 <li>在新启动的线程中发送消息</li>
 <li>在主线程中获取并处理信息</li>
 </ul>
 <hr>
-<p>#为什么要用Handler<br>在安卓开发中：</p>
+<h1 id="为什么要用Handler"><a href="#为什么要用Handler" class="headerlink" title="为什么要用Handler"></a>为什么要用Handler</h1><p>在安卓开发中：</p>
 <ul>
 <li>为了保证Android的UI操作是线程安全的，Android规定了只允许UI线程修改Activity里的UI组件；</li>
 <li>但在实际开发中，必然会用到多个线程并发操作UI组件，这又将导致UI操作的线程不安全</li>
@@ -259,7 +257,7 @@
 </ul>
 <p>Handler消息传递机制就是这个问题的。</p>
 <hr>
-<p>#相关概念<br><strong>主线程（UI线程）</strong></p>
+<h1 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h1><p><strong>主线程（UI线程）</strong></p>
 <ul>
 <li>定义：当程序第一次启动时，Android会同时启动一条主线程(Main Thread)</li>
 <li>作用：主线程主要负责处理与UI相关的事件，所以主线程又叫UI线程<blockquote>
@@ -298,10 +296,9 @@
 </li>
 </ul>
 <hr>
-<p>#Handler异步通信机制工作流程图</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/944365-783bc46b43828acd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Handler异步通信传递机制流程图"></p>
+<h1 id="Handler异步通信机制工作流程图"><a href="#Handler异步通信机制工作流程图" class="headerlink" title="Handler异步通信机制工作流程图"></a>Handler异步通信机制工作流程图</h1><p><img src="http://upload-images.jianshu.io/upload_images/944365-783bc46b43828acd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Handler异步通信传递机制流程图"></p>
 <hr>
-<p>#Handler、Looper、MessageQueue关系类图<br><img src="http://upload-images.jianshu.io/upload_images/944365-41b56c716246243f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Handler、Looper、MessageQueue关系类图.png"></p>
+<h1 id="Handler、Looper、MessageQueue关系类图"><a href="#Handler、Looper、MessageQueue关系类图" class="headerlink" title="Handler、Looper、MessageQueue关系类图"></a>Handler、Looper、MessageQueue关系类图</h1><p><img src="http://upload-images.jianshu.io/upload_images/944365-41b56c716246243f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Handler、Looper、MessageQueue关系类图.png"></p>
 <p><strong>Handler</strong></p>
 <ul>
 <li>提供sendMessage方法，将消息放置到队列中 </li>
@@ -327,10 +324,8 @@
 <p>好像很复杂？那就先看下这个简图了解下：</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/944365-3a654c47005484ec.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="page3.png"></p>
 <hr>
-<p>#工作流程详细讲解</p>
-<p>由上面可以得知，整个异步消息传递机制主要包括Handler、Looper和MessageQueue，接下来通过相应源码来解析这三部分</p>
-<p>####第一部分：Looper</p>
-<p>Looper主要负责：</p>
+<h1 id="工作流程详细讲解"><a href="#工作流程详细讲解" class="headerlink" title="工作流程详细讲解"></a>工作流程详细讲解</h1><p>由上面可以得知，整个异步消息传递机制主要包括Handler、Looper和MessageQueue，接下来通过相应源码来解析这三部分</p>
+<h4 id="第一部分：Looper"><a href="#第一部分：Looper" class="headerlink" title="第一部分：Looper"></a>第一部分：Looper</h4><p>Looper主要负责：</p>
 <ol>
 <li>自身的创建&amp;创建Message Queue</li>
 <li>消息循环（消息取出、派发）</li>
@@ -352,8 +347,7 @@
 </li>
 </ol>
 <hr>
-<p>##第二部分：Handler</p>
-<p>主要负责：</p>
+<h2 id="第二部分：Handler"><a href="#第二部分：Handler" class="headerlink" title="第二部分：Handler"></a>第二部分：Handler</h2><p>主要负责：</p>
 <ol>
 <li>在子线程发送消息给MessageQueue</li>
 <li>处理Looper派发过来的消息</li>
@@ -370,8 +364,7 @@
 <ul>
 <li>上述说明：当Handler初始化时，可通过构造方法自动关联Looper和相应的MessageQueue</li>
 </ul>
-<p>####1. Handler向MessageQueue发送消息：对于Handler的发送方式可以分为post和send两种方式。</p>
-<p><strong>send的发送方法：sendMessage()</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line">   public final boolean sendMessage(Message msg)</div><div class="line">    &#123;</div><div class="line">        return sendMessageDelayed(msg, 0);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">//我们往下扒</div><div class="line">   public final boolean sendEmptyMessageDelayed(int what, long delayMillis) &#123;</div><div class="line">        Message msg = Message.obtain();</div><div class="line">        msg.what = what;</div><div class="line">        return sendMessageDelayed(msg, delayMillis);</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line"> public final boolean sendMessageDelayed(Message msg, long delayMillis)</div><div class="line">    &#123;</div><div class="line">        if (delayMillis &lt; 0) &#123;</div><div class="line">            delayMillis = 0;</div><div class="line">        &#125;</div><div class="line">        return sendMessageAtTime(msg, SystemClock.uptimeMillis() + delayMillis);</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line"> public boolean sendMessageAtTime(Message msg, long uptimeMillis) &#123;</div><div class="line">//直接获取MessageQueue</div><div class="line">        MessageQueue queue = mQueue;</div><div class="line">        if (queue == null) &#123;</div><div class="line">            RuntimeException e = new RuntimeException(</div><div class="line">                    this + &quot; sendMessageAtTime() called with no mQueue&quot;);</div><div class="line">            Log.w(&quot;Looper&quot;, e.getMessage(), e);</div><div class="line">            return false;</div><div class="line">        &#125;</div><div class="line">//调用了enqueueMessage方法</div><div class="line">        return enqueueMessage(queue, msg, uptimeMillis);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">//调用sendMessage方法其实最后是调用了enqueueMessage方法</div><div class="line"> private boolean enqueueMessage(MessageQueue queue, Message msg, long uptimeMillis) &#123;</div><div class="line">//为msg.target赋值为this，也就是把当前的handler作为msg的target属性</div><div class="line">//如果大家还记得Looper的loop()方法会取出每个msg然后执行msg.target.dispatchMessage(msg)去处理消息，其实就是派发给相应的Handler</div><div class="line">        msg.target = this;</div><div class="line">        if (mAsynchronous) &#123;</div><div class="line">            msg.setAsynchronous(true);</div><div class="line">        &#125;</div><div class="line">//最终调用queue的enqueueMessage的方法，也就是说handler发出的消息，最终会保存到消息队列中去。</div><div class="line">        return queue.enqueueMessage(msg, uptimeMillis);</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<h4 id="1-Handler向MessageQueue发送消息：对于Handler的发送方式可以分为post和send两种方式。"><a href="#1-Handler向MessageQueue发送消息：对于Handler的发送方式可以分为post和send两种方式。" class="headerlink" title="1. Handler向MessageQueue发送消息：对于Handler的发送方式可以分为post和send两种方式。"></a>1. Handler向MessageQueue发送消息：对于Handler的发送方式可以分为post和send两种方式。</h4><p><strong>send的发送方法：sendMessage()</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line">   public final boolean sendMessage(Message msg)</div><div class="line">    &#123;</div><div class="line">        return sendMessageDelayed(msg, 0);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">//我们往下扒</div><div class="line">   public final boolean sendEmptyMessageDelayed(int what, long delayMillis) &#123;</div><div class="line">        Message msg = Message.obtain();</div><div class="line">        msg.what = what;</div><div class="line">        return sendMessageDelayed(msg, delayMillis);</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line"> public final boolean sendMessageDelayed(Message msg, long delayMillis)</div><div class="line">    &#123;</div><div class="line">        if (delayMillis &lt; 0) &#123;</div><div class="line">            delayMillis = 0;</div><div class="line">        &#125;</div><div class="line">        return sendMessageAtTime(msg, SystemClock.uptimeMillis() + delayMillis);</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line"> public boolean sendMessageAtTime(Message msg, long uptimeMillis) &#123;</div><div class="line">//直接获取MessageQueue</div><div class="line">        MessageQueue queue = mQueue;</div><div class="line">        if (queue == null) &#123;</div><div class="line">            RuntimeException e = new RuntimeException(</div><div class="line">                    this + &quot; sendMessageAtTime() called with no mQueue&quot;);</div><div class="line">            Log.w(&quot;Looper&quot;, e.getMessage(), e);</div><div class="line">            return false;</div><div class="line">        &#125;</div><div class="line">//调用了enqueueMessage方法</div><div class="line">        return enqueueMessage(queue, msg, uptimeMillis);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">//调用sendMessage方法其实最后是调用了enqueueMessage方法</div><div class="line"> private boolean enqueueMessage(MessageQueue queue, Message msg, long uptimeMillis) &#123;</div><div class="line">//为msg.target赋值为this，也就是把当前的handler作为msg的target属性</div><div class="line">//如果大家还记得Looper的loop()方法会取出每个msg然后执行msg.target.dispatchMessage(msg)去处理消息，其实就是派发给相应的Handler</div><div class="line">        msg.target = this;</div><div class="line">        if (mAsynchronous) &#123;</div><div class="line">            msg.setAsynchronous(true);</div><div class="line">        &#125;</div><div class="line">//最终调用queue的enqueueMessage的方法，也就是说handler发出的消息，最终会保存到消息队列中去。</div><div class="line">        return queue.enqueueMessage(msg, uptimeMillis);</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
 <p><strong>Post的发送方法：sendMessage()</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">showhandler.post(new Runnable() &#123;</div><div class="line">              @Override</div><div class="line">              public void run() &#123;</div><div class="line">                  String line = &quot;\n&quot;;</div><div class="line">                  StringBuffer text = new StringBuffer(show.getText());</div><div class="line">                          text.append(line).append(&quot;angelababy:Yes,I do&quot;);</div><div class="line">                          show.setText(text);</div><div class="line">              &#125;</div></pre></td></tr></table></figure></p>
 <ul>
 <li>相比send方法，post方法最大的不同在于，更新UI操作可直接在重写的run方法定义。</li>
@@ -395,8 +388,8 @@
 <li>因为Handler发送消息过来是希望进行一定的处理，至于怎么处理消息是该Handler最终控制的，所以我们在创建handler时需要通过复写handleMessage()方法从而实现我们需要的消息处理方式，然后根据msg.what标识进行消息处理。</li>
 </ul>
 <p><strong>这就是为什么我们在主线程中实例化Handler的时候需要重写handleMessage()</strong></p>
-<p>###特别注意<br>在一个Android应用启动的时候，会创建一个主线程，即ActivityThread（也叫UI线程），在ActivityThread中有一个静态的main方法：应用程序的入口点<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">//一个进程会默认生成一个主线程</div><div class="line">public static void main(String[] args) &#123;</div><div class="line"> ......</div><div class="line">//主线程生成时自动通过prepareMainLooper方法为主线程创建一个Looper</div><div class="line">//prepare()方法是用于在子线程中创建一个Looper对象，在子线程中是可以退出消息循环的：调用消息队列的quit方法</div><div class="line">//Looper生成时会自动生成与之配套的消息队列</div><div class="line">Looper.prepareMainLooper(); </div><div class="line">ActivityThread thread = new ActivityThread(); </div><div class="line">thread.attach(false);</div><div class="line"> ...... </div><div class="line">//loop()方法开启消息循环</div><div class="line">//主线程的消息循环是不允许被退出的</div><div class="line">Looper.loop(); </div><div class="line">throw new RuntimeException(&quot;Main thread loop unexpectedly exited&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>####第三部分：MessageQueue<br>即消息队列，用于存放Handler发送过来的消息</p>
+<h3 id="特别注意"><a href="#特别注意" class="headerlink" title="特别注意"></a>特别注意</h3><p>在一个Android应用启动的时候，会创建一个主线程，即ActivityThread（也叫UI线程），在ActivityThread中有一个静态的main方法：应用程序的入口点<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">//一个进程会默认生成一个主线程</div><div class="line">public static void main(String[] args) &#123;</div><div class="line"> ......</div><div class="line">//主线程生成时自动通过prepareMainLooper方法为主线程创建一个Looper</div><div class="line">//prepare()方法是用于在子线程中创建一个Looper对象，在子线程中是可以退出消息循环的：调用消息队列的quit方法</div><div class="line">//Looper生成时会自动生成与之配套的消息队列</div><div class="line">Looper.prepareMainLooper(); </div><div class="line">ActivityThread thread = new ActivityThread(); </div><div class="line">thread.attach(false);</div><div class="line"> ...... </div><div class="line">//loop()方法开启消息循环</div><div class="line">//主线程的消息循环是不允许被退出的</div><div class="line">Looper.loop(); </div><div class="line">throw new RuntimeException(&quot;Main thread loop unexpectedly exited&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="第三部分：MessageQueue"><a href="#第三部分：MessageQueue" class="headerlink" title="第三部分：MessageQueue"></a>第三部分：MessageQueue</h4><p>即消息队列，用于存放Handler发送过来的消息</p>
 <blockquote>
 <p>为了提高插入删除的效率，采用单链表的方式实现。</p>
 </blockquote>
@@ -409,18 +402,17 @@
 <li>若是在中间插入，则根据Message创建的时间进行插入。 </li>
 </ul>
 <p><strong>MessageQueue出队</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div></pre></td><td class="code"><pre><div class="line">Message next() &#123;</div><div class="line"></div><div class="line">    ......</div><div class="line"></div><div class="line">    int nextPollTimeoutMillis = 0;</div><div class="line">    for (;;) &#123;</div><div class="line">        if (nextPollTimeoutMillis != 0) &#123;</div><div class="line">            Binder.flushPendingCommands();</div><div class="line">        &#125;</div><div class="line">// nativePollOnce方法在native层，若是nextPollTimeoutMillis为-1，这时候消息队列处于等待状态。 　　</div><div class="line">        nativePollOnce(ptr, nextPollTimeoutMillis);</div><div class="line"></div><div class="line">        synchronized (this) &#123;</div><div class="line">            // Try to retrieve the next message.  Return if found.</div><div class="line">            final long now = SystemClock.uptimeMillis();</div><div class="line">            Message prevMsg = null;</div><div class="line">            Message msg = mMessages;</div><div class="line"></div><div class="line">            if (msg != null &amp;&amp; msg.target == null) &#123;</div><div class="line">                // Stalled by a barrier.  Find the next asynchronous message in the queue.</div><div class="line">                do &#123;</div><div class="line">                    prevMsg = msg;</div><div class="line">                    msg = msg.next;</div><div class="line">                &#125; while (msg != null &amp;&amp; !msg.isAsynchronous());</div><div class="line">            &#125;</div><div class="line">//按照我们设置的时间取出消息</div><div class="line">            if (msg != null) &#123;</div><div class="line">                if (now &lt; msg.when) &#123;</div><div class="line">                    // Next message is not ready.  Set a timeout to wake up when it is ready.</div><div class="line">                    nextPollTimeoutMillis = (int) Math.min(msg.when - now, Integer.MAX_VALUE);</div><div class="line">                &#125; else &#123;</div><div class="line">                    // Got a message.</div><div class="line">                    mBlocked = false;</div><div class="line">                    if (prevMsg != null) &#123;</div><div class="line">                        prevMsg.next = msg.next;</div><div class="line">                    &#125; else &#123;</div><div class="line">                        mMessages = msg.next;</div><div class="line">                    &#125;</div><div class="line">                    msg.next = null;</div><div class="line">                    if (DEBUG) Log.v(TAG, &quot;Returning message: &quot; + msg);</div><div class="line">                    msg.markInUse();</div><div class="line">                    return msg;</div><div class="line">                &#125;</div><div class="line">            &#125; else &#123;</div><div class="line">// 如果消息队列中没有消息，将nextPollTimeoutMillis设为-1，下次循环消息队列则处于等待状态</div><div class="line">                nextPollTimeoutMillis = -1;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">           </div><div class="line">//退出消息队列，返回null，这时候Looper中的消息循环也会终止。 </div><div class="line">            if (mQuitting) &#123;</div><div class="line">                dispose();</div><div class="line">                return null;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            ......</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        .....</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>#Thread、Looper、Handler之间的对应关系：</p>
-<ul>
+<h1 id="Thread、Looper、Handler之间的对应关系："><a href="#Thread、Looper、Handler之间的对应关系：" class="headerlink" title="Thread、Looper、Handler之间的对应关系："></a>Thread、Looper、Handler之间的对应关系：</h1><ul>
 <li>一个Thread（线程）只能有一个Looper，可以有多个Handler</li>
 <li>一个Looper可以绑定多个Handler；</li>
 <li>一个Handler只能绑定一个Looper；</li>
 </ul>
 <p><img src="http://upload-images.jianshu.io/upload_images/944365-6908dd95a1b00d86.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="对应关系.png"></p>
 <hr>
-<p>#回顾工作原理图<br>把Handler工作原理都讲解完了，我们再来看下一开始说的工作原理图，你大概会有更深的理解了。<br><img src="http://upload-images.jianshu.io/upload_images/944365-783bc46b43828acd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Handler异步通信传递机制流程图"></p>
+<h1 id="回顾工作原理图"><a href="#回顾工作原理图" class="headerlink" title="回顾工作原理图"></a>回顾工作原理图</h1><p>把Handler工作原理都讲解完了，我们再来看下一开始说的工作原理图，你大概会有更深的理解了。<br><img src="http://upload-images.jianshu.io/upload_images/944365-783bc46b43828acd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Handler异步通信传递机制流程图"></p>
 <hr>
-<p>#实例<br>没有实际应用的博客都不是好博客！现在是时候看一下实际应用了</p>
-<p>####Demo的源码下载<br><a href="https://github.com/Carson-Ho/Handler_learning" target="_blank" rel="external">https://github.com/Carson-Ho/Handler_learning</a><br>（个人推荐先fork下来再对着下面的分析看，效果会更好哦！）</p>
+<h1 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h1><p>没有实际应用的博客都不是好博客！现在是时候看一下实际应用了</p>
+<h4 id="Demo的源码下载"><a href="#Demo的源码下载" class="headerlink" title="Demo的源码下载"></a>Demo的源码下载</h4><p><a href="https://github.com/Carson-Ho/Handler_learning" target="_blank" rel="external">https://github.com/Carson-Ho/Handler_learning</a><br>（个人推荐先fork下来再对着下面的分析看，效果会更好哦！）</p>
 <ol>
 <li>布局文件：<br><em>activity_main</em></li>
 </ol>
@@ -429,10 +421,10 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.example.carson_ho.handlerdemo;</div><div class="line"></div><div class="line"><span class="keyword">import</span> android.os.Bundle;</div><div class="line"><span class="keyword">import</span> android.os.Handler;</div><div class="line"><span class="keyword">import</span> android.os.Message;</div><div class="line"><span class="keyword">import</span> android.support.v7.app.AppCompatActivity;</div><div class="line"><span class="keyword">import</span> android.widget.TextView;</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> TextView show;</div><div class="line">    <span class="keyword">private</span> Handler showhandler;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="comment">//主线程创建时便自动创建Looper和对应的MessageQueue,之前执行Loop()进入消息循环</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line"></div><div class="line">        show = (TextView) findViewById(R.id.show);</div><div class="line">    <span class="comment">//实例化Handler,这里并无指定Looper,即自动绑定当前线程(主线程)的Looper和MessageQueue</span></div><div class="line">        showhandler = <span class="keyword">new</span> FHandler();</div><div class="line">    <span class="comment">//启动子线程</span></div><div class="line">        <span class="keyword">new</span> Thread_1().start();</div><div class="line">        <span class="keyword">new</span> Thread_2().start();</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="class"><span class="keyword">class</span> <span class="title">FHandler</span> <span class="keyword">extends</span> <span class="title">Handler</span></span>&#123;</div><div class="line">        <span class="comment">//通过复写handlerMessage()从而决定如何进行更新UI操作</span></div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleMessage</span><span class="params">(Message msg)</span> </span>&#123;</div><div class="line"></div><div class="line">            StringBuffer text = <span class="keyword">new</span> StringBuffer();</div><div class="line">            <span class="keyword">switch</span> (msg.what) &#123;</div><div class="line">                <span class="keyword">case</span> <span class="number">1</span>:</div><div class="line">                    text.append(<span class="string">"I love Carson_Ho"</span>);</div><div class="line">                    show.setText(text);</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                <span class="keyword">case</span> <span class="number">2</span>:</div><div class="line">                    text.append(<span class="string">"I hate Carson_Ho"</span>);</div><div class="line">                    show.setText(text);</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line"></div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Thread_1</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">            <span class="keyword">try</span> &#123;</div><div class="line">                Thread.sleep(<span class="number">2000</span>);</div><div class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</div><div class="line">                e.printStackTrace();</div><div class="line">            &#125;</div><div class="line">            <span class="comment">//定义要发送的消息</span></div><div class="line">            Message msg = Message.obtain();</div><div class="line">            msg.what = <span class="number">1</span>;<span class="comment">//用于消息的标识</span></div><div class="line">            msg.obj = <span class="string">"AA"</span>;<span class="comment">//用于消息的存放</span></div><div class="line">            <span class="comment">//传入主线程的Handler并其MessageQueue发送消息</span></div><div class="line">            showhandler.sendMessage(msg);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Thread_2</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">            <span class="keyword">try</span> &#123;</div><div class="line">                Thread.sleep(<span class="number">8000</span>);</div><div class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</div><div class="line">                e.printStackTrace();</div><div class="line">            &#125;</div><div class="line">            Message msg = Message.obtain();</div><div class="line">            msg.what = <span class="number">2</span>;</div><div class="line">            msg.obj = <span class="string">"BB"</span>;</div><div class="line">            showhandler.sendMessage(msg);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p><strong>2. 2 Post方法：MainActivity</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">package com.example.carson_ho.handlerdemo;</div><div class="line"></div><div class="line">import android.os.Bundle;</div><div class="line">import android.os.Handler;</div><div class="line">import android.support.v7.app.AppCompatActivity;</div><div class="line">import android.widget.TextView;</div><div class="line"></div><div class="line"></div><div class="line">public class MainActivity extends AppCompatActivity &#123;</div><div class="line">    public TextView show;</div><div class="line">    public Handler showhandler;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    //主线程创建时便自动创建Looper和对应的MessageQueue,之前执行Loop()进入消息循环</div><div class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">        super.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line"></div><div class="line">        show = (TextView) findViewById(R.id.AA);</div><div class="line">        StringBuffer text = new StringBuffer();</div><div class="line">        text.append(&quot;Carson_Ho:Do you love me?&quot;);</div><div class="line">        show.setText(text);</div><div class="line">    //实例化Handler,这里并无指定Looper,即自动绑定当前线程(主线程)的Looper和MessageQueue</div><div class="line">        showhandler = new Handler();</div><div class="line">    //启动子线程</div><div class="line">        new Thread_1().start();</div><div class="line">        new Thread_2().start();</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    class Thread_1 extends Thread &#123;</div><div class="line">        @Override</div><div class="line">        public void run() &#123;</div><div class="line">            try &#123;</div><div class="line">                Thread.sleep(5000);</div><div class="line">            &#125; catch (InterruptedException e) &#123;</div><div class="line">                e.printStackTrace();</div><div class="line">            &#125;</div><div class="line">            showhandler.post(new Runnable() &#123;</div><div class="line">                @Override</div><div class="line">                public void run() &#123;</div><div class="line">                    String line = &quot;\n&quot;;</div><div class="line">                    StringBuffer text = new StringBuffer(show.getText());</div><div class="line">                            text.append(line).append(&quot;angelababy:Yes,I do&quot;);</div><div class="line">                            show.setText(text);</div><div class="line">                &#125;</div><div class="line"></div><div class="line">                &#125;);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">    class Thread_2 extends Thread &#123;</div><div class="line">        @Override</div><div class="line">        public void run() &#123;</div><div class="line">            try &#123;</div><div class="line">                Thread.sleep(8000);</div><div class="line">            &#125; catch (InterruptedException e) &#123;</div><div class="line">                e.printStackTrace();</div><div class="line">            &#125;</div><div class="line">            showhandler.post(new Runnable() &#123;</div><div class="line">                @Override</div><div class="line">                public void run() &#123;</div><div class="line">                    String line = &quot;\n&quot;;</div><div class="line">                    StringBuffer text = new StringBuffer(show.getText());</div><div class="line">                    text.append(line).append(&quot;黄晓明:what the fuck?&quot;);</div><div class="line">                    show.setText(text);</div><div class="line">                &#125;</div><div class="line"></div><div class="line">            &#125;);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>#Demo的源码下载<br><a href="https://github.com/Carson-Ho/Handler_learning" target="_blank" rel="external">https://github.com/Carson-Ho/Handler_learning</a></p>
+<h1 id="Demo的源码下载-1"><a href="#Demo的源码下载-1" class="headerlink" title="Demo的源码下载"></a>Demo的源码下载</h1><p><a href="https://github.com/Carson-Ho/Handler_learning" target="_blank" rel="external">https://github.com/Carson-Ho/Handler_learning</a></p>
 <hr>
 <p><strong>参考文献</strong><br><a href="http://blog.csdn.net/lmj623565791/article/details/38377229" target="_blank" rel="external">http://blog.csdn.net/lmj623565791/article/details/38377229</a></p>
-<p>#总结<br>本文对Handler异步通信机制全面解析（包含Looper、Message Queue）进行了全面介绍和分析，接下来我会介绍继续介绍Android开发中的相关知识，有兴趣可以继续关注[Carson_Ho的安卓开发笔记]</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>本文对Handler异步通信机制全面解析（包含Looper、Message Queue）进行了全面介绍和分析，接下来我会介绍继续介绍Android开发中的相关知识，有兴趣可以继续关注[Carson_Ho的安卓开发笔记]</p>
 
       
     </div>
@@ -441,12 +433,12 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/01/11/Handler源码分析/">Handler源码分析</a></p>
+        <p><span>本文标题:</span><a href="/2016/01/11/Handler源码分析/">Android开发：Handler异步通信机制全面解析（包含Looper、Message Queue）</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Carson_Ho 的个人博客">Carson_Ho</a></p>
         <p><span>发布时间:</span>2016年01月11日 - 19时33分</p>
-        <p><span>最后更新:</span>2016年08月18日 - 21时15分</p>
+        <p><span>最后更新:</span>2016年10月01日 - 22时08分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/01/11/Handler源码分析/" title="Handler源码分析">http://yoursite.com/2016/01/11/Handler源码分析/</a>
+            <span>原始链接:</span><a class="post-url" href="/2016/01/11/Handler源码分析/" title="Android开发：Handler异步通信机制全面解析（包含Looper、Message Queue）">http://yoursite.com/2016/01/11/Handler源码分析/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/01/11/Handler源码分析/　　作者: Carson_Ho" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
@@ -458,12 +450,26 @@
 
 
 
+<nav id="article-nav">
+  
+    <a href="/2016/01/21/Activity生命周期/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Android开发：5分钟解析Activity&amp;Fragment生命周期
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
   
 </article>
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#目录"><span class="toc-number">1.1.</span> <span class="toc-text">目录</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#定义"><span class="toc-number">2.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#作用"><span class="toc-number">3.</span> <span class="toc-text">作用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#为什么要用Handler"><span class="toc-number">4.</span> <span class="toc-text">为什么要用Handler</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#相关概念"><span class="toc-number">5.</span> <span class="toc-text">相关概念</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Handler异步通信机制工作流程图"><span class="toc-number">6.</span> <span class="toc-text">Handler异步通信机制工作流程图</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Handler、Looper、MessageQueue关系类图"><span class="toc-number">7.</span> <span class="toc-text">Handler、Looper、MessageQueue关系类图</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#工作流程详细讲解"><span class="toc-number">8.</span> <span class="toc-text">工作流程详细讲解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#第一部分：Looper"><span class="toc-number">8.0.0.1.</span> <span class="toc-text">第一部分：Looper</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第二部分：Handler"><span class="toc-number">8.1.</span> <span class="toc-text">第二部分：Handler</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-Handler向MessageQueue发送消息：对于Handler的发送方式可以分为post和send两种方式。"><span class="toc-number">8.1.0.1.</span> <span class="toc-text">1. Handler向MessageQueue发送消息：对于Handler的发送方式可以分为post和send两种方式。</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特别注意"><span class="toc-number">8.1.1.</span> <span class="toc-text">特别注意</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#第三部分：MessageQueue"><span class="toc-number">8.1.1.1.</span> <span class="toc-text">第三部分：MessageQueue</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Thread、Looper、Handler之间的对应关系："><span class="toc-number">9.</span> <span class="toc-text">Thread、Looper、Handler之间的对应关系：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#回顾工作原理图"><span class="toc-number">10.</span> <span class="toc-text">回顾工作原理图</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#实例"><span class="toc-number">11.</span> <span class="toc-text">实例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Demo的源码下载"><span class="toc-number">11.0.0.1.</span> <span class="toc-text">Demo的源码下载</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Demo的源码下载-1"><span class="toc-number">12.</span> <span class="toc-text">Demo的源码下载</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-number">13.</span> <span class="toc-text">总结</span></a></li></ol>
 </div>
 <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
 
@@ -511,7 +517,7 @@
     
       <div class="duoshuo" id="comments">
     <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="2016/01/11/Handler源码分析/" data-title="Handler源码分析" data-url="http://yoursite.com/2016/01/11/Handler源码分析/"></div>
+    <div class="ds-thread" data-thread-key="2016/01/11/Handler源码分析/" data-title="Android开发：Handler异步通信机制全面解析（包含Looper、Message Queue）" data-url="http://yoursite.com/2016/01/11/Handler源码分析/"></div>
     <!-- 多说评论框 end -->
     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
     <script type="text/javascript">
@@ -534,14 +540,16 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+            <a href="/2016/01/21/Activity生命周期/" title="上一篇: Android开发：5分钟解析Activity&amp;Fragment生命周期">
+                <i class="fa fa-angle-left"></i>
+            </a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
             <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
     </div>
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/01/11/Handler源码分析/">Handler源码分析</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/01/21/Activity生命周期/">Android开发：5分钟解析Activity&Fragment生命周期</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/11/Handler源码分析/">Android开发：Handler异步通信机制全面解析（包含Looper、Message Queue）</a></li></ul>
     <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
     <script>
         $(".post-list").addClass("toc-article");
