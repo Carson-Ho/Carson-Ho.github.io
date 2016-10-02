@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Android开发： 五大布局属性设置大全 | Carson_Ho Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="五大布局介绍&amp;属性设置大全">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android开发： 五大布局属性设置大全">
+<meta property="og:url" content="http://yoursite.com/2016/03/23/五大布局属性大全/index.html">
+<meta property="og:site_name" content="Carson_Ho Blog">
+<meta property="og:description" content="五大布局介绍&amp;属性设置大全">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-840ffd22c0d50577.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-6100a05a9ae3fffd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2016-10-02T01:49:25.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android开发： 五大布局属性设置大全">
+<meta name="twitter:description" content="五大布局介绍&amp;属性设置大全">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/944365-840ffd22c0d50577.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+  
+    <link rel="alternative" href="/atom.xml" title="Carson_Ho Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <script>
+      var yiliaConfig = {
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/head.png" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+          <h1 class="header-author"><a href="/">Carson_Ho</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">一个走在产品路上的Android攻城狮</p>
+        
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl CSDN" target="_blank" href="http://blog.csdn.net/carson_ho" title="CSDN">CSDN</a>
+                            
+                                <a class="fl github" target="_blank" href="https://github.com/Carson-Ho" title="github">github</a>
+                            
+                                <a class="fl 简书" target="_blank" href="http://www.jianshu.com/users/383970bef0a0/latest_articles" title="简书">简书</a>
+                            
+                                <a class="fl E-mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=mPv56uv39rbw99j_9_D1_fH0tvv39Q" title="E-mail">E-mail</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/Android基础/" style="font-size: 20px;">Android基础</a> <a href="/tags/多线程-源码分析/" style="font-size: 10px;">多线程&源码分析</a> <a href="/tags/源码分析/" style="font-size: 10px;">源码分析</a>
+                    </div>
+                </section>
+                
+                
+                
+
+                
+                
+                <section class="switch-part switch-part3">
+                
+                    <div id="js-aboutme">Android攻城狮、产品经理、健身狂热者、球鞋Sneaker。工作邮箱：carson.ho@foxmail.com</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Carson_Ho</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/head.png" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Carson_Ho</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">一个走在产品路上的Android攻城狮</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="CSDN" target="_blank" href="http://blog.csdn.net/carson_ho" title="CSDN">CSDN</a>
+                    
+                        <a class="github" target="_blank" href="https://github.com/Carson-Ho" title="github">github</a>
+                    
+                        <a class="简书" target="_blank" href="http://www.jianshu.com/users/383970bef0a0/latest_articles" title="简书">简书</a>
+                    
+                        <a class="E-mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=mPv56uv39rbw99j_9_D1_fH0tvv39Q" title="E-mail">E-mail</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-五大布局属性大全" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/03/23/五大布局属性大全/" class="article-date">
+      <time datetime="2016-03-23T11:33:26.000Z" itemprop="datePublished">2016-03-23</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android开发： 五大布局属性设置大全
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android基础/">Android基础</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在进行Android开发中，常常需要用到各种布局来进行UI的绘制，今天我们就来讲下Android开发中最常用的五大布局介绍和相关属性的设置。</p>
+<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p><img src="http://upload-images.jianshu.io/upload_images/944365-840ffd22c0d50577.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Android五大布局介绍&amp;属性设置.jpg"></p>
+<h1 id="一、布局介绍"><a href="#一、布局介绍" class="headerlink" title="一、布局介绍"></a>一、布局介绍</h1><p>在Android中，共有五种布局方式，分别是：</p>
+<ul>
+<li>FrameLayout(框架布局)</li>
+<li>LinearLayout(线性布局)</li>
+<li>AbsoluteLayout(绝对布局)</li>
+<li>RelativeLayout(相对布局)</li>
+<li>TableLayout(表格布局)</li>
+</ul>
+<p><strong>1. FrameLayout框架布局</strong></p>
+<ul>
+<li>布局特点：放入其中的所有元素都被放置在最左上的区域，而且无法为这些元素指定一个确切的位置,下一个子元素会重叠覆盖上一个子元素</li>
+<li>应用场景：适合浏览单张图片。</li>
+</ul>
+<p><strong>2. LinearLayout线性布局</strong></p>
+<ul>
+<li>布局特点：放主要提供控件水平或者垂直排列的模型，每个子组件<br>都是以垂直或水平的方式来线性排布.(默认是垂直)</li>
+<li>应用场景：最常用的布局方式<blockquote>
+<p>linearLayout中有一个重要的属性 android:layout_weight=”1”，这个weight在垂直布局时，代表行距；水平的时候代表列宽；weight值越大就越大。</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>3. AbsoluteLayout绝对定位布局</strong></p>
+<ul>
+<li>布局特点：采用坐标轴的方式定位组件，左上角是（0，0）点，往右x轴递增，往下Y轴递增,组件定位属性为android:layout_x和 android:layout_y来确定坐标。</li>
+<li>应用场景：准确定位空间位置<blockquote>
+<p>由于Android手机的屏幕尺寸、分辨率存在较大差异，使用AbsoluteLayout无法兼顾适配问题，所以该布局已经过时</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>4. RelativeLayout相对布局</strong></p>
+<ul>
+<li>布局特点：为某一个组件为参照物，来定位下一个组件的位置的布局方式。</li>
+<li>应用场景：控件之间存在相应关系（适配神器，推荐使用）</li>
+</ul>
+<p><strong>5. TableLayout表格布局</strong></p>
+<ul>
+<li>布局特点：类似Html里的Table.使用TableRow来布局，其中TableRow代表一行，TableRow的每一个视图组件代表一个单元格。</li>
+<li>应用场景：控件之间存在相应关系。</li>
+</ul>
+<p>这五个布局元素可以相互嵌套应用，做出美观的界面。</p>
+<h1 id="二、布局属性配置"><a href="#二、布局属性配置" class="headerlink" title="二、布局属性配置"></a>二、布局属性配置</h1><p> Android布局里XML的属性配置</p>
+<h3 id="1-五种Layout中Item的基础属性："><a href="#1-五种Layout中Item的基础属性：" class="headerlink" title="1. 五种Layout中Item的基础属性："></a>1. 五种Layout中Item的基础属性：</h3><ul>
+<li>layout_width  &amp;  layout_height</li>
+<li>layout_margin+方位  &amp;  padding+方位</li>
+<li>layout_gravity  &amp;  gravity</li>
+</ul>
+<blockquote>
+<p>Android五种布局都具备上述几个基础属性</p>
+</blockquote>
+<p><strong>1. layout_width  &amp;  layout_height</strong></p>
+<ul>
+<li>作用：设置Layout中组件的宽度和高度</li>
+<li>取值：<br>a. 固定的像素值<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">android:layout_width=&quot;66px&quot;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>b. “wrap_content”<br>相应视图的宽和高就会被设定成所需的最小尺寸以适应视图中的内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">android:layout_width=&quot;wrap_content&quot;</div></pre></td></tr></table></figure></p>
+<p>c. “match_parent”(在Android API 8之前叫作”fill_parent”)<br>视图的宽和高延伸至充满整个父布局<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">android:layout_width=&quot;match_parent&quot;</div></pre></td></tr></table></figure></p>
+<p><strong>2. layout_margin+方位/padding+方位</strong></p>
+<ul>
+<li>作用：设置放入Layout中的View与Layout的边界或者其他View之间能够相距一段距离</li>
+<li><p>设置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">layout_marginLeft          //paddingLeft</div><div class="line">layout_marginTop         //paddingTop</div><div class="line">layout_marginRight      //paddingRight</div><div class="line">layout_marginBottom   //paddingBottom</div><div class="line">layout_margin             //padding</div></pre></td></tr></table></figure>
+</li>
+<li><p>取值：固定值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">android:layout_marginLeft=&quot;66px&quot;  </div><div class="line">//android:paddingLeft=”66px“</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>paddingLeft与android:layout_marginLeft的区别：</p>
+<ul>
+<li>padding和margin都是边距的含义，但二者边距的定义不同：<br>padding是控件的内容相对控件的边缘的边距；<br>layout_margin是控件边缘相对父控件的边距。具体如下图：</li>
+</ul>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/944365-6100a05a9ae3fffd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="padding属性与android:layout_margin属性的区别"></p>
+<p><strong>3. layout_gravity / gravity</strong></p>
+<ul>
+<li>作用：用来确定View在Layout中的停靠位置</li>
+</ul>
+<blockquote>
+<p>android gravity和layout_gravity区别：</p>
+<ol>
+<li>gravity属性：是对该view 内容的位置的设置。<br>比如一个button 上面的text.  你可以设置该text 在view的靠左，靠右等位置．</li>
+<li>layout_gravity属性：是用来设置该view相对与父view 的位置。<br>比如一个button 在Linearlayout里，你可以通过设置该属性把该button放在父布局Linearlayout靠左靠右等位置。</li>
+</ol>
+</blockquote>
+<h3 id="2-各种Layout的特有属性"><a href="#2-各种Layout的特有属性" class="headerlink" title="2. 各种Layout的特有属性"></a>2. 各种Layout的特有属性</h3><h4 id="2-1-FrameLayout"><a href="#2-1-FrameLayout" class="headerlink" title="2.1  FrameLayout"></a>2.1  FrameLayout</h4><p>作为最简单的Layout，只具备基础属性：</p>
+<ul>
+<li>layout_width  &amp;  layout_height</li>
+<li>layout_margin+方位  &amp;  padding+方位</li>
+<li>layout_gravity  &amp;  gravity</li>
+</ul>
+<h4 id="2-2-AbsoluteLayout"><a href="#2-2-AbsoluteLayout" class="headerlink" title="2.2 AbsoluteLayout"></a>2.2 AbsoluteLayout</h4><p>除了基础属性外，AbsoluteLayout还具备：</p>
+<ul>
+<li>layout_x：指定控件的x坐标</li>
+<li>layout_y：指定控件的x坐标</li>
+</ul>
+<p>上述属性的取值均为固定值。</p>
+<h4 id="2-3-TableLayout"><a href="#2-3-TableLayout" class="headerlink" title="2.3 TableLayout"></a>2.3 TableLayout</h4><p>除了基础属性外，由于TableLayout的行TableRow是一个横向的（horizontal）的LinearLayout，所以具备LinearLayout的属性</p>
+<h4 id="2-4-LinearLayout"><a href="#2-4-LinearLayout" class="headerlink" title="2.4 LinearLayout"></a>2.4 LinearLayout</h4><p>除了基础属性，还会有：</p>
+<ul>
+<li><p>orientation<br>1.作用：设置布局内控件的排列方式<br>2.取值：vertical（垂直排列-默认值）、horizontal（水平排列）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">android:orientation=<span class="string">"vertical"</span>;  </div><div class="line"> <span class="comment">//android:orientation="horizontal";</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>layout_weight<br>1.定义：是线性布局（Linelayout）的一个独特比例分配属性<br>2.作用：使用此属性设置权重，然后按照比例对界面进行空间的分配，公式计算是：控件宽度=控件设置宽度+剩余空间所占百分比宽幅</p>
+<blockquote>
+<p>具体可以参考这篇<a href="http://mobile.51cto.com/abased-375428.htm" target="_blank" rel="external">文章</a>，讲解得非常详细</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="2-5-RelativeLayout"><a href="#2-5-RelativeLayout" class="headerlink" title="2.5 RelativeLayout"></a>2.5 RelativeLayout</h4><p>RelativeLayout的属性算是最多的了，除了基本属性外，还有：<br><strong>a. 相对于父空间</strong></p>
+<table>
+<thead>
+<tr>
+<th>XML属性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>layout_alignParentBottom</td>
+<td>当前控件底端与父控件的底端对齐</td>
+</tr>
+<tr>
+<td>layout_alignParentLeft</td>
+<td>当前控件左端与父控件的左端对齐</td>
+</tr>
+<tr>
+<td>layout_alignParentRight</td>
+<td>当前控件右端与父控件的右端对齐</td>
+</tr>
+<tr>
+<td>layout_alignParentTop</td>
+<td>当前控件上端与父控件的上端对齐</td>
+</tr>
+<tr>
+<td>layout_centerHorizontal</td>
+<td>当前控件位于父控件的横向中间位置（水平方向上的中间）</td>
+</tr>
+<tr>
+<td>layout_centerVertical</td>
+<td>当前控件位于父控件的纵向中间位置（平面上的正中间）</td>
+</tr>
+<tr>
+<td>layout_centerInParent</td>
+<td>当前控件位于父控件的纵横向中间位置（垂直方向上的中间）</td>
+</tr>
+</tbody>
+</table>
+<p>上述所有属性的取值皆为boolean属性：true、false。</p>
+<p><strong>b. 相对于给定控件</strong></p>
+<table>
+<thead>
+<tr>
+<th>XML属性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>layout_above</td>
+<td>使当前控件位于给出id控件的上方</td>
+</tr>
+<tr>
+<td>layout_below</td>
+<td>使当前控件位于给出id控件的下方</td>
+</tr>
+<tr>
+<td>layout_toLeftOf</td>
+<td>使当前控件位于给出id控件的左侧</td>
+</tr>
+<tr>
+<td>layout_toRightOf</td>
+<td>使当前控件位于给出id控件的右侧</td>
+</tr>
+<tr>
+<td>layout_alignBottom</td>
+<td>使当前控件与给出id控件的底部部重合</td>
+</tr>
+<tr>
+<td>layout_alignLeft</td>
+<td>使当前控件与给出id控件的左边重合</td>
+</tr>
+<tr>
+<td>layout_alignRight</td>
+<td>使当前控件与给出id控件的右边重合</td>
+</tr>
+<tr>
+<td>layout_alignTop</td>
+<td>使当前控件与给出id控件的顶部重合</td>
+</tr>
+<tr>
+<td>layout_alignBaseline</td>
+<td>使当前控件的BaseLine与给出id控件t的BaseLine重合</td>
+</tr>
+</tbody>
+</table>
+<p>上述所有属性的取值皆为给定控件的id名，如下例子<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//文本控件@+id/tab_textview在控件@+id/tab_imageview的下方</span></div><div class="line">&lt;TextView    </div><div class="line">android:id=<span class="string">"@+id/tab_textview"</span>    </div><div class="line">android:layout_below=<span class="string">"@+id/tab_imageview"</span>    </div><div class="line">android:layout_width=<span class="string">"wrap_content"</span>    </div><div class="line">android:layout_height=<span class="string">"wrap_content"</span>      </div><div class="line">/&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="3-选择器selector-xml的属性"><a href="#3-选择器selector-xml的属性" class="headerlink" title="3. 选择器selector.xml的属性"></a>3. 选择器selector.xml的属性</h3><p><strong>3.1 作用</strong><br>通过设置selector.xml可使得控件在不同操作下（默认、点击、焦点等）的显示不同样式</p>
+<p><strong>3.2 属性</strong></p>
+<table>
+<thead>
+<tr>
+<th>XML属性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>android:drawable</td>
+<td>放一个drawable资源</td>
+</tr>
+<tr>
+<td>android:state_pressed</td>
+<td>按下状态，如一个按钮触摸或者点击。</td>
+</tr>
+<tr>
+<td>android:state_focused</td>
+<td>取得焦点状态，比如用户选择了一个文本框。</td>
+</tr>
+<tr>
+<td>android:state_hovered</td>
+<td>光标悬停状态，通常与focused state相同，它是4.0的新特性</td>
+</tr>
+<tr>
+<td>android:state_selected</td>
+<td>选中状态</td>
+</tr>
+<tr>
+<td>android:state_enabled</td>
+<td>能够接受触摸或者点击事件</td>
+</tr>
+<tr>
+<td>android:state_checked</td>
+<td>被checked了，如：一个RadioButton可以被check了。</td>
+</tr>
+<tr>
+<td>android:state_enabled</td>
+<td>能够接受触摸或者点击事件</td>
+</tr>
+</tbody>
+</table>
+<p>上述所有属性的取值皆为boolean属性：true、false。</p>
+<p><strong>3.3 实例说明</strong><br>在drawable添加selector.xml资源文件。</p>
+<p><strong>button_selector.xml:</strong><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</div><div class="line"><span class="tag">&lt; <span class="attr">selector</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span>&gt;</span></div><div class="line"></div><div class="line"> <span class="tag">&lt; !<span class="attr">--</span> 指定按钮按下时的图片 <span class="attr">--</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">item</span> <span class="attr">android:state_pressed</span>=<span class="string">"true"</span>  </span></div><div class="line">       <span class="attr">android:drawable</span>=<span class="string">"@drawable/start_down"</span></div><div class="line"> /&gt;</div><div class="line"></div><div class="line"> <span class="tag">&lt; !<span class="attr">--</span> 指定按钮松开时的图片 <span class="attr">--</span>&gt;</span> </div><div class="line"> <span class="tag">&lt;<span class="name">item</span> <span class="attr">android:state_pressed</span>=<span class="string">"false"</span></span></div><div class="line">       <span class="attr">android:drawable</span>=<span class="string">"@drawable/start"</span></div><div class="line"> /&gt;</div><div class="line"></div><div class="line"><span class="tag">&lt; /<span class="attr">selector</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p><strong>在布局文件main.xml中控件的属性设置:</strong><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">Button</span></span></div><div class="line">  <span class="attr">android:id</span>=<span class="string">"@+id/startButton"</span></div><div class="line">  <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></div><div class="line">  <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></div><div class="line">  <span class="attr">android:background</span>=<span class="string">"@drawable/button_selector"</span> </div><div class="line">/&gt;</div></pre></td></tr></table></figure></p>
+<h1 id="4-布局形状shape-xml的属性"><a href="#4-布局形状shape-xml的属性" class="headerlink" title="4. 布局形状shape.xml的属性"></a>4. 布局形状shape.xml的属性</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;shape xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;</div><div class="line"></div><div class="line">//默认颜色</div><div class="line">&lt;solid android:color=&quot;#876543&quot;/&gt;</div><div class="line">//哪个方向有边框线</div><div class="line">  &lt;padding</div><div class="line">        android:bottom=&quot;0dp&quot;</div><div class="line">        android:left=&quot;1dp&quot;</div><div class="line">        android:right=&quot;1dp&quot;</div><div class="line">        android:top=&quot;1dp&quot; /&gt;</div><div class="line">     //边框线颜色、大小</div><div class="line">    &lt;stroke</div><div class="line">        android:width=&quot;1dp&quot;</div><div class="line">        android:color=&quot;#000000&quot; /&gt;</div></pre></td></tr></table></figure>
+<p><strong>在布局文件main.xml中控件的属性设置:</strong><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">Button</span></span></div><div class="line">  <span class="attr">android:id</span>=<span class="string">"@+id/startButton"</span></div><div class="line">  <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></div><div class="line">  <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></div><div class="line">  <span class="attr">android:background</span>=<span class="string">"@drawable/layout_shape"</span> </div><div class="line">/&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="三、总结"><a href="#三、总结" class="headerlink" title="三、总结"></a>三、总结</h3><p>本文对Android五大布局介绍&amp;属性设置进行了全面的介绍。接下来我会介绍继续介绍Android开发中的相关知识，有兴趣可以继续关注<a href="http://www.jianshu.com/users/383970bef0a0/latest_articles" target="_blank" rel="external">Carson_Ho的安卓开发笔记</a></p>
+<hr>
+<h3 id="欢迎关注Carson-Ho的简书！"><a href="#欢迎关注Carson-Ho的简书！" class="headerlink" title="欢迎关注Carson_Ho的简书！"></a>欢迎关注<a href="http://www.jianshu.com/users/383970bef0a0/latest_articles" target="_blank" rel="external">Carson_Ho</a>的简书！</h3><p>不定期分享关于<strong>安卓开发</strong>的干货，追求<strong>短、平、快</strong>，但<strong>却不缺深度</strong>。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/03/23/五大布局属性大全/">Android开发： 五大布局属性设置大全</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 Carson_Ho 的个人博客">Carson_Ho</a></p>
+        <p><span>发布时间:</span>2016年03月23日 - 19时33分</p>
+        <p><span>最后更新:</span>2016年10月02日 - 09时49分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/03/23/五大布局属性大全/" title="Android开发： 五大布局属性设置大全">http://yoursite.com/2016/03/23/五大布局属性大全/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/03/23/五大布局属性大全/　　作者: Carson_Ho" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/2016/03/01/ 最全面的HTTP知识总结/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Android网络通信：最全面的HTTP知识总结</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#目录"><span class="toc-number">2.</span> <span class="toc-text">目录</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#一、布局介绍"><span class="toc-number">3.</span> <span class="toc-text">一、布局介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、布局属性配置"><span class="toc-number">4.</span> <span class="toc-text">二、布局属性配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-五种Layout中Item的基础属性："><span class="toc-number">4.0.1.</span> <span class="toc-text">1. 五种Layout中Item的基础属性：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-各种Layout的特有属性"><span class="toc-number">4.0.2.</span> <span class="toc-text">2. 各种Layout的特有属性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-FrameLayout"><span class="toc-number">4.0.2.1.</span> <span class="toc-text">2.1  FrameLayout</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-AbsoluteLayout"><span class="toc-number">4.0.2.2.</span> <span class="toc-text">2.2 AbsoluteLayout</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-TableLayout"><span class="toc-number">4.0.2.3.</span> <span class="toc-text">2.3 TableLayout</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-LinearLayout"><span class="toc-number">4.0.2.4.</span> <span class="toc-text">2.4 LinearLayout</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-5-RelativeLayout"><span class="toc-number">4.0.2.5.</span> <span class="toc-text">2.5 RelativeLayout</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-选择器selector-xml的属性"><span class="toc-number">4.0.3.</span> <span class="toc-text">3. 选择器selector.xml的属性</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-布局形状shape-xml的属性"><span class="toc-number">5.</span> <span class="toc-text">4. 布局形状shape.xml的属性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#三、总结"><span class="toc-number">5.0.1.</span> <span class="toc-text">三、总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#欢迎关注Carson-Ho的简书！"><span class="toc-number">5.0.2.</span> <span class="toc-text">欢迎关注Carson_Ho的简书！</span></a></li></ol></li></ol></li></ol>
+</div>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
+
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="2016/03/23/五大布局属性大全/" data-title="Android开发： 五大布局属性设置大全" data-url="http://yoursite.com/2016/03/23/五大布局属性大全/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"null"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '/js/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+    <!-- 多说公共JS代码 end -->
+</div>
+
+    
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2016/03/01/ 最全面的HTTP知识总结/" title="下一篇: Android网络通信：最全面的HTTP知识总结">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/03/23/五大布局属性大全/">Android开发： 五大布局属性设置大全</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/01/ 最全面的HTTP知识总结/">Android网络通信：最全面的HTTP知识总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/07/Fragment详解/">Android开发： Fragment最全面使用详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/21/Activity生命周期/">Android开发：5分钟解析Activity&Fragment生命周期</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/11/Handler源码分析/">Android开发：Handler异步通信机制全面解析（包含Looper、Message Queue）</a></li></ul>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+            }
+        })
+    </script>
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2016 Carson_Ho
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/luuman/hexo-theme-spfk" target="_blank">spfk</a> by luuman
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" >到访数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 24;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+  </div>
+</body>
+</html>
