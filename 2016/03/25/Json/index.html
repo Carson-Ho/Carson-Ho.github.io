@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Android开发：JSON最全面解析方法(Gson、AS自带org.json、Jackson解析) | Carson_Ho Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="JSON最全面解析方法(Gson、AS自带org.json、Jackson解析)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android开发：JSON最全面解析方法(Gson、AS自带org.json、Jackson解析)">
+<meta property="og:url" content="http://yoursite.com/2016/03/25/Json/index.html">
+<meta property="og:site_name" content="Carson_Ho Blog">
+<meta property="og:description" content="JSON最全面解析方法(Gson、AS自带org.json、Jackson解析)">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-628031276d324f80.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-9b76fa3c52d478a7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2016-10-02T12:36:06.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android开发：JSON最全面解析方法(Gson、AS自带org.json、Jackson解析)">
+<meta name="twitter:description" content="JSON最全面解析方法(Gson、AS自带org.json、Jackson解析)">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/944365-628031276d324f80.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+  
+    <link rel="alternative" href="/atom.xml" title="Carson_Ho Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <script>
+      var yiliaConfig = {
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/head.png" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+          <h1 class="header-author"><a href="/">Carson_Ho</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">一个走在产品路上的Android攻城狮</p>
+        
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl CSDN" target="_blank" href="http://blog.csdn.net/carson_ho" title="CSDN">CSDN</a>
+                            
+                                <a class="fl github" target="_blank" href="https://github.com/Carson-Ho" title="github">github</a>
+                            
+                                <a class="fl 简书" target="_blank" href="http://www.jianshu.com/users/383970bef0a0/latest_articles" title="简书">简书</a>
+                            
+                                <a class="fl E-mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=mPv56uv39rbw99j_9_D1_fH0tvv39Q" title="E-mail">E-mail</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/Android基础/" style="font-size: 20px;">Android基础</a> <a href="/tags/Android常用汇总/" style="font-size: 15px;">Android常用汇总</a> <a href="/tags/多线程-源码分析/" style="font-size: 10px;">多线程&源码分析</a> <a href="/tags/源码分析/" style="font-size: 10px;">源码分析</a>
+                    </div>
+                </section>
+                
+                
+                
+
+                
+                
+                <section class="switch-part switch-part3">
+                
+                    <div id="js-aboutme">Android攻城狮、产品经理、健身狂热者、球鞋Sneaker。工作邮箱：carson.ho@foxmail.com</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Carson_Ho</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/head.png" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Carson_Ho</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">一个走在产品路上的Android攻城狮</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="CSDN" target="_blank" href="http://blog.csdn.net/carson_ho" title="CSDN">CSDN</a>
+                    
+                        <a class="github" target="_blank" href="https://github.com/Carson-Ho" title="github">github</a>
+                    
+                        <a class="简书" target="_blank" href="http://www.jianshu.com/users/383970bef0a0/latest_articles" title="简书">简书</a>
+                    
+                        <a class="E-mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=mPv56uv39rbw99j_9_D1_fH0tvv39Q" title="E-mail">E-mail</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-Json" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/03/25/Json/" class="article-date">
+      <time datetime="2016-03-25T11:33:26.000Z" itemprop="datePublished">2016-03-25</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android开发：JSON最全面解析方法(Gson、AS自带org.json、Jackson解析)
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android常用汇总/">Android常用汇总</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>今天，我们来介绍现今主流的数据交换格式-JSON！</p>
+<blockquote>
+<p>同样作为主流为数据交换格式-XML，如果有兴趣可以阅读我写的<a href="http://www.jianshu.com/p/e636f4f8487b" target="_blank" rel="external">XML及其DOM、SAX、PULL解析方法和对比</a></p>
+</blockquote>
+<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p><img src="http://upload-images.jianshu.io/upload_images/944365-628031276d324f80.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="JSON简介&amp;解析方法介绍.png"></p>
+<h1 id="1-定义"><a href="#1-定义" class="headerlink" title="1. 定义"></a>1. 定义</h1><p>JavaScript Object Notation，JavaScript的对象表示法，是一种轻量级的文本数据交换格式。</p>
+<h1 id="2-作用"><a href="#2-作用" class="headerlink" title="2. 作用"></a>2. 作用</h1><p>用于数据的标记、存储和传输。</p>
+<h1 id="3-特点"><a href="#3-特点" class="headerlink" title="3. 特点"></a>3. 特点</h1><ul>
+<li>轻量级的文本数据交换格式</li>
+<li>独立于语言和平台</li>
+<li>具有自我描述性</li>
+<li>读写速度快，解析简单</li>
+</ul>
+<h1 id="4-语法"><a href="#4-语法" class="headerlink" title="4. 语法"></a>4. 语法</h1><p><strong>JSON值</strong></p>
+<ul>
+<li>名称/值</li>
+<li>数组</li>
+<li>对象</li>
+</ul>
+<p><strong>JSON实例</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">｛&quot;skill&quot;:&#123;</div><div class="line">          &quot;web&quot;:[</div><div class="line">                 &#123;</div><div class="line">                  &quot;name&quot;:&quot;html&quot;,</div><div class="line">                  &quot;year&quot;:&quot;5&quot;</div><div class="line">                 &#125;,</div><div class="line">                 &#123;</div><div class="line">                  &quot;name&quot;:&quot;ht&quot;,</div><div class="line">                  &quot;year&quot;:&quot;4&quot;</div><div class="line">                 &#125;],</div><div class="line">           &quot;database&quot;:[</div><div class="line">                  &#123;</div><div class="line">                  &quot;name&quot;:&quot;h&quot;,</div><div class="line">                  &quot;year&quot;:&quot;2&quot;</div><div class="line">                 &#125;]</div><div class="line">`&#125;&#125;</div></pre></td></tr></table></figure></p>
+<ul>
+<li><p>“名称／值”对<br>无序、一个对象用“｛｝”包括，名称和值间用“：”相隔，对象间用“，”隔开；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&quot;name&quot;:&quot;html&quot;</div></pre></td></tr></table></figure>
+</li>
+<li><p>对象<br>一个JSON对象包括多个名称/值对，在花括号里书写</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123; &quot;name&quot;:&quot;html&quot;,&quot;year&quot;:&quot;5&quot;&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>数组<br>数组以“［］”包括，数据的对象用逗号隔开</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line"> &quot;name&quot;:&quot;html&quot;,</div><div class="line"> &quot;year&quot;:&quot;5&quot;</div><div class="line">&#125;,</div><div class="line">&#123;</div><div class="line"> &quot;name&quot;:&quot;ht&quot;,</div><div class="line"> &quot;year&quot;:&quot;4&quot;</div><div class="line">&#125;]</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>web和database都是一个数组</strong></p>
+<h3 id="语法总结"><a href="#语法总结" class="headerlink" title="语法总结"></a>语法总结</h3><p>数组 [ 对象 { 值/对”” }  ]</p>
+<blockquote>
+<p>数组包含对象，对象包含值/对</p>
+</blockquote>
+<h1 id="5-JSON解析"><a href="#5-JSON解析" class="headerlink" title="5. JSON解析"></a>5. JSON解析</h1><p>在了解了JSON后，是时候来看下如何在Android解析JSON数据</p>
+<h3 id="解析方法"><a href="#解析方法" class="headerlink" title="解析方法"></a>解析方法</h3><p>Android解析JSON数据的方法和XML解析类似，主要有两种：<br><strong>基于事件驱动</strong>和<strong>基于文档驱动解析方式</strong></p>
+<h3 id="基于事件驱动"><a href="#基于事件驱动" class="headerlink" title="基于事件驱动"></a>基于事件驱动</h3><ul>
+<li>主流方式：Gson解析和Jackson解析</li>
+</ul>
+<p><strong>Gson介绍</strong></p>
+<ul>
+<li>简介：使用谷歌的开源库进行解析</li>
+<li>解析方式：基于事件驱动，根据所需要取的数据通过建立一个对应于JSON数据的JavaBean类就可以通过简单的操作解析出所需JSON数据</li>
+</ul>
+<h4 id="Gson解析"><a href="#Gson解析" class="headerlink" title="Gson解析"></a>Gson解析</h4><p><strong>步骤1：创建一个与JSON数据对应的JavaBean类（用作存储需要解析的数据）</strong><br>GSON解析的关键是重点是要根据json数据里面的结构写出一个对应的javaBean，规则是：</p>
+<ol>
+<li>JSON的<strong>大括号对应一个对象</strong>，对象里面有key和value(值)。在JavaBean里面的类属性要和key同名。</li>
+<li>JSON的<strong>方括号对应一个数组</strong>，所以在JavaBeanBean里面对应的也是数组，数据里面可以有值或者对象。</li>
+<li>如果数组里面只有值没有key，就说明它只是一个纯数组，如果里面有值有key，则说明是对象数组。纯数组对应JavaBean里面的数组类型，<strong>对象数组</strong>要在Bean里面建立一个<strong>内部类</strong>，类属性就是对应的对象里面的key，建立了之后要创建一个这个内部类的对象，名字对应数组名。</li>
+<li>对象里面嵌套对象时候，也要建立一个内部类，和对象数组一样，这个内部类对象的名字就是父对象的key</li>
+</ol>
+<p>注：JavaBean类里的属性不一定要全部和JSON数据里的所有key相同，可以按需取数据，也就是你想要哪种数据，就把对应的key属性写出来，注意名字一定要对应</p>
+<p>以下有两个JSON文档来说明创建JavaBean类的创建方法</p>
+<h3 id="简单的JSON数据1（对象）"><a href="#简单的JSON数据1（对象）" class="headerlink" title="简单的JSON数据1（对象）"></a>简单的JSON数据1（对象）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">String json = &quot;&#123;\&quot;id\&quot;:1,\&quot;name\&quot;:\&quot;小明\&quot;,\&quot;sex\&quot;:\&quot;男\&quot;,\&quot;age\&quot;:18,\&quot;height\&quot;:175&#125;&quot;;</div></pre></td></tr></table></figure>
+<h3 id="步骤1：创建简单的JSON数据对应的JavaBean类"><a href="#步骤1：创建简单的JSON数据对应的JavaBean类" class="headerlink" title="步骤1：创建简单的JSON数据对应的JavaBean类"></a>步骤1：创建简单的JSON数据对应的JavaBean类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> scut.learngson;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EntityStudent</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line">    <span class="keyword">private</span> String sex;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> height;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(<span class="keyword">int</span> id)</span></span>&#123;</div><div class="line">        <span class="keyword">this</span>.id = id;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span></span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = name;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSex</span><span class="params">(String sex)</span></span>&#123;</div><div class="line">        <span class="keyword">this</span>.sex = sex;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(<span class="keyword">int</span> age)</span></span>&#123;</div><div class="line">        <span class="keyword">this</span>.age = age;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setHeight</span><span class="params">(<span class="keyword">int</span> height)</span></span>&#123;</div><div class="line">        <span class="keyword">this</span>.height = height;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getId</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> id;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> name;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getSex</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> sex;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getAge</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> age;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getHeight</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span>  height;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>&#123;</div><div class="line">                System.out.print(<span class="string">"id="</span> + id + <span class="string">","</span>);</div><div class="line">                System.out.print(<span class="string">"name="</span> + name+<span class="string">","</span>);</div><div class="line">                System.out.print(<span class="string">"sex="</span> + sex+<span class="string">","</span>);</div><div class="line">                System.out.print(<span class="string">"age="</span> + age+<span class="string">","</span>);</div><div class="line">                System.out.println(<span class="string">"height="</span> + height + <span class="string">","</span>);</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="复杂的JSON数据（具备嵌套）"><a href="#复杂的JSON数据（具备嵌套）" class="headerlink" title="复杂的JSON数据（具备嵌套）"></a>复杂的JSON数据（具备嵌套）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&#123;&quot;translation&quot;:[&quot;车&quot;],</div><div class="line">  &quot;basic&quot;:</div><div class="line">    &#123;</div><div class="line">      &quot;phonetic&quot;:&quot;kɑː&quot;,</div><div class="line">      &quot;explains&quot;:[&quot;n. 汽车；车厢&quot;,&quot;n. (Car)人名；(土)贾尔；(法、西)卡尔；(塞)察尔&quot;]&#125;,</div><div class="line">  &quot;query&quot;:&quot;car&quot;,</div><div class="line">  &quot;errorCode&quot;:0,</div><div class="line">  &quot;web&quot;:[&#123;&quot;value&quot;:[&quot;汽车&quot;,&quot;车子&quot;,&quot;小汽车&quot;],&quot;key&quot;:&quot;Car&quot;&#125;,</div><div class="line">         &#123;&quot;value&quot;:[&quot;概念车&quot;,&quot;概念车&quot;,&quot;概念汽车&quot;],&quot;key&quot;:&quot;concept car&quot;&#125;,</div><div class="line">         &#123;&quot;value&quot;:[&quot;碰碰车&quot;,&quot;碰撞用汽车&quot;,&quot;碰碰汽车&quot;],&quot;key&quot;:&quot;bumper car&quot;&#125;]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="步骤1：复杂的JSON数据对应的JavaBean类"><a href="#步骤1：复杂的JSON数据对应的JavaBean类" class="headerlink" title="步骤1：复杂的JSON数据对应的JavaBean类"></a>步骤1：复杂的JSON数据对应的JavaBean类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> scut.httpgson;</div><div class="line"><span class="keyword">import</span> java.util.List;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">student</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> String[] translation;  	<span class="comment">//["车"]数组</span></div><div class="line">    <span class="keyword">public</span> basic basic;				<span class="comment">//basic对象里面嵌套着对象，创建一个basic内部类对象</span></div><div class="line">    <span class="keyword">public</span>  <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">basic</span></span>&#123;		<span class="comment">//建立内部类</span></div><div class="line">        <span class="keyword">public</span> String phonetic;</div><div class="line">        <span class="keyword">public</span> String[] explains;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">public</span> String query;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">int</span> errorCode;</div><div class="line">    <span class="keyword">public</span> List&lt;wb&gt; web;			<span class="comment">//web是一个对象数组，创建一个web内部类对象</span></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">wb</span></span>&#123;			</div><div class="line">            <span class="keyword">public</span> String[] value;</div><div class="line">            <span class="keyword">public</span> String key;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="comment">//输出数组</span></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;translation.length;i++)</div><div class="line">        &#123;</div><div class="line">        System.out.println(translation[i]);</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//输出内部类对象</span></div><div class="line">        System.out.println(basic.phonetic);</div><div class="line">        <span class="comment">//输出内部类数组</span></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;basic.explains.length;i++)&#123;</div><div class="line">            System.out.println(basic.explains[i]);</div><div class="line">        &#125;</div><div class="line">        System.out.println(query);</div><div class="line">        System.out.println(errorCode);</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;web.size();i++)&#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j&lt;web.get(i).value.length;j++)</div><div class="line">            &#123;</div><div class="line">                System.out.println(web.get(i).value[j]);</div><div class="line">            &#125;</div><div class="line">            System.out.println(web.get(i).key);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>好了，是不是觉得根据JSON文本数据去转换成JavaBean实体类很复杂呢？其实还有个简单的方法，请使用在线<a href="http://www.bejson.com/json2javapojo/" target="_blank" rel="external">JSON字符串转Java实体类</a>，哈哈请不要打我，继续往下看吧！</p>
+</blockquote>
+<h3 id="步骤2：下载并导入GSON需要的库"><a href="#步骤2：下载并导入GSON需要的库" class="headerlink" title="步骤2：下载并导入GSON需要的库"></a>步骤2：下载并导入GSON需要的库</h3><p>别翻墙去谷歌官网下了，<a href="http://download.csdn.net/detail/u010637692/8348917" target="_blank" rel="external">点这吧</a></p>
+<h3 id="步骤3：用Gson进行转换"><a href="#步骤3：用Gson进行转换" class="headerlink" title="步骤3：用Gson进行转换"></a>步骤3：用Gson进行转换</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> scut.learngson;</div><div class="line"></div><div class="line"><span class="keyword">import</span> android.os.Bundle;</div><div class="line"><span class="keyword">import</span> android.support.v7.app.AppCompatActivity;</div><div class="line"><span class="keyword">import</span> com.google.gson.Gson;</div><div class="line"></div><div class="line"><span class="keyword">import</span> org.json.JSONArray;</div><div class="line"><span class="keyword">import</span> org.json.JSONException;</div><div class="line"><span class="keyword">import</span> org.json.JSONObject;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.BufferedReader;</div><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> java.io.InputStream;</div><div class="line"><span class="keyword">import</span> java.io.InputStreamReader;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line">        Gson gson = <span class="keyword">new</span> Gson();</div><div class="line">        <span class="comment">//创建JavaBean类的对象</span></div><div class="line">      Student student = <span class="keyword">new</span> EntityStudent();</div><div class="line">        String json = <span class="string">"&#123;\"id\":1,\"name\":\"小明\",\"sex\":\"男\",\"age\":18,\"height\":175&#125;"</span>;</div><div class="line">       <span class="comment">//用GSON方法将JSON数据转为单个类实体</span></div><div class="line">        student = gson.fromJson(json,Student.class);</div><div class="line">       <span class="comment">//调用student方法展示解析的数据</span></div><div class="line">        student.show();</div><div class="line">      <span class="comment">//将Java集合转换为json</span></div><div class="line">        String json2 = gson.toJson(List);        System.out.println(json2);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>可以看到，利用GSON方法进行解析，关键在于根据json数据里面的结构写出一个对应的javaBean，而解析过程非常简单：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">JavaBean对象 = gson.fromJson(son,javaBean类类名.class);</div></pre></td></tr></table></figure></p>
+<p><strong>Jackson解析</strong></p>
+<ul>
+<li><p>解析原理：基于事件驱动，与GSON相同，先创建一个对应于JSON数据的JavaBean类就可以通过简单的操作解析出所需JSON数据。但和Gson解析不同的是，GSON可按需解析，即创建的JavaBean类不一定完全涵盖所要解析的JSON数据，按需创建属性，但Jackson解析对应的JavaBean必须把Json数据里面的所有key都有所对应，即必须把JSON内的数据所有解析出来，无法按需解析。<strong>但Jackson的解析速度和效率都要比GSON高</strong></p>
+</li>
+<li><p>核心代码</p>
+</li>
+</ul>
+<h4 id="JSON数据"><a href="#JSON数据" class="headerlink" title="JSON数据"></a>JSON数据</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&#123;&quot;student&quot;:</div><div class="line">          [</div><div class="line">           &#123;&quot;id&quot;:1,&quot;name&quot;:&quot;小明&quot;,&quot;sex&quot;:&quot;男&quot;,&quot;age&quot;:18,&quot;height&quot;:175,&quot;date&quot;:[2013,8,11]&#125;,</div><div class="line">           &#123;&quot;id&quot;:2,&quot;name&quot;:&quot;小红&quot;,&quot;sex&quot;:&quot;女&quot;,&quot;age&quot;:19,&quot;height&quot;:165,&quot;date&quot;:[2013,8,23]&#125;,</div><div class="line">           &#123;&quot;id&quot;:3,&quot;name&quot;:&quot;小强&quot;,&quot;sex&quot;:&quot;男&quot;,&quot;age&quot;:20,&quot;height&quot;:185,&quot;date&quot;:[2013,9,1]&#125;</div><div class="line">          ],</div><div class="line">  &quot;grade&quot;:&quot;2&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="步骤1：建立对应的javaBean："><a href="#步骤1：建立对应的javaBean：" class="headerlink" title="步骤1：建立对应的javaBean："></a>步骤1：建立对应的javaBean：</h4><p>建立javaBean的对应规则和GSON一样<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div></pre></td><td class="code"><pre><div class="line">package scut.learnjackson;</div><div class="line"></div><div class="line">import java.util.ArrayList;</div><div class="line">import java.util.List;</div><div class="line">class test &#123;</div><div class="line">    private  List&lt;stu&gt; student = new ArrayList&lt;stu&gt;();</div><div class="line"></div><div class="line">    private  int grade;</div><div class="line"></div><div class="line">    public void setStudent(List&lt;stu&gt; student)&#123;</div><div class="line">        this.student = student;</div><div class="line">    &#125;</div><div class="line">    public List&lt;stu&gt; getStudent()&#123;</div><div class="line">        return student;</div><div class="line">    &#125;</div><div class="line">    public void setGrade(int grade)&#123;</div><div class="line">        this.grade = grade;</div><div class="line">    &#125;</div><div class="line">    public int getGrade()&#123;</div><div class="line">        return grade;</div><div class="line">    &#125;</div><div class="line">    private static class stu &#123;</div><div class="line">        private  int id;</div><div class="line">        private  String name;</div><div class="line">        private  String sex;</div><div class="line">        private  int age;</div><div class="line">        private  int height;</div><div class="line">        private  int[] date;</div><div class="line"></div><div class="line">        public void setId(int id)&#123;</div><div class="line">            this.id = id;</div><div class="line">        &#125;</div><div class="line">        public int getId()&#123;</div><div class="line">            return id;</div><div class="line">        &#125;</div><div class="line">        public void setName(String name)&#123;</div><div class="line">            this.name = name;</div><div class="line">        &#125;</div><div class="line">        public String getName()&#123;</div><div class="line">            return  name;</div><div class="line">        &#125;</div><div class="line">        public void setSex(String sex)&#123;</div><div class="line">            this.sex = sex;</div><div class="line">        &#125;</div><div class="line">        public String getSex()&#123;</div><div class="line">            return sex;</div><div class="line">        &#125;</div><div class="line">        public void  setAge(int age)&#123;</div><div class="line">            this.age = age;</div><div class="line">        &#125;</div><div class="line">        public int getAge()&#123;</div><div class="line">            return age;</div><div class="line">        &#125;</div><div class="line">        public void setHeight(int height)&#123;</div><div class="line">            this.height = height;</div><div class="line">        &#125;</div><div class="line">        public int getHeight()&#123;</div><div class="line">            return height;</div><div class="line">        &#125;</div><div class="line">        public void setDate(int[] date)&#123;</div><div class="line">            this.date = date;</div><div class="line">        &#125;</div><div class="line">        public int[] getDate()&#123;</div><div class="line">            return date;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public String tostring()&#123;</div><div class="line">        String str = &quot;&quot;;</div><div class="line">        for (int i = 0;i&lt;student.size();i++)&#123;</div><div class="line">            str += student.get(i).getId() + &quot; &quot; + student.get(i).getName() + &quot; &quot; + student.get(i).getSex() + &quot; &quot; + student.get(i).getAge() + &quot; &quot; + student.get(i).getHeight() ;</div><div class="line">            for (int j = 0;j&lt;student.get(i).getDate().length;j++) &#123;</div><div class="line">                str += student.get(i).getDate()[j]+ &quot; &quot; ;</div><div class="line">            &#125;</div><div class="line">            str += &quot;\n&quot;;</div><div class="line">        &#125;</div><div class="line">        str += &quot;\n&quot;+getGrade();</div><div class="line">        return str;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="步骤2：利用Jackson方法进行解析"><a href="#步骤2：利用Jackson方法进行解析" class="headerlink" title="步骤2：利用Jackson方法进行解析"></a>步骤2：利用Jackson方法进行解析</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> scut.learnjackson;</div><div class="line"></div><div class="line"><span class="keyword">import</span> android.os.Bundle;</div><div class="line"><span class="keyword">import</span> android.support.v7.app.AppCompatActivity;</div><div class="line"><span class="keyword">import</span> org.codehaus.jackson.map.ObjectMapper;</div><div class="line"><span class="keyword">import</span> java.io.BufferedReader;</div><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> java.io.InputStreamReader;</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line">        ObjectMapper objectMapper = <span class="keyword">new</span> ObjectMapper();</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            InputStreamReader isr = <span class="keyword">new</span> InputStreamReader(<span class="keyword">this</span>.getClass().getClassLoader().getResourceAsStream(<span class="string">"assets/"</span> + <span class="string">"student.json"</span>),<span class="string">"utf-8"</span>);</div><div class="line">            <span class="comment">//从assets获取json文件</span></div><div class="line">            BufferedReader bfr = <span class="keyword">new</span> BufferedReader(isr);</div><div class="line">            String line;</div><div class="line">            StringBuilder stringBuilder = <span class="keyword">new</span> StringBuilder();</div><div class="line">            <span class="keyword">while</span> ((line = bfr.readLine())!=<span class="keyword">null</span>)&#123;</div><div class="line">                stringBuilder.append(line);</div><div class="line">            &#125;<span class="comment">//将JSON数据转化为字符串</span></div><div class="line">            System.out.println(stringBuilder.toString());</div><div class="line">            System.out.println(tes.tostring());</div><div class="line"></div><div class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="基于文档驱动解析方式"><a href="#基于文档驱动解析方式" class="headerlink" title="基于文档驱动解析方式"></a>基于文档驱动解析方式</h3><ul>
+<li>主流方式：Android Studio自带org.json解析</li>
+<li>解析方式：基于文档驱动，类似于XML的DOM解析方法，先把全部文件读入到内存中，然后遍历所有数据，然后根据需要检索想要的数据。</li>
+</ul>
+<p>需要解析的JSON数据：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line"><span class="string">"student"</span>:[</div><div class="line">	   		&#123;<span class="string">"id"</span>:<span class="number">1</span>,<span class="string">"name"</span>:<span class="string">"小明"</span>,<span class="string">"sex"</span>:<span class="string">"男"</span>,<span class="string">"age"</span>:<span class="number">18</span>,<span class="string">"height"</span>:<span class="number">175</span>&#125;,</div><div class="line">  			&#123;<span class="string">"id"</span>:<span class="number">2</span>,<span class="string">"name"</span>:<span class="string">"小红"</span>,<span class="string">"sex"</span>:<span class="string">"女"</span>,<span class="string">"age"</span>:<span class="number">19</span>,<span class="string">"height"</span>:<span class="number">165</span>&#125;,</div><div class="line">	   		&#123;<span class="string">"id"</span>:<span class="number">3</span>,<span class="string">"name"</span>:<span class="string">"小强"</span>,<span class="string">"sex"</span>:<span class="string">"男"</span>,<span class="string">"age"</span>:<span class="number">20</span>,<span class="string">"height"</span>:<span class="number">185</span>&#125;</div><div class="line">	  	  ],</div><div class="line"><span class="string">"cat"</span>:<span class="string">"it"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>读入本地assets文件夹里面的student.son并解析</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> scut.learngson;</div><div class="line"></div><div class="line"><span class="keyword">import</span> android.os.Bundle;</div><div class="line"><span class="keyword">import</span> org.json.JSONArray;</div><div class="line"><span class="keyword">import</span> org.json.JSONException;</div><div class="line"><span class="keyword">import</span> org.json.JSONObject;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.BufferedReader;</div><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> java.io.InputStream;</div><div class="line"><span class="keyword">import</span> java.io.InputStreamReader;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line">        EntityStudent student = <span class="keyword">new</span> EntityStudent();</div><div class="line"></div><div class="line"></div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            <span class="comment">//从assets获取json文件</span></div><div class="line">            InputStreamReader isr = <span class="keyword">new</span> InputStreamReader(<span class="keyword">this</span>.getClass().getClassLoader().getResourceAsStream(<span class="string">"assets/"</span> + <span class="string">"student.json"</span>));</div><div class="line">            <span class="comment">//字节流转字符流</span></div><div class="line">           BufferedReader bfr = <span class="keyword">new</span> BufferedReader(isr);</div><div class="line">            String line ;</div><div class="line">            StringBuilder stringBuilder = <span class="keyword">new</span> StringBuilder();</div><div class="line">            <span class="keyword">while</span> ((line = bfr.readLine())!=<span class="keyword">null</span>)&#123;</div><div class="line">                stringBuilder.append(line);</div><div class="line">            &#125;<span class="comment">//将JSON数据转化为字符串</span></div><div class="line">            JSONObject root = <span class="keyword">new</span> JSONObject(stringBuilder.toString());</div><div class="line">            <span class="comment">//根据键名获取键值信息</span></div><div class="line">            System.out.println(<span class="string">"root:"</span>+root.getString(<span class="string">"cat"</span>));</div><div class="line">            JSONArray array = root.getJSONArray(<span class="string">"student"</span>);</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; array.length();i++)</div><div class="line">            &#123;</div><div class="line">                JSONObject stud = array.getJSONObject(i);</div><div class="line">                System.out.println(<span class="string">"------------------"</span>);</div><div class="line">                System.out.print(<span class="string">"id="</span>+stud.getInt(<span class="string">"id"</span>)+ <span class="string">","</span>));</div><div class="line">                System.out.print(<span class="string">"name="</span>+stud.getString(<span class="string">"name"</span>)+ <span class="string">","</span>));</div><div class="line">                System.out.print(<span class="string">"sex="</span>+stud.getString(<span class="string">"sex"</span>)+ <span class="string">","</span>));</div><div class="line">                System.out.print(<span class="string">"age="</span>+stud.getInt(<span class="string">"age"</span>)+ <span class="string">","</span>));</div><div class="line">                System.out.println(<span class="string">"height="</span>+stud.getInt(<span class="string">"height"</span>)+ <span class="string">","</span>));</div><div class="line">				bfr.close();</div><div class="line">           	 	isr.close();</div><div class="line">				is.close();<span class="comment">//依次关闭流</span></div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125; <span class="keyword">catch</span> (JSONException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="GSON、Jackson、Android-Studio自带org-son解析三类方式对比"><a href="#GSON、Jackson、Android-Studio自带org-son解析三类方式对比" class="headerlink" title="GSON、Jackson、Android Studio自带org.son解析三类方式对比"></a>GSON、Jackson、Android Studio自带org.son解析三类方式对比</h3><p><strong>Android Studio自带org.json</strong></p>
+<ul>
+<li>原理：基于文档驱动</li>
+<li>特点：<br><strong>优点</strong>：无<br><strong>缺点</strong>：解析 XML 文件时会将整个 XML 文件的内容解析成树型结构存放在内存中并创建新对象，比较消耗时间和内存,解析速度和效率慢，解析方式和性能完败GSON</li>
+</ul>
+<p><strong>GSON方式</strong></p>
+<ul>
+<li>原理：基于事件驱动</li>
+<li>特点：<br><strong>优点</strong>：解析方法简单、解析效率高、占存少、灵活性高</li>
+<li>使用情境<br>适用于需要处理大型 JSON文档、JSON文档结构复杂的场合</li>
+</ul>
+<p><strong>Jackson方式</strong></p>
+<ul>
+<li>原理：基于事件驱动</li>
+<li>特点：<br><strong>优点</strong>：解析效率最高、在数据量大的情况优势尤为明显、占存少<br><strong>缺点</strong>：必须完全解析文档，如果要按需解析的话可以拆分Json来读取，操作和解析方法复杂；</li>
+<li>使用情境<br>适用于需要处理超大型JSON文档、不需要对JSON文档进行按需解析、、性能要求较高的场合</li>
+</ul>
+<h3 id="与XML解析对比"><a href="#与XML解析对比" class="headerlink" title="与XML解析对比"></a>与XML解析对比</h3><p>对于同样作为主流的数据交换格式来说，JSON相比于XML，JSON文档大小更加小，解析方法更加简单、读写速度更快，所以JSON一定是你在数据交换格式的选型中的首选。</p>
+<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><p>本文对现今主流的数据传输格式JSON进行了全面介绍。接下来我会介绍继续介绍Android开发中的相关知识，有兴趣可以继续关注<a href="http://www.jianshu.com/users/383970bef0a0/latest_articles" target="_blank" rel="external">Carson_Ho的安卓开发笔记</a></p>
+<hr>
+<h3 id="欢迎关注Carson-Ho的简书！"><a href="#欢迎关注Carson-Ho的简书！" class="headerlink" title="欢迎关注Carson_Ho的简书！"></a>欢迎关注<a href="http://www.jianshu.com/users/383970bef0a0/latest_articles" target="_blank" rel="external">Carson_Ho</a>的简书！</h3><p>不定期分享关于<strong>安卓开发</strong>的干货，追求<strong>短、平、快</strong>，但<strong>却不缺深度</strong>。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/944365-9b76fa3c52d478a7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/03/25/Json/">Android开发：JSON最全面解析方法(Gson、AS自带org.json、Jackson解析)</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 Carson_Ho 的个人博客">Carson_Ho</a></p>
+        <p><span>发布时间:</span>2016年03月25日 - 19时33分</p>
+        <p><span>最后更新:</span>2016年10月02日 - 20时36分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/03/25/Json/" title="Android开发：JSON最全面解析方法(Gson、AS自带org.json、Jackson解析)">http://yoursite.com/2016/03/25/Json/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/03/25/Json/　　作者: Carson_Ho" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/2016/03/23/五大布局属性大全/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Android开发： 五大布局属性设置大全</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#目录"><span class="toc-number">2.</span> <span class="toc-text">目录</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-定义"><span class="toc-number">3.</span> <span class="toc-text">1. 定义</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-作用"><span class="toc-number">4.</span> <span class="toc-text">2. 作用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-特点"><span class="toc-number">5.</span> <span class="toc-text">3. 特点</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-语法"><span class="toc-number">6.</span> <span class="toc-text">4. 语法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#语法总结"><span class="toc-number">6.0.1.</span> <span class="toc-text">语法总结</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-JSON解析"><span class="toc-number">7.</span> <span class="toc-text">5. JSON解析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#解析方法"><span class="toc-number">7.0.1.</span> <span class="toc-text">解析方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基于事件驱动"><span class="toc-number">7.0.2.</span> <span class="toc-text">基于事件驱动</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Gson解析"><span class="toc-number">7.0.2.1.</span> <span class="toc-text">Gson解析</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#简单的JSON数据1（对象）"><span class="toc-number">7.0.3.</span> <span class="toc-text">简单的JSON数据1（对象）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#步骤1：创建简单的JSON数据对应的JavaBean类"><span class="toc-number">7.0.4.</span> <span class="toc-text">步骤1：创建简单的JSON数据对应的JavaBean类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#复杂的JSON数据（具备嵌套）"><span class="toc-number">7.0.5.</span> <span class="toc-text">复杂的JSON数据（具备嵌套）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#步骤1：复杂的JSON数据对应的JavaBean类"><span class="toc-number">7.0.6.</span> <span class="toc-text">步骤1：复杂的JSON数据对应的JavaBean类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#步骤2：下载并导入GSON需要的库"><span class="toc-number">7.0.7.</span> <span class="toc-text">步骤2：下载并导入GSON需要的库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#步骤3：用Gson进行转换"><span class="toc-number">7.0.8.</span> <span class="toc-text">步骤3：用Gson进行转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number">7.0.9.</span> <span class="toc-text">总结</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#JSON数据"><span class="toc-number">7.0.9.1.</span> <span class="toc-text">JSON数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#步骤1：建立对应的javaBean："><span class="toc-number">7.0.9.2.</span> <span class="toc-text">步骤1：建立对应的javaBean：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#步骤2：利用Jackson方法进行解析"><span class="toc-number">7.0.9.3.</span> <span class="toc-text">步骤2：利用Jackson方法进行解析</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基于文档驱动解析方式"><span class="toc-number">7.0.10.</span> <span class="toc-text">基于文档驱动解析方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GSON、Jackson、Android-Studio自带org-son解析三类方式对比"><span class="toc-number">7.0.11.</span> <span class="toc-text">GSON、Jackson、Android Studio自带org.son解析三类方式对比</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#与XML解析对比"><span class="toc-number">7.0.12.</span> <span class="toc-text">与XML解析对比</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结-1"><span class="toc-number">7.0.13.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#欢迎关注Carson-Ho的简书！"><span class="toc-number">7.0.14.</span> <span class="toc-text">欢迎关注Carson_Ho的简书！</span></a></li></ol></li></ol></li></ol>
+</div>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
+
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="2016/03/25/Json/" data-title="Android开发：JSON最全面解析方法(Gson、AS自带org.json、Jackson解析)" data-url="http://yoursite.com/2016/03/25/Json/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"null"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '/js/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+    <!-- 多说公共JS代码 end -->
+</div>
+
+    
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2016/03/23/五大布局属性大全/" title="下一篇: Android开发： 五大布局属性设置大全">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/03/25/Json/">Android开发：JSON最全面解析方法(Gson、AS自带org.json、Jackson解析)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/23/五大布局属性大全/">Android开发： 五大布局属性设置大全</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/12/Intent详解/">Android开发：  Intent介绍及使用方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/05/XML简介及DOM、SAX、PULL解析对比/">Android开发：XML简介及DOM、SAX、PULL解析对比</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/01/ 最全面的HTTP知识总结/">Android网络通信：最全面的HTTP知识总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/07/Fragment详解/">Android开发： Fragment最全面使用详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/21/Activity生命周期/">Android开发：5分钟解析Activity&Fragment生命周期</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/11/Handler源码分析/">Android开发：Handler异步通信机制全面解析（包含Looper、Message Queue）</a></li></ul>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+            }
+        })
+    </script>
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2016 Carson_Ho
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/luuman/hexo-theme-spfk" target="_blank">spfk</a> by luuman
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" >到访数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 24;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+  </div>
+</body>
+</html>
