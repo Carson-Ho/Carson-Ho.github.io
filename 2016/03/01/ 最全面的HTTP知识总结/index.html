@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Android网络通信：最全面的HTTP知识总结 | Carson_Ho Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="HTTP知识总结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android网络通信：最全面的HTTP知识总结">
+<meta property="og:url" content="http://yoursite.com/2016/03/01/ 最全面的HTTP知识总结/index.html">
+<meta property="og:site_name" content="Carson_Ho Blog">
+<meta property="og:description" content="HTTP知识总结">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-6fde731a5fce94e4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-c9d9e61e63b966b4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-c7dbdbe6743d3abd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-167824523bd0692e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-ee23b153f6d654c6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-254eb5a7db3d3fe5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-22f107afd0839c1a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-b52f89dab30dbad6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-7889517ed4ec54bb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-524d4fbbb0b5242b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-834e3a1b316f265c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-254eb5a7db3d3fe5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-a9f0a212c4ea72b9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-9b76fa3c52d478a7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2016-10-02T01:36:43.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android网络通信：最全面的HTTP知识总结">
+<meta name="twitter:description" content="HTTP知识总结">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/944365-6fde731a5fce94e4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+  
+    <link rel="alternative" href="/atom.xml" title="Carson_Ho Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <script>
+      var yiliaConfig = {
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/head.png" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+          <h1 class="header-author"><a href="/">Carson_Ho</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">一个走在产品路上的Android攻城狮</p>
+        
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl CSDN" target="_blank" href="http://blog.csdn.net/carson_ho" title="CSDN">CSDN</a>
+                            
+                                <a class="fl github" target="_blank" href="https://github.com/Carson-Ho" title="github">github</a>
+                            
+                                <a class="fl 简书" target="_blank" href="http://www.jianshu.com/users/383970bef0a0/latest_articles" title="简书">简书</a>
+                            
+                                <a class="fl E-mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=mPv56uv39rbw99j_9_D1_fH0tvv39Q" title="E-mail">E-mail</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/Android基础/" style="font-size: 20px;">Android基础</a> <a href="/tags/多线程-源码分析/" style="font-size: 10px;">多线程&源码分析</a> <a href="/tags/源码分析/" style="font-size: 10px;">源码分析</a>
+                    </div>
+                </section>
+                
+                
+                
+
+                
+                
+                <section class="switch-part switch-part3">
+                
+                    <div id="js-aboutme">Android攻城狮、产品经理、健身狂热者、球鞋Sneaker。工作邮箱：carson.ho@foxmail.com</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Carson_Ho</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/head.png" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Carson_Ho</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">一个走在产品路上的Android攻城狮</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="CSDN" target="_blank" href="http://blog.csdn.net/carson_ho" title="CSDN">CSDN</a>
+                    
+                        <a class="github" target="_blank" href="https://github.com/Carson-Ho" title="github">github</a>
+                    
+                        <a class="简书" target="_blank" href="http://www.jianshu.com/users/383970bef0a0/latest_articles" title="简书">简书</a>
+                    
+                        <a class="E-mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=mPv56uv39rbw99j_9_D1_fH0tvv39Q" title="E-mail">E-mail</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post- 最全面的HTTP知识总结" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/03/01/ 最全面的HTTP知识总结/" class="article-date">
+      <time datetime="2016-03-01T11:33:26.000Z" itemprop="datePublished">2016-03-01</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android网络通信：最全面的HTTP知识总结
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android基础/">Android基础</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>HTTP网络通信协议在任何的开发工作中都起到非常重要的作用，今天，我们来讲解下关于HTTP的相关知识。</p>
+<hr>
+<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p><img src="http://upload-images.jianshu.io/upload_images/944365-6fde731a5fce94e4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5分钟全面了解HTTP相关知识.png"></p>
+<hr>
+<h1 id="计算机网络相关知识"><a href="#计算机网络相关知识" class="headerlink" title="计算机网络相关知识"></a>计算机网络相关知识</h1><p>计算机网络体系结构分为五层，自上而下分别是应用、运输、网络、数据链路和物理层，如下图：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/944365-c9d9e61e63b966b4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="五层协议体系结构"></p>
+<p>HTTP存在于最高层的应用层，简单介绍下应用层：</p>
+<ul>
+<li><p>作用<br>通过<strong>应用层协议</strong>定义应用进程间（运行的程序）的通信规则</p>
+<blockquote>
+<p>应用层协议主要有HTTP、SMTP、FTP协议等等</p>
+</blockquote>
+</li>
+<li><p>交互的数据单元称为报文</p>
+</li>
+<li>基本上是基于C/S方式</li>
+</ul>
+<h1 id="HTTP介绍"><a href="#HTTP介绍" class="headerlink" title="HTTP介绍"></a>HTTP介绍</h1><h4 id="1-定义"><a href="#1-定义" class="headerlink" title="1. 定义"></a>1. 定义</h4><p>即HyperText Transfer Protocol，超文本传输协议，属于应用层协议的一种</p>
+<h4 id="2-作用"><a href="#2-作用" class="headerlink" title="2. 作用"></a>2. 作用</h4><p>规定了应用进程间通信（请求&amp;响应）的准则</p>
+<h4 id="3-特点"><a href="#3-特点" class="headerlink" title="3. 特点"></a>3. 特点</h4><ul>
+<li>无连接：HTTP本身是无连接的，即交换HTTP报文前不需要建立HTTP连接</li>
+<li>无状态：HTTP协议是无状态的：数据传输过程中，并不保存任何历史信息和状态信息。无状态特性简化了服务器的设计，使服务器更容易支持大量并发的HTPP请求。</li>
+<li>传输可靠性高：采用TCP作为运输层协议（面向连接、可靠传输），即交换报文时需要预先建立TCP连接</li>
+<li>兼容性好：支持B/S模式及C/S模式；</li>
+<li>简单快速：客户向服务器请求服务时，只需传送请求方法和路径。请求方法常用的有GET、HEAD、POST</li>
+<li>灵活：HTTP 允许传输任意类型的数据对象</li>
+</ul>
+<h4 id="4-工作方式"><a href="#4-工作方式" class="headerlink" title="4. 工作方式"></a>4. 工作方式</h4><p>HTTP协议采用了请求/响应的工作方式，工作流程如图：<br><img src="http://upload-images.jianshu.io/upload_images/944365-c7dbdbe6743d3abd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="index.png"></p>
+<h4 id="5-HTTP报文详解"><a href="#5-HTTP报文详解" class="headerlink" title="5. HTTP报文详解"></a>5. HTTP报文详解</h4><p>HTTP的报文分为请求报文和响应报文</p>
+<h4 id="5-1-HTTP请求报文"><a href="#5-1-HTTP请求报文" class="headerlink" title="5.1 HTTP请求报文"></a>5.1 HTTP请求报文</h4><h6 id="HTTP请求报文的组成"><a href="#HTTP请求报文的组成" class="headerlink" title="HTTP请求报文的组成"></a>HTTP请求报文的组成</h6><p><img src="http://upload-images.jianshu.io/upload_images/944365-167824523bd0692e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="HTTP请求报文组成.png"></p>
+<ul>
+<li>请求行：用于声明”请求报文“、主机域名、资源路径和协议版本</li>
+<li>请求头：说明客户端、服务器或报文的部分信息</li>
+<li>请求体：用于存放需要发送给服务器的数据信息</li>
+</ul>
+<h5 id="1-请求行"><a href="#1-请求行" class="headerlink" title="1. 请求行"></a>1. 请求行</h5><ul>
+<li>组成</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/944365-ee23b153f6d654c6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="请求行的组成"></p>
+<blockquote>
+<p>空格不能省</p>
+</blockquote>
+<ul>
+<li>组成介绍</li>
+</ul>
+<p><strong>1.1 请求方法</strong><br>即对请求对象的操作，请求方法有8种：</p>
+<table>
+<thead>
+<tr>
+<th>方法类别</th>
+<th style="text-align:center">意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OPTION</td>
+<td style="text-align:center">请求“选项”的信息</td>
+</tr>
+<tr>
+<td>HEAD</td>
+<td style="text-align:center">请求读取”URL标志信息的首部“信息</td>
+</tr>
+<tr>
+<td>GET</td>
+<td style="text-align:center">请求读取“URL标志的信息“的信息</td>
+</tr>
+<tr>
+<td>POST</td>
+<td style="text-align:center">为服务器添加信息</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td style="text-align:center">为指定的URL下添加（存储）一个文档</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td style="text-align:center">删除指定URL所标志的信息</td>
+</tr>
+<tr>
+<td>TRACE</td>
+<td style="text-align:center">用于进行环回测试的请求报文</td>
+</tr>
+<tr>
+<td>CONNECT</td>
+<td style="text-align:center">用于代理服务器</td>
+</tr>
+</tbody>
+</table>
+<p><strong>最常用的就是GET和POST方法</strong>。</p>
+<p><strong>1.2 请求路径</strong><br>要了解请求地址，先来了解下<strong>URL</strong>概念：</p>
+<ul>
+<li>定义：Uniform Resoure Locator，统一资源定位符，是一种自愿位置的抽象唯一识别方法。</li>
+<li>作用：用于表示资源位置和访问这些资源的方法</li>
+<li>组成：<br>&lt;协议&gt;：//&lt;主机&gt;：&lt;端口&gt;/&lt;路径&gt;<blockquote>
+<ol>
+<li>协议：采用的应用层通信协议，比如在HTTP协议下的URL地址：<br>HTTP：//&lt;主机&gt;：&lt;端口&gt;/&lt;路径&gt;</li>
+<li>主机：请求资源所在主机的域名</li>
+<li>端口和路径有时可以省略（HTTP默认端口号是80）</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<p>从上面可以了解到，路径则是端口号后面符号”/“的部分，下面举例</p>
+<table>
+<thead>
+<tr>
+<th>URL（统一资源定位符）</th>
+<th style="text-align:center">PATH（路径）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="http://www.baidu.com/" target="_blank" rel="external">http://www.baidu.com/</a></td>
+<td style="text-align:center">/</td>
+</tr>
+<tr>
+<td><a href="http://www.weibo.com/2874748/home" target="_blank" rel="external">http://www.weibo.com/2874748/home</a></td>
+<td style="text-align:center">/2874748/home</td>
+</tr>
+</tbody>
+</table>
+<p><strong>1.3 协议版本</strong><br>HTTP协议版本主要是1.0、1.1、2.0</p>
+<blockquote>
+<p>具体区别这里不多解释，大家有兴趣可以去了解下</p>
+</blockquote>
+<h1 id="请求行举例"><a href="#请求行举例" class="headerlink" title="请求行举例"></a>请求行举例</h1><p>先假设：</p>
+<ul>
+<li>URL地址为：<a href="http://www.tsinghua.edu.cn/chn/yxsz/index.htm" target="_blank" rel="external">http://www.tsinghua.edu.cn/chn/yxsz/index.htm</a></li>
+<li>请求报文采用GET方法</li>
+<li>请求报文采用HTTP1.1版本<br>则请求行是：GET /chn/yxsz/index.htm HTTP/1.1</li>
+</ul>
+<h5 id="2-请求头"><a href="#2-请求头" class="headerlink" title="2. 请求头"></a>2. 请求头</h5><ul>
+<li>作用：说明客户端、服务器或报文的部分信息</li>
+<li>使用方式：采用<strong>”header（字段名）：value（值）“</strong>的方式</li>
+<li>常用请求头<br><strong>1. 请求和响应报文的通用Header</strong></li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/944365-254eb5a7db3d3fe5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="请求和响应报文的通用Header"></p>
+<p> <strong>2. 常见请求Header</strong></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/944365-22f107afd0839c1a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="常见请求Header"></p>
+<ul>
+<li>举例：<br>(URL地址：<a href="http://www.tsinghua.edu.cn/chn/yxsz/index.htm）" target="_blank" rel="external">http://www.tsinghua.edu.cn/chn/yxsz/index.htm）</a><br>Host：www.tsinghua.edu.cn   (表示主机域名）<br>User - Agent：Mozilla/5.0     (表示用户代理是使用Netscape浏览器）</li>
+</ul>
+<h5 id="3-请求体"><a href="#3-请求体" class="headerlink" title="3. 请求体"></a>3. 请求体</h5><ul>
+<li>作用：用于存放需要发送给服务器的数据信息</li>
+<li>使用方式：目前来说，一共有三种</li>
+</ul>
+<p><strong>1. 数据交换格式</strong><br>请求体是可以是任意类型的，但服务器需要额外进行解析，如JSON<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">｛&quot;skill&quot;:&#123;</div><div class="line">          &quot;web&quot;:[</div><div class="line">                 &#123;</div><div class="line">                  &quot;name&quot;:&quot;html&quot;,</div><div class="line">                  &quot;year&quot;:&quot;5&quot;</div><div class="line">                 &#125;,</div><div class="line">                 &#123;</div><div class="line">                  &quot;name&quot;:&quot;ht&quot;,</div><div class="line">                  &quot;year&quot;:&quot;4&quot;</div><div class="line">                 &#125;],</div><div class="line">           &quot;database&quot;:[</div><div class="line">                  &#123;</div><div class="line">                  &quot;name&quot;:&quot;h&quot;,</div><div class="line">                  &quot;year&quot;:&quot;2&quot;</div><div class="line">                 &#125;]</div><div class="line">`&#125;&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>想详细了解Android开发中的JSON解析可以看下我写的另外一篇文章：<br><a href="http://www.jianshu.com/p/b87fee2f7a23" target="_blank" rel="external">Android开发：JSON简介及最全面解析方法!</a></p>
+</blockquote>
+<p><strong>2.键值对形式</strong><br>键与值之间用”=“连接，每个键值对间用&amp;连接，且只能用ASCII字符，如Query String<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">key1=value1&amp;key2&amp;value2</div></pre></td></tr></table></figure></p>
+<p><strong>3. 分部分形式</strong><br>请求体被分为多个部分，应用场景是文件上传，比如邮件上传等等</p>
+<ul>
+<li>每段以– {boundary}开头</li>
+<li>然后是该段的描述头</li>
+<li>描述头之后空一行接内容</li>
+<li>每段以– {boundary}–结束</li>
+</ul>
+<p>如下：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/944365-b52f89dab30dbad6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="分部分格式"></p>
+<h4 id="请求报文实例"><a href="#请求报文实例" class="headerlink" title="请求报文实例"></a>请求报文实例</h4><p>结合上述说的请求行、请求头和请求体，现假设</p>
+<ul>
+<li>URL地址为：<a href="http://www.tsinghua.edu.cn/chn/yxsz/index.htm" target="_blank" rel="external">http://www.tsinghua.edu.cn/chn/yxsz/index.htm</a></li>
+<li>请求报文采用GET方法</li>
+<li>请求报文采用HTTP1.1版本</li>
+<li>请求报文希望表明主机域名和用户代理是使用Netscape浏览器</li>
+<li>请求体采用键值对形式</li>
+</ul>
+<p>则请求报文如下：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/944365-7889517ed4ec54bb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="请求报文"></p>
+<h3 id="5-2HTTP响应报文"><a href="#5-2HTTP响应报文" class="headerlink" title="5.2HTTP响应报文"></a>5.2HTTP响应报文</h3><h6 id="HTTP响应报文的组成"><a href="#HTTP响应报文的组成" class="headerlink" title="HTTP响应报文的组成"></a>HTTP响应报文的组成</h6><p><img src="http://upload-images.jianshu.io/upload_images/944365-524d4fbbb0b5242b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="HTTP响应报文组成.png"></p>
+<p>从上面可以看出，与请求报文相比，除了第一行（请求行VS状态行）以外，响应报文的其他结构与请求报文非常相似。其中，响应体是用于存放需要返回给客户端的数据信息的。</p>
+<h5 id="1-状态行"><a href="#1-状态行" class="headerlink" title="1. 状态行"></a>1. 状态行</h5><ul>
+<li>组成</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/944365-834e3a1b316f265c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="状态行组成"></p>
+<blockquote>
+<p>其中，空格不能省</p>
+</blockquote>
+<p><strong>1.1 协议版本</strong><br>HTTP协议版本主要是1.0、1.1、2.0</p>
+<blockquote>
+<p>具体区别这里不多解释，大家有兴趣可以去了解下</p>
+</blockquote>
+<p><strong>1.2 状态码</strong><br>状态码分为5大类：</p>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th style="text-align:center">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1xx</td>
+<td style="text-align:center">表示信息通知，如请求收到了或正在进行处理</td>
+</tr>
+<tr>
+<td>2xx</td>
+<td style="text-align:center">表示成功，如接受或知道了</td>
+</tr>
+<tr>
+<td>3xx</td>
+<td style="text-align:center">表示重定向，如要完成请求还必须采取进一步行动</td>
+</tr>
+<tr>
+<td>4xx</td>
+<td style="text-align:center">客户的差错，如请求中有错误的语法或不能完成：404</td>
+</tr>
+<tr>
+<td>5xx</td>
+<td style="text-align:center">表示服务器的差错，如服务器失效无法完成请求</td>
+</tr>
+</tbody>
+</table>
+<p><strong>1.3  状态信息</strong><br>对状态码的简单解释</p>
+<blockquote>
+<p>具体详细的状态码信息可以看<a href="http://tool.oschina.net/commons?type=5" target="_blank" rel="external">状态码详解</a></p>
+</blockquote>
+<h3 id="状态行举例"><a href="#状态行举例" class="headerlink" title="状态行举例"></a>状态行举例</h3><ul>
+<li>HTTP/1.1 202   Accepted(接受)</li>
+<li>HTTP/1.1 301   Bad Request(永久性转移)</li>
+<li>HTTP/1.1 404   Not Found(找不到)</li>
+</ul>
+<h5 id="2-响应头"><a href="#2-响应头" class="headerlink" title="2. 响应头"></a>2. 响应头</h5><ul>
+<li>作用：说明客户端、服务器或报文的部分信息</li>
+<li>使用方式：采用<strong>”header（字段名）：value（值）“</strong>的方式</li>
+<li>常用请求头<br><strong>1. 请求和响应报文的通用Header</strong></li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/944365-254eb5a7db3d3fe5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="请求和响应报文的通用Header"></p>
+<p> <strong>2. 常见响应Header</strong></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/944365-a9f0a212c4ea72b9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="常见响应Header"></p>
+<h5 id="3-响应体"><a href="#3-响应体" class="headerlink" title="3. 响应体"></a>3. 响应体</h5><ul>
+<li>作用：用于存放需要返回给客户端的数据信息</li>
+<li>使用方式：和请求体是一致的，同样分为：任意类型的数据交换格式、键值对形式和分部分形式，这里不作过多描述。</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>本文对HTTP的基础知识进行了的讲解，详细、易懂而清晰。接下来我会介绍继续介绍Android开发中的相关知识，有兴趣可以继续关注<a href="http://www.jianshu.com/users/383970bef0a0/latest_articles" target="_blank" rel="external">Carson_Ho的安卓开发笔记</a></p>
+<hr>
+<h3 id="欢迎关注Carson-Ho的简书！"><a href="#欢迎关注Carson-Ho的简书！" class="headerlink" title="欢迎关注Carson_Ho的简书！"></a>欢迎关注<a href="http://www.jianshu.com/users/383970bef0a0/latest_articles" target="_blank" rel="external">Carson_Ho</a>的简书！</h3><p>不定期分享关于<strong>安卓开发</strong>的干货，追求<strong>短、平、快</strong>，但<strong>却不缺深度</strong>。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/944365-9b76fa3c52d478a7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/03/01/ 最全面的HTTP知识总结/">Android网络通信：最全面的HTTP知识总结</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 Carson_Ho 的个人博客">Carson_Ho</a></p>
+        <p><span>发布时间:</span>2016年03月01日 - 19时33分</p>
+        <p><span>最后更新:</span>2016年10月02日 - 09时36分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/03/01/ 最全面的HTTP知识总结/" title="Android网络通信：最全面的HTTP知识总结">http://yoursite.com/2016/03/01/ 最全面的HTTP知识总结/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/03/01/ 最全面的HTTP知识总结/　　作者: Carson_Ho" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/2016/02/07/Fragment详解/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Android开发： Fragment最全面使用详解</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#目录"><span class="toc-number">2.</span> <span class="toc-text">目录</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#计算机网络相关知识"><span class="toc-number">3.</span> <span class="toc-text">计算机网络相关知识</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HTTP介绍"><span class="toc-number">4.</span> <span class="toc-text">HTTP介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-定义"><span class="toc-number">4.0.0.1.</span> <span class="toc-text">1. 定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-作用"><span class="toc-number">4.0.0.2.</span> <span class="toc-text">2. 作用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-特点"><span class="toc-number">4.0.0.3.</span> <span class="toc-text">3. 特点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-工作方式"><span class="toc-number">4.0.0.4.</span> <span class="toc-text">4. 工作方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-HTTP报文详解"><span class="toc-number">4.0.0.5.</span> <span class="toc-text">5. HTTP报文详解</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-1-HTTP请求报文"><span class="toc-number">4.0.0.6.</span> <span class="toc-text">5.1 HTTP请求报文</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#HTTP请求报文的组成"><span class="toc-number">4.0.0.6.0.1.</span> <span class="toc-text">HTTP请求报文的组成</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-请求行"><span class="toc-number">4.0.0.6.1.</span> <span class="toc-text">1. 请求行</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#请求行举例"><span class="toc-number">5.</span> <span class="toc-text">请求行举例</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-请求头"><span class="toc-number">5.0.0.0.1.</span> <span class="toc-text">2. 请求头</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-请求体"><span class="toc-number">5.0.0.0.2.</span> <span class="toc-text">3. 请求体</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#请求报文实例"><span class="toc-number">5.0.0.1.</span> <span class="toc-text">请求报文实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2HTTP响应报文"><span class="toc-number">5.0.1.</span> <span class="toc-text">5.2HTTP响应报文</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#HTTP响应报文的组成"><span class="toc-number">5.0.1.0.0.1.</span> <span class="toc-text">HTTP响应报文的组成</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-状态行"><span class="toc-number">5.0.1.0.1.</span> <span class="toc-text">1. 状态行</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#状态行举例"><span class="toc-number">5.0.2.</span> <span class="toc-text">状态行举例</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-响应头"><span class="toc-number">5.0.2.0.1.</span> <span class="toc-text">2. 响应头</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-响应体"><span class="toc-number">5.0.2.0.2.</span> <span class="toc-text">3. 响应体</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number">5.0.3.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#欢迎关注Carson-Ho的简书！"><span class="toc-number">5.0.4.</span> <span class="toc-text">欢迎关注Carson_Ho的简书！</span></a></li></ol></li></ol></li></ol>
+</div>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
+
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="2016/03/01/ 最全面的HTTP知识总结/" data-title="Android网络通信：最全面的HTTP知识总结" data-url="http://yoursite.com/2016/03/01/ 最全面的HTTP知识总结/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"null"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '/js/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+    <!-- 多说公共JS代码 end -->
+</div>
+
+    
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2016/02/07/Fragment详解/" title="下一篇: Android开发： Fragment最全面使用详解">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/03/01/ 最全面的HTTP知识总结/">Android网络通信：最全面的HTTP知识总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/07/Fragment详解/">Android开发： Fragment最全面使用详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/21/Activity生命周期/">Android开发：5分钟解析Activity&Fragment生命周期</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/11/Handler源码分析/">Android开发：Handler异步通信机制全面解析（包含Looper、Message Queue）</a></li></ul>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+            }
+        })
+    </script>
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2016 Carson_Ho
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/luuman/hexo-theme-spfk" target="_blank">spfk</a> by luuman
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" >到访数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 24;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+  </div>
+</body>
+</html>
