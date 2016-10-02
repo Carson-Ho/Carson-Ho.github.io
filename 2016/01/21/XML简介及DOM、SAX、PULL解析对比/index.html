@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Android开发：XML简介及DOM、SAX、PULL解析对比 | Carson_Ho Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Android开发：XML简介及DOM、SAX、PULL解析对比">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android开发：XML简介及DOM、SAX、PULL解析对比">
+<meta property="og:url" content="http://yoursite.com/2016/01/21/XML简介及DOM、SAX、PULL解析对比/index.html">
+<meta property="og:site_name" content="Carson_Ho Blog">
+<meta property="og:description" content="Android开发：XML简介及DOM、SAX、PULL解析对比">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-4c0c49102c44526b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-b6f9ca5ebe95c00a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-5201c366b824c081.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-436068f942114f7c.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-dfff6e8f4f15a8c9.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-3a4ed8db15602770.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-9b76fa3c52d478a7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2016-10-02T12:26:32.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android开发：XML简介及DOM、SAX、PULL解析对比">
+<meta name="twitter:description" content="Android开发：XML简介及DOM、SAX、PULL解析对比">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/944365-4c0c49102c44526b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+  
+    <link rel="alternative" href="/atom.xml" title="Carson_Ho Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <script>
+      var yiliaConfig = {
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/head.png" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+          <h1 class="header-author"><a href="/">Carson_Ho</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">一个走在产品路上的Android攻城狮</p>
+        
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl CSDN" target="_blank" href="http://blog.csdn.net/carson_ho" title="CSDN">CSDN</a>
+                            
+                                <a class="fl github" target="_blank" href="https://github.com/Carson-Ho" title="github">github</a>
+                            
+                                <a class="fl 简书" target="_blank" href="http://www.jianshu.com/users/383970bef0a0/latest_articles" title="简书">简书</a>
+                            
+                                <a class="fl E-mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=mPv56uv39rbw99j_9_D1_fH0tvv39Q" title="E-mail">E-mail</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/Android基础/" style="font-size: 20px;">Android基础</a> <a href="/tags/Android常用汇总/" style="font-size: 10px;">Android常用汇总</a> <a href="/tags/多线程-源码分析/" style="font-size: 10px;">多线程&源码分析</a> <a href="/tags/源码分析/" style="font-size: 10px;">源码分析</a>
+                    </div>
+                </section>
+                
+                
+                
+
+                
+                
+                <section class="switch-part switch-part3">
+                
+                    <div id="js-aboutme">Android攻城狮、产品经理、健身狂热者、球鞋Sneaker。工作邮箱：carson.ho@foxmail.com</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Carson_Ho</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/head.png" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Carson_Ho</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">一个走在产品路上的Android攻城狮</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="CSDN" target="_blank" href="http://blog.csdn.net/carson_ho" title="CSDN">CSDN</a>
+                    
+                        <a class="github" target="_blank" href="https://github.com/Carson-Ho" title="github">github</a>
+                    
+                        <a class="简书" target="_blank" href="http://www.jianshu.com/users/383970bef0a0/latest_articles" title="简书">简书</a>
+                    
+                        <a class="E-mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=mPv56uv39rbw99j_9_D1_fH0tvv39Q" title="E-mail">E-mail</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-XML简介及DOM、SAX、PULL解析对比" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/01/21/XML简介及DOM、SAX、PULL解析对比/" class="article-date">
+      <time datetime="2016-01-21T11:33:26.000Z" itemprop="datePublished">2016-01-21</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android开发：XML简介及DOM、SAX、PULL解析对比
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android常用汇总/">Android常用汇总</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="1-目录"><a href="#1-目录" class="headerlink" title="1. 目录"></a>1. 目录</h1><p><img src="http://upload-images.jianshu.io/upload_images/944365-4c0c49102c44526b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="目录"></p>
+<h1 id="2-定义"><a href="#2-定义" class="headerlink" title="2. 定义"></a>2. 定义</h1><p>XML（extensible Markup Language) ，是一种<strong>数据标记语言</strong> &amp; <strong>传输格式</strong></p>
+<h1 id="3-作用"><a href="#3-作用" class="headerlink" title="3. 作用"></a>3. 作用</h1><ul>
+<li>对数据进行标记（结构化数据）</li>
+<li>对数据进行存储</li>
+<li>对数据进行传输</li>
+</ul>
+<blockquote>
+<p>与html的区别：html用于显示信息；xml用于存储&amp;传输信息</p>
+</blockquote>
+<h1 id="4-XML特点"><a href="#4-XML特点" class="headerlink" title="4. XML特点"></a>4. XML特点</h1><ul>
+<li>标签可进行自定义<br>XML允许作者定义自己的标签和文档结构</li>
+<li>自我描述性<blockquote>
+<p><strong>XML文档实例</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;ISO-8859-1&quot;?&gt;</div><div class="line">    &lt;!-- XML版本（1.0）和所使用编码方法--&gt;</div><div class="line">&lt;note&gt; </div><div class="line"> &lt;!-- 根元素 --&gt;</div><div class="line">&lt;to&gt;George&lt;/to&gt;</div><div class="line">&lt;from&gt;John&lt;/from&gt;</div><div class="line">&lt;heading&gt;Reminder&lt;/heading&gt;</div><div class="line">&lt;body&gt;Dont&apos;t forget the meeting!&lt;/body&gt;</div><div class="line">&lt;!-- 根元素下的4个子元素--&gt;</div><div class="line">&lt;/note&gt;</div><div class="line">&lt;!-- 根元素的结尾 --&gt;</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>仅仅是一个纯文本,有文本处理能力的软件都可以处理xml</p>
+<ul>
+<li>可拓展性<br>在不中断解析、应用程序的情况下进行拓展。</li>
+<li>可跨平台数据传输<br>可在不兼容的系统之间进行交换数据，降低了复杂性</li>
+<li>数据共享方便<br>XML以纯文本进行存储，独立于软件、硬件和应用程序的数据存储方式，使得不同应用程序、软件和硬件都能访问xml的数据</li>
+</ul>
+</blockquote>
+<h1 id="5-语法"><a href="#5-语法" class="headerlink" title="5. 语法"></a>5. 语法</h1><ul>
+<li>元素要关闭标签<br><code>&lt; p &gt;this is a bitch &lt;p&gt;</code></li>
+<li><p>对大小写敏感</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt; P &gt;这是错误的&lt;p&gt;</div><div class="line">&lt; p &gt;这是正确的 &lt;p&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>必须要有根元素(父元素）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;root&gt;</div><div class="line">   &lt;kid&gt;</div><div class="line">   &lt;/kid&gt;</div><div class="line">&lt;/root&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>属性值必须加引号</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;note date=&quot;16/08/08&quot;&gt;</div><div class="line">&lt;/note&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>实体引用</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>实体引用</th>
+<th style="text-align:center">符号</th>
+<th style="text-align:right">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&amp;lt；</td>
+<td style="text-align:center">&lt;</td>
+<td style="text-align:right">小于</td>
+</tr>
+<tr>
+<td>&amp;gt ；</td>
+<td style="text-align:center">&gt;</td>
+<td style="text-align:right">大于</td>
+</tr>
+<tr>
+<td>&amp;amp；</td>
+<td style="text-align:center">&amp;</td>
+<td style="text-align:right">和浩</td>
+</tr>
+<tr>
+<td>&amp;apos；</td>
+<td style="text-align:center">‘</td>
+<td style="text-align:right">单引号</td>
+</tr>
+<tr>
+<td>&amp;quot；</td>
+<td style="text-align:center">“</td>
+<td style="text-align:right">双引号</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>元素不能使用&amp;(实体的开始）和&lt;（新元素的开始）</p>
+</blockquote>
+<ul>
+<li>注释<br><code>&lt;!-- This is a comment --&gt;</code></li>
+</ul>
+<ul>
+<li>XML的元素、属性和属性值<blockquote>
+<p>文档实例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;bookstore&gt;</div><div class="line">  &lt;book category=&quot;CHILDREN&quot;&gt;</div><div class="line">     &lt;title lang=&quot;en&quot;&gt; Harry Potter &lt;/title&gt;</div><div class="line">     &lt;author&gt; JK.Rowling&lt;/author&gt;</div><div class="line">  &lt;/book&gt;</div><div class="line">&lt;book category=&quot;WEB&quot;&gt;</div><div class="line">     &lt;title lang=&quot;en&quot;&gt; woshiPM &lt;/title&gt;</div><div class="line">     &lt;author&gt;Carson_Ho&lt;/author&gt;</div><div class="line">  &lt;/book&gt;</div><div class="line">&lt;/bookstore&gt;</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>其中，<bookstore>是根元素；<book>是子元素，也是元素类型之一；而<book>中含有属性，即category，属性值是CHILDREN；而元素<author>则拥有文本内容（ JK.Rowling）</author></book></book></bookstore></p>
+</blockquote>
+<ul>
+<li>元素与属性的差别<br>属性即提供元素额外的信息，但不属于数据组成部分的信息。<blockquote>
+<p>范例一</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;bookstore&gt;</div><div class="line">  &lt;book category=&quot;CHILDREN&quot;&gt;</div><div class="line">     &lt;title lang=&quot;en&quot;&gt; Harry Potter &lt;/title&gt;</div><div class="line">     &lt;author&gt; JK.Rowling&lt;/author&gt;</div><div class="line">  &lt;/book&gt;</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+<p>范例二<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;bookstore&gt;</div><div class="line">  &lt;book &gt;</div><div class="line">     &lt;category&gt;CHILDREN&lt;category&gt;</div><div class="line">     &lt;title lang=&quot;en&quot;&gt; Harry Potter &lt;/title&gt;</div><div class="line">     &lt;author&gt; JK.Rowling&lt;/author&gt;</div><div class="line">  &lt;/book&gt;</div></pre></td></tr></table></figure></p>
+<p>范例一和二提供的信息是完全相同的。</p>
+<p>一般情况下，请使用元素，因为</p>
+<ol>
+<li>属性无法描述树结构（元素可以）</li>
+<li>属性不容易拓展（元素可以）</li>
+</ol>
+<p>使用属性的情况：用于分配ID索引，用于标识XML元素。</p>
+<blockquote>
+<p>实例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;bookstore&gt;</div><div class="line">  &lt;book id = &quot;501&quot;&gt;</div><div class="line">     &lt;category&gt;CHILDREN&lt;category&gt;</div><div class="line">     &lt;title lang=&quot;en&quot;&gt; Harry Potter &lt;/title&gt;</div><div class="line">     &lt;author&gt; JK.Rowling&lt;/author&gt;</div><div class="line">  &lt;/book&gt;</div><div class="line">  &lt;book  id = &quot;502&quot;&gt;</div><div class="line">     &lt;category&gt;CHILDREN&lt;category&gt;</div><div class="line">     &lt;title lang=&quot;en&quot;&gt; Harry Potter &lt;/title&gt;</div><div class="line">     &lt;author&gt; JK.Rowling&lt;/author&gt;</div><div class="line">  &lt;/book&gt;</div><div class="line">&lt;bookstore&gt;</div></pre></td></tr></table></figure></p>
+</blockquote>
+<p>上述属性（id）仅用于标识不同的便签，并不是数据的组成部分</p>
+<ul>
+<li>XML元素命名规则<ol>
+<li>不能以数字或标点符号开头</li>
+<li>不能包含空格</li>
+<li>不能以xml开头</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li><p>CDATA<br>不被解析器解析的文本数据，所有xml文档都会被解析器解析（cdata区段除外）<br><code>&lt;![CDATA[&quot;传输的文本 &quot;]]&gt;</code></p>
+</li>
+<li><p>PCDATA<br>被解析的字符数据</p>
+</li>
+</ul>
+<h1 id="6-XML树结构"><a href="#6-XML树结构" class="headerlink" title="6. XML树结构"></a>6. XML树结构</h1><p>XML文档中的元素会形成一种树结构，从根部开始，然后拓展到每个树叶（节点）,下面将以实例说明XML的树结构。</p>
+<ul>
+<li><p>假设一个XML文件如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;？xml version =&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</div><div class="line">&lt;简历&gt;</div><div class="line">     &lt;基本资料&gt;</div><div class="line">     &lt;求职意向&gt;</div><div class="line">     &lt;自我评价&gt;</div><div class="line">     &lt;其他信息&gt;</div><div class="line">     &lt;联系方式&gt;</div><div class="line">     &lt;我的作品&gt;</div><div class="line"> &lt;/简历&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>其树结构如下<br><img src="http://upload-images.jianshu.io/upload_images/944365-b6f9ca5ebe95c00a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="树结构 .png"></p>
+</li>
+<li><p>XML节点解释<br>XML文件是由节点构成的。它的第一个节点为“根节点”。一个XML文件必须有且只能有一个根节点，其他节点都必须是它的子节点。<br><img src="http://upload-images.jianshu.io/upload_images/944365-5201c366b824c081.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>this 代表整个XML文件，它的根节点就是 this.firstChild 。 this.firstChild.childNodes 则返回由根节点的所有子节点组成的节点数组。<br><img src="http://upload-images.jianshu.io/upload_images/944365-436068f942114f7c.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+</li>
+</ul>
+<p>　　每个子节点又可以有自己的子节点。节点编号由0开始，根节点的第一个子节点为 this.firstChild.childNodes[0]，它的子节点数组就是this.firstChild.childNodes[0].childNodes 。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/944365-dfff6e8f4f15a8c9.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>根节点第一个子节点的第二个子节点 this.firstChild.childNodes[0].childNodes[1]，它返回的是一个XML对象（Object） 。这里需要特别注意，节点标签之间的数据本身也视为一个节点 this.firstChild.childNodes[0].childNodes[1].firstChild ，而不是一个值。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/944365-3a4ed8db15602770.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>我们解析XML的最终目的当然就是获得数据的值：this.firstChild.childNodes[0].childNodes[1].firstChild.nodeValue 。</p>
+<blockquote>
+<p>请注意区分：节点名称（&lt;性别&gt;&lt;/性别&gt;）和之间的文本内容（男）可以当作是节点，也可以当作是一个值</p>
+<p>节点：<br>名称：this.firstChild.childNodes[0].childNodes[1]<br>文本内容：this.firstChild.childNodes[0].childNodes[1].firstChild</p>
+<p>值：<br>名称：this.firstChild.childNodes[0].childNodes[1].nodeValue<br>（节点名称有时也是我们需要的数据）<br>文本内容：this.firstChild.childNodes[0].childNodes[1].nodeName </p>
+</blockquote>
+<p><strong>在了解完XML之后，是时候来学下如何进行XML的解析了</strong></p>
+<h1 id="7-XML解析"><a href="#7-XML解析" class="headerlink" title="7. XML解析"></a>7. XML解析</h1><p>解析XML，即从XML中提取有用的信息</p>
+<h5 id="解析方式"><a href="#解析方式" class="headerlink" title="解析方式"></a>解析方式</h5><p><strong>基于文档驱动方式</strong></p>
+<ul>
+<li>主流方式：DOM方式</li>
+<li>简介：XML DOM(XML Document Object Model)，XML文件对象模型，定义了<strong>访问</strong>和<strong>操作</strong>xml文档元素的方法和接口</li>
+<li>工作原理： DOM是基于树形结构的的节点的文档驱动方法。使用DOM对XML文件进行操作时，首先解析器读入整个XML文档到内存中，然后解析全部文件，并将文件分为独立的元素、属性等，以树结构的形式在内存中对XML文件进行表示，开发人员通过使用DOM API遍历XML树，根据需要修改文档或检索所需数据</li>
+</ul>
+<h5 id="DOM解析"><a href="#DOM解析" class="headerlink" title="DOM解析"></a>DOM解析</h5><ul>
+<li><p>假设需要解析的XML文档如下（subject.xml）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;？xml version =&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;`</div><div class="line">&lt;code&gt;</div><div class="line">&lt;language id=&quot;1&quot;&gt;</div><div class="line">    &lt;name&gt;Java&lt;/name&gt;</div><div class="line">    &lt;usage&gt;Android&lt;/usage&gt;</div><div class="line"> &lt;/language&gt;</div><div class="line">&lt;language id=&quot;2&quot;&gt;</div><div class="line">    &lt;name&gt;Swift#&lt;/name&gt;</div><div class="line">    &lt;usage&gt;iOS&lt;/usage&gt;</div><div class="line"> &lt;/language&gt;</div><div class="line">&lt;language id=&quot;3&quot;&gt;</div><div class="line">    &lt;name&gt;Html5&lt;/name&gt;</div><div class="line">   &lt;usage&gt;Web&lt;/usage&gt;</div><div class="line"> &lt;/language&gt;</div><div class="line"> &lt;/code&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>核心代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">public static List&lt;subject&gt; getSubjectList(InputStream stream)</div><div class="line">   &#123; tv = (TextView)findViewById(R.id.tv);</div><div class="line">        try &#123;</div><div class="line">            //打开xml文件到输入流</div><div class="line">            InputStream stream = getAssets().open(&quot;subject.xml&quot;);</div><div class="line">            //得到 DocumentBuilderFactory 对象</div><div class="line">            DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();</div><div class="line">            //得到DocumentBuilder对象</div><div class="line">            DocumentBuilder builder = builderFactory.newDocumentBuilder();</div><div class="line">            //建立Document存放整个xml的Document对象数据</div><div class="line">            Document document = builder.parse(stream);</div><div class="line">            //得到 XML数据的&quot;根节点&quot; </div><div class="line">            Element element = document.getDocumentElement();</div><div class="line">            //获取根节点的所有language的节点</div><div class="line">            NodeList list = element.getElementsByTagName(&quot;language&quot;);</div><div class="line">             //遍历所有节点</div><div class="line">            for (int i= 0;i&lt;=list.getLength();i++)&#123;</div><div class="line">            //获取lan的所有子元素</div><div class="line">                Element language = (Element) list.item(i);</div><div class="line">            //获取language的属性（这里即为id）并显示</div><div class="line">                tv.append(lan.getAttribute(&quot;id&quot;)+&quot;\n&quot;);</div><div class="line">          //获取language的子元素 name 并显示                       tv.append(sub.getElementsByTagName(&quot;name&quot;).item(0).getTextContent()+&quot;\n&quot;);</div><div class="line">         //获取language的子元素usage 并显示                    tv.append(sub.getElementsByTagName(&quot;usage&quot;).item(0).getTextContent()+&quot;\n&quot;);</div><div class="line">            &#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>总结Dom解析的步骤</strong></p>
+<p>1、调用 DocumentBuilderFactory.newInstance() 方法得到 DOM 解析器工厂类实例。<br>2、调用解析器工厂实例类的 newDocumentBuilder() 方法得到 DOM 解析器对象<br>3、调用 DOM 解析器对象的 parse() 方法解析 XML 文档得到代表整个文档的 Document 对象。</p>
+<p><strong>基于事件驱动</strong></p>
+<ul>
+<li>主流方式：SAX、PULL方式</li>
+<li>解析方式：可直接根据需要读取所需的JSON数据，不需要像DOM方法把文档先入到内存中</li>
+</ul>
+<h5 id="PULL解析"><a href="#PULL解析" class="headerlink" title="PULL解析"></a>PULL解析</h5><ul>
+<li>工作原理：PULL的解析方式与SAX解析类似，都是基于事件的模式。<br>PULL提供了开始元素和结束元素。当某个元素开始时，我们可以调用parser．nextText从XML文档中提取所有字符数据，与SAX不同的是，在PULL解析过程中触发相应的事件调用方法返回的是数字，且我们需要自己获取产生的事件然后做相应的操作，而不像SAX那样由处理器触发一种事件的方法从而执行代码。当解释到一个文档结束时，自动生成EndDocument事件。</li>
+<li>核心代码<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line">public class MainActivity extends Activity &#123;</div><div class="line">    private EditText et;</div><div class="line">    private Button myButton;</div><div class="line">    @Override</div><div class="line">    public void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">        super.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line">         myButton = (Button) this.findViewById(R.id.btn01);</div><div class="line">        et = (EditText) this.findViewById(R.id.edittext01);</div><div class="line">        myButton.setOnClickListener(new OnClickListener() &#123;</div><div class="line">        //可变字符序列，比StringBuffer块</div><div class="line">            StringBuilder sb = new StringBuilder(&quot;&quot;);</div><div class="line">            Resources res = getResources();</div><div class="line">            XmlResourceParser xrp = res.getXml(R.xml.subject);</div><div class="line">            @Override</div><div class="line">            public void onClick(View v) &#123;</div><div class="line">                int counter = 0;</div><div class="line">                try &#123;</div><div class="line"></div><div class="line">                    // 判断是否到了文件的结尾</div><div class="line">                    while (xrp.getEventType() != XmlPullParser.END_DOCUMENT) &#123;</div><div class="line">                        //文件的内容的起始标签开始，这里的起始标签是subject.xml文件里面&lt;subjects&gt;标签下面的第一个标签</div><div class="line">                        int eventType=xrp.getEventType();</div><div class="line">                        switch (eventType) &#123;</div><div class="line">                            case XmlPullParser.START_DOCUMENT:</div><div class="line">                                break;</div><div class="line">                            case  XmlPullParser.START_TAG:</div><div class="line">                                String tagname = xrp.getName();</div><div class="line">                                if (tagname.endsWith(&quot;language&quot;)) &#123;</div><div class="line">                                    counter++;</div><div class="line">                                    sb.append(&quot;这是第&quot; + counter + &quot;种语言&quot;+&quot;\n&quot;);</div><div class="line">                                    //可以调用XmlPullParser的getAttributte()方法来获取属性的值</div><div class="line">                                    sb.append(&quot;语言id是：&quot;+xrp.getAttributeValue(0)+&quot;\n&quot;);</div><div class="line">                                &#125;</div><div class="line">                                else if(tagname.equals(&quot;name&quot;))&#123;</div><div class="line">                                    //可以调用XmlPullParser的nextText()方法来获取节点的值</div><div class="line">                                    sb.append(&quot;语言名称是：&quot;+xrp.nextText()+&quot;\n&quot;);</div><div class="line">                                &#125;</div><div class="line">                                else if(tagname.equals(&quot;teacher&quot;))&#123;</div><div class="line">                                    sb.append(&quot;用途是：&quot;+xrp.nextText()+&quot;\n&quot;);</div><div class="line">                                &#125;</div><div class="line">                                break;</div><div class="line">                            case XmlPullParser.END_TAG:</div><div class="line">                                break;</div><div class="line">                            case XmlPullParser.TEXT:</div><div class="line">                                break;</div><div class="line">                        &#125;</div><div class="line">                        //解析下一个事件</div><div class="line">                        xrp.next();</div><div class="line">                    &#125;</div><div class="line">                    //StringBuilder要调用toString()方法并显示</div><div class="line">                    et.setText(sb.toString());</div><div class="line">                &#125; catch (XmlPullParserException e) &#123;</div><div class="line"></div><div class="line">                &#125; catch (IOException e) &#123;</div><div class="line">                    e.printStackTrace();</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>SAX解析</strong></p>
+<ul>
+<li>工作原理：基于事件驱动，在读取XML文档内容时，事件源顺序地对文档进行扫描，当扫描到文档的开始与结束(Document)标签、节点元素的开始与结束(Element)标签时，直接调用对应的方法，并将状态信息以参数的形式传递到方法中，然后我们可以依据状态信息来执行相关的自定义操作。</li>
+</ul>
+<p>同样是采用事件驱动进行解析，但相比pull解析方法，采用SAX方式进行XML解析可能会较为复杂，这里就不作实例展示，有兴趣的童鞋们可以自己去尝试下，毕竟<strong>实践出真知</strong>！</p>
+<h3 id="DOM、SAX、PULL三类方式对比"><a href="#DOM、SAX、PULL三类方式对比" class="headerlink" title="DOM、SAX、PULL三类方式对比"></a>DOM、SAX、PULL三类方式对比</h3><p><strong>DOM方式</strong></p>
+<ul>
+<li>原理：基于文档驱动，是先把dom全部文件读入到内存中，构建一个主流内存的树结构，然后使用DOM的API遍历所有数据，调用API检索想要的数据和操作数据。<br>所以，DOM方式的优缺点是：</li>
+<li>特点：<br><strong>优点</strong>：整个文档树存在内存中，可对XML文档进行操作：删除、修改等等；可多次访问已解析的文档；由于在内存中以树形结构存放，因此检索和更新效率会更高。；<br><strong>缺点</strong>：解析 XML 文件时会将整个 XML 文件的内容解析成树型结构存放在内存中并创建新对象，比较消耗时间和内存；</li>
+<li>使用情境<br>对于像手机这样的移动设备来讲，内存是非常有限的，在XML文档比较小、需要对解析文档进行一定的操作且一旦解析了文档需要多次访问这些数据的情况下可以考虑使用DOM方式，因为其检索和解析效率较高</li>
+</ul>
+<p><strong>SAX方式</strong></p>
+<ul>
+<li>原理：基于事件驱动，在读取XML文档内容时，事件源顺序地对文档进行扫描，当扫描到文档的开始与结束(Document)标签、节点元素的开始与结束(Element)标签时，直接调用对应的方法，并将状态信息以参数的形式传递到方法中，然后我们可以依据状态信息来执行相关的自定义操作。</li>
+<li>特点：<br><strong>优点</strong>：解析效率高、占存少、灵活性高<br><strong>缺点</strong>：解析方法复杂（API接口复杂），代码量大；可拓展性差：无法对 XML 树内容结构进行任何修改</li>
+<li>使用情境<br>适用于需要处理大型 XML 文档、性能要求较高、不需要对解析文档进行修改且不需要对解析文档多次访问的场合</li>
+</ul>
+<p><strong>PULL方式</strong></p>
+<ul>
+<li>原理：PULL的解析方式与SAX解析类似，都是基于事件的模式。<br>PULL提供了开始元素和结束元素。当某个元素开始时，我们可以调用parser．nextText从XML文档中提取所有字符数据，与SAX不同的是，在PULL解析过程中触发相应的事件调用方法返回的是数字，且我们需要自己获取产生的事件然后做相应的操作，而不像SAX那样由处理器触发一种事件的方法从而执行代码。当解释到一个文档结束时，自动生成EndDocument事件。</li>
+<li><p>特点：<br><strong>优点</strong>：SAX的优点PULL都有，而且解析方法比SAX更加简单<br><strong>缺点</strong>：可拓展性差：无法对 XML 树内容结构进行任何修改</p>
+</li>
+<li><p>使用情境<br>适用于需要处理大型 XML 文档、性能要求较高、不需要对解析文档进行修改且不需要对解析文档多次访问的场合</p>
+</li>
+</ul>
+<p><strong>同样的使用情景，在SAX和PULL解析方法中，更加推荐PULL方法</strong></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>本文对现今主流的数据传输格式XML进行了简单的介绍，希望大家实践出真知哦！</p>
+<hr>
+<h3 id="欢迎关注Carson-Ho的简书！"><a href="#欢迎关注Carson-Ho的简书！" class="headerlink" title="欢迎关注Carson_Ho的简书！"></a>欢迎关注<a href="http://www.jianshu.com/users/383970bef0a0/latest_articles" target="_blank" rel="external">Carson_Ho</a>的简书！</h3><p>不定期分享关于<strong>安卓开发</strong>的干货，追求<strong>短、平、快</strong>，但<strong>却不缺深度</strong>。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/944365-9b76fa3c52d478a7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/01/21/XML简介及DOM、SAX、PULL解析对比/">Android开发：XML简介及DOM、SAX、PULL解析对比</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 Carson_Ho 的个人博客">Carson_Ho</a></p>
+        <p><span>发布时间:</span>2016年01月21日 - 19时33分</p>
+        <p><span>最后更新:</span>2016年10月02日 - 20时26分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/01/21/XML简介及DOM、SAX、PULL解析对比/" title="Android开发：XML简介及DOM、SAX、PULL解析对比">http://yoursite.com/2016/01/21/XML简介及DOM、SAX、PULL解析对比/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/01/21/XML简介及DOM、SAX、PULL解析对比/　　作者: Carson_Ho" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+    <a href="/2016/01/21/Activity生命周期/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Android开发：5分钟解析Activity&amp;Fragment生命周期
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/01/11/Handler源码分析/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Android开发：Handler异步通信机制全面解析（包含Looper、Message Queue）</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-目录"><span class="toc-number">1.</span> <span class="toc-text">1. 目录</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-定义"><span class="toc-number">2.</span> <span class="toc-text">2. 定义</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-作用"><span class="toc-number">3.</span> <span class="toc-text">3. 作用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-XML特点"><span class="toc-number">4.</span> <span class="toc-text">4. XML特点</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-语法"><span class="toc-number">5.</span> <span class="toc-text">5. 语法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-XML树结构"><span class="toc-number">6.</span> <span class="toc-text">6. XML树结构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-XML解析"><span class="toc-number">7.</span> <span class="toc-text">7. XML解析</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#解析方式"><span class="toc-number">7.0.0.0.1.</span> <span class="toc-text">解析方式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#DOM解析"><span class="toc-number">7.0.0.0.2.</span> <span class="toc-text">DOM解析</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#PULL解析"><span class="toc-number">7.0.0.0.3.</span> <span class="toc-text">PULL解析</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DOM、SAX、PULL三类方式对比"><span class="toc-number">7.0.1.</span> <span class="toc-text">DOM、SAX、PULL三类方式对比</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number">7.0.2.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#欢迎关注Carson-Ho的简书！"><span class="toc-number">7.0.3.</span> <span class="toc-text">欢迎关注Carson_Ho的简书！</span></a></li></ol></li></ol></li></ol>
+</div>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
+
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="2016/01/21/XML简介及DOM、SAX、PULL解析对比/" data-title="Android开发：XML简介及DOM、SAX、PULL解析对比" data-url="http://yoursite.com/2016/01/21/XML简介及DOM、SAX、PULL解析对比/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"null"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '/js/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+    <!-- 多说公共JS代码 end -->
+</div>
+
+    
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2016/01/21/Activity生命周期/" title="上一篇: Android开发：5分钟解析Activity&amp;Fragment生命周期">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2016/01/11/Handler源码分析/" title="下一篇: Android开发：Handler异步通信机制全面解析（包含Looper、Message Queue）">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/03/23/五大布局属性大全/">Android开发： 五大布局属性设置大全</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/12/Intent详解/">Android开发：  Intent介绍及使用方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/01/ 最全面的HTTP知识总结/">Android网络通信：最全面的HTTP知识总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/07/Fragment详解/">Android开发： Fragment最全面使用详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/21/Activity生命周期/">Android开发：5分钟解析Activity&Fragment生命周期</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/21/XML简介及DOM、SAX、PULL解析对比/">Android开发：XML简介及DOM、SAX、PULL解析对比</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/11/Handler源码分析/">Android开发：Handler异步通信机制全面解析（包含Looper、Message Queue）</a></li></ul>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+            }
+        })
+    </script>
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2016 Carson_Ho
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/luuman/hexo-theme-spfk" target="_blank">spfk</a> by luuman
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" >到访数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 24;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+  </div>
+</body>
+</html>
