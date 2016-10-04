@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Android开发：ListView、AdapterView、RecyclerView全面解析 | Carson_Ho Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="ListView、AdapterView、RecyclerView全面解析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android开发：ListView、AdapterView、RecyclerView全面解析">
+<meta property="og:url" content="http://yoursite.com/2016/04/20/Listview/index.html">
+<meta property="og:site_name" content="Carson_Ho Blog">
+<meta property="og:description" content="ListView、AdapterView、RecyclerView全面解析">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-c2a446c0a840122b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-a6f76b5bc3010aa0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-f7a1cd052d1a9c56.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-bae0adba10cc7f46.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-078700715f8460d7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-d4dbba7ea1bf8194.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-3b88a8f79cd9b51a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-22f55d183eaa50ad.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-e1825ac3fd612605.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-805e90713f7ad8e1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-bae0adba10cc7f46.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-5754645a85169cdc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-9b76fa3c52d478a7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2016-10-04T14:37:43.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android开发：ListView、AdapterView、RecyclerView全面解析">
+<meta name="twitter:description" content="ListView、AdapterView、RecyclerView全面解析">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/944365-c2a446c0a840122b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+  
+    <link rel="alternative" href="/atom.xml" title="Carson_Ho Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <script>
+      var yiliaConfig = {
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/head.png" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+          <h1 class="header-author"><a href="/">Carson_Ho</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">一个走在产品路上的Android攻城狮</p>
+        
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl CSDN" target="_blank" href="http://blog.csdn.net/carson_ho" title="CSDN">CSDN</a>
+                            
+                                <a class="fl github" target="_blank" href="https://github.com/Carson-Ho" title="github">github</a>
+                            
+                                <a class="fl 简书" target="_blank" href="http://www.jianshu.com/users/383970bef0a0/latest_articles" title="简书">简书</a>
+                            
+                                <a class="fl E-mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=mPv56uv39rbw99j_9_D1_fH0tvv39Q" title="E-mail">E-mail</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/Android基础/" style="font-size: 20px;">Android基础</a> <a href="/tags/Android常用汇总/" style="font-size: 15px;">Android常用汇总</a> <a href="/tags/多线程-源码分析/" style="font-size: 10px;">多线程&源码分析</a> <a href="/tags/源码分析/" style="font-size: 10px;">源码分析</a>
+                    </div>
+                </section>
+                
+                
+                
+
+                
+                
+                <section class="switch-part switch-part3">
+                
+                    <div id="js-aboutme">Android攻城狮、产品经理、健身狂热者、球鞋Sneaker。工作邮箱：carson.ho@foxmail.com</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Carson_Ho</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/head.png" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Carson_Ho</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">一个走在产品路上的Android攻城狮</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="CSDN" target="_blank" href="http://blog.csdn.net/carson_ho" title="CSDN">CSDN</a>
+                    
+                        <a class="github" target="_blank" href="https://github.com/Carson-Ho" title="github">github</a>
+                    
+                        <a class="简书" target="_blank" href="http://www.jianshu.com/users/383970bef0a0/latest_articles" title="简书">简书</a>
+                    
+                        <a class="E-mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=mPv56uv39rbw99j_9_D1_fH0tvv39Q" title="E-mail">E-mail</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-Listview" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/20/Listview/" class="article-date">
+      <time datetime="2016-04-20T11:33:26.000Z" itemprop="datePublished">2016-04-20</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android开发：ListView、AdapterView、RecyclerView全面解析
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android常用汇总/">Android常用汇总</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p><img src="http://upload-images.jianshu.io/upload_images/944365-c2a446c0a840122b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ListView、AdapterView、RecyclerView全面解析.png"></p>
+<h1 id="AdapterView简介"><a href="#AdapterView简介" class="headerlink" title="AdapterView简介"></a>AdapterView简介</h1><p>AdapterView本身是一个抽象类，AdapterView及其子类的继承关系如下图：<br><img src="http://upload-images.jianshu.io/upload_images/944365-a6f76b5bc3010aa0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="AdapterView及其子类的继承关系.png"></p>
+<p><strong>特征：</strong></p>
+<ul>
+<li>AdapterView继承自ViewGroup，本质是个容器</li>
+<li>AdapterView可以包含多个“列表项”，并将这多个列表项以合适的形式展示</li>
+<li>AdapterView显示的列表项内容由<strong>Adapter</strong>提供</li>
+<li>它派生的子类在用法上也基本相似，只是在显示上有一定区别，因此把他们也归为一类。</li>
+<li>由AdapterView直接派生的三个类：</li>
+</ul>
+<blockquote>
+<p>AbsListView、AbsSpinner、AdapterViewAnimator</p>
+</blockquote>
+<p>都是抽象类，所以我们用的最多的也就是图中第四行及以下的子类。</p>
+<h1 id="ListView简介"><a href="#ListView简介" class="headerlink" title="ListView简介"></a>ListView简介</h1><h1 id="1-什么是ListView"><a href="#1-什么是ListView" class="headerlink" title="1. 什么是ListView"></a>1. 什么是ListView</h1><p>即列表视图，是Android开发中一种常用的视图组件</p>
+<h1 id="2-ListView的作用"><a href="#2-ListView的作用" class="headerlink" title="2. ListView的作用"></a>2. ListView的作用</h1><ol>
+<li>将所要展示的数据集合起来</li>
+<li>以列表的形式展示到用户界面上</li>
+</ol>
+<h1 id="3-关于Adapter"><a href="#3-关于Adapter" class="headerlink" title="3. 关于Adapter"></a>3. 关于Adapter</h1><ul>
+<li>定义<br>适配器</li>
+<li>作用<br>作为View和数据之间的桥梁<blockquote>
+<p>由于ListView和所要展现的数据是分开的，不直接接触，所以，<strong>Adapter的作用是把数据映射到ListView上，作为中介的作用</strong>，如下图</p>
+</blockquote>
+</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/944365-f7a1cd052d1a9c56.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h1 id="4-ListView的工作原理"><a href="#4-ListView的工作原理" class="headerlink" title="4. ListView的工作原理"></a>4. ListView的工作原理</h1><ul>
+<li>ListView、GridView、Spinner等AdapterView都只是容器，主要用于装载要显示的数据和显示数据，而Apdater负责提供容器的内容<blockquote>
+<p>即AdapterView负责采用合适的方式显示Adapter提供的内容。</p>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li>在运行时，当需要显示数据时，ListView会针对数据项向Adapter取出数据，从而加载到界面上。<blockquote>
+<p>试想下这么一个场景：如果把所有数据集合的信息都加载到View上，如果ListView要为每个数据都创建一个视图，那么会占用非常多的内存</p>
+</blockquote>
+</li>
+</ul>
+<p>从上面可知，ListView不会为每一个数据创建一个视图，为了节省空间和时间，Android采用了一个叫<strong>Recycler的组件</strong>。</p>
+<blockquote>
+<p>工作原理：当屏幕需要显示x个item时，那么ListView只会创建x+1个视图，当第一个item离开屏幕时，此item的view就会被拿来重用（用于显示下一个item（即第x+1个）的内容）。</p>
+</blockquote>
+<h4 id="工作原理实例"><a href="#工作原理实例" class="headerlink" title="工作原理实例"></a>工作原理实例</h4><p>假如屏幕只能显示7个item，那么ListView只会创建（7+1）个item的视图。当第1个item离开屏幕时，此item的view就会被拿来重用（用于显示第8个item的内容）。原理如下图显示<br><img src="http://upload-images.jianshu.io/upload_images/944365-bae0adba10cc7f46.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h1 id="ListView的使用"><a href="#ListView的使用" class="headerlink" title="ListView的使用"></a>ListView的使用</h1><p><strong>1. 生成方式</strong></p>
+<p>生成列表视图（ListView）的方式主要有两种：</p>
+<ul>
+<li>直接用ListView进行创建</li>
+<li>让Activity继承ListActivity</li>
+</ul>
+<p><strong>2. xml文件配置信息</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;   </div><div class="line">    xmlns:tools=&quot;http://schemas.android.com/tools&quot;   </div><div class="line">    android:layout_width=&quot;match_parent&quot;   </div><div class="line">    android:layout_height=&quot;match_parent&quot;   </div><div class="line">    android:background=&quot;#FFE1FF&quot;   </div><div class="line">    android:orientation=&quot;vertical&quot; &gt;   </div><div class="line">    &lt;ListView   </div><div class="line">        android:id=&quot;@+id/listView1&quot;   </div><div class="line">        android:layout_width=&quot;match_parent&quot;   </div><div class="line">        android:layout_height=&quot;match_parent&quot; /&gt;   </div><div class="line">&lt;/LinearLayout&gt;</div></pre></td></tr></table></figure>
+<p>AbsListView的常用属性和相关方法：</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th style="text-align:center">说明</th>
+<th style="text-align:right">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>android:choiceMode</td>
+<td style="text-align:center">列表的选择行为，默认：none没有选择行为</td>
+<td style="text-align:right">选择方式： none：不显示任何选中项  singleChoice：允许单选multipleChoice：允许多选multipleChoiceModal：允许多选 （把Activity里面adapter的第二个参数改成支持选择的布局）</td>
+</tr>
+<tr>
+<td>android:drawSelectorOnTop</td>
+<td style="text-align:center"></td>
+<td style="text-align:right">如果该属性设置为true，选中的列表项将会显示在上面</td>
+</tr>
+<tr>
+<td>android:listSelector</td>
+<td style="text-align:center">为点击到的Item设置图片</td>
+<td style="text-align:right">如果该属性设置为true，选中的列表项将会显示在上面</td>
+</tr>
+<tr>
+<td>android：fastScrollEnabled</td>
+<td style="text-align:center">设置是否允许快速滚动</td>
+<td style="text-align:right">如果该属性设置为true，将会显示滚动图标，并允许用户拖动该滚动图标进行快速滚动。</td>
+</tr>
+<tr>
+<td>android：listSelector</td>
+<td style="text-align:center">指定被选中的列表项上绘制的Drawable</td>
+<td style="text-align:right"></td>
+</tr>
+<tr>
+<td>android：scrollingCache</td>
+<td style="text-align:center">滚动时是否使用缓存</td>
+<td style="text-align:right">如果设置为true，则在滚动时将会使用缓存</td>
+</tr>
+<tr>
+<td>android：stackFromBottom</td>
+<td style="text-align:center">设置是否从底端开始排列列表项</td>
+<td style="text-align:right"></td>
+</tr>
+<tr>
+<td>android：transcriptMode</td>
+<td style="text-align:center">指定列表添加新的选项的时候，是否自动滑动到底部，显示新的选项。</td>
+<td style="text-align:right">disabled：取消transcriptMode模式；默认的normal：当接受到数据集合改变的通知，并且仅仅当最后一个选项已经显示在屏幕的时候，自动滑动到底部。 alwaysScroll：无论当前列表显示什么选项，列表将会自动滑动到底部显示最新的选项。</td>
+</tr>
+</tbody>
+</table>
+<p>Listview提供的XML属性：</p>
+<table>
+<thead>
+<tr>
+<th>XML属性</th>
+<th style="text-align:center">说明</th>
+<th style="text-align:right">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>android:divider</td>
+<td style="text-align:center">设置List列表项的分隔条（可用颜色分割，也可用图片（Drawable）分割</td>
+<td style="text-align:right">不设置列表之间的分割线，可设置属性为@null</td>
+</tr>
+<tr>
+<td>android:dividerHeight</td>
+<td style="text-align:center">用于设置分隔条的高度</td>
+<td style="text-align:right"></td>
+</tr>
+<tr>
+<td>android:background属性</td>
+<td style="text-align:center">设置列表的背景</td>
+<td style="text-align:right"></td>
+</tr>
+<tr>
+<td>android：entries</td>
+<td style="text-align:center">指定一个数组资源，Android将根据该数组资源来生成ListView</td>
+<td style="text-align:right"></td>
+</tr>
+<tr>
+<td>android：footerDividerEnabled</td>
+<td style="text-align:center">如果设置成false，则不在footer View之前绘制分隔条</td>
+<td style="text-align:right"></td>
+</tr>
+<tr>
+<td>andorid：headerDividerEnabled</td>
+<td style="text-align:center">如果设置成false，则不再header View之前绘制分隔条</td>
+</tr>
+</tbody>
+</table>
+<h1 id="Adapter介绍"><a href="#Adapter介绍" class="headerlink" title="Adapter介绍"></a>Adapter介绍</h1><p>Adapter本身是一个接口，Adapter接口及其子类的继承关系如下图：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/944365-078700715f8460d7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Adapter接口及其子类的继承关系.png"></p>
+<ul>
+<li><p>Adapter接口派生了ListAdapter和SpinnerAdapter两个子接口</p>
+<blockquote>
+<p>其中ListAdapter为AbsAdapter提供列表项，而SpinnerAdapter为AbsSpinner提供列表项</p>
+</blockquote>
+</li>
+<li><p>ArrayAdapter、SimpleAdapter、SimpleCursorAdapter、BaseAdapter都是常用的实现适配器的类</p>
+<blockquote>
+<ol>
+<li>ArrayAdapter：简单、易用的Adapter，用于将数组绑定为列表项的数据源，支持泛型操作</li>
+<li>SimpleAdapter：功能强大的Adapter，用于将XML中控件绑定为列表项的数据源</li>
+<li>SimpleCursorAdapter：与SimpleAdapter类似，用于绑定游标（直接从数据数取出数据）作为列表项的数据源</li>
+<li>BaseAdapter：可自定义ListView，通用用于被扩展。扩展BaseAdapter可以对各个列表项进行最大程度的定制。</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<h1 id="常用适配器介绍"><a href="#常用适配器介绍" class="headerlink" title="常用适配器介绍"></a>常用适配器介绍</h1><h5 id="1-ArrayAdapter"><a href="#1-ArrayAdapter" class="headerlink" title="1. ArrayAdapter"></a>1. ArrayAdapter</h5><p><strong>定义</strong><br>简单、易用的Adapter，用于将数组绑定为列表项的数据源，支持泛型操作</p>
+<p><strong>步骤</strong><br><strong>1. 在xml文件布局上实现ListView</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;RelativeLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;    xmlns:tools=&quot;http://schemas.android.com/tools&quot;    </div><div class="line">android:layout_width=&quot;match_parent&quot;    </div><div class="line">android:layout_height=&quot;match_parent&quot;    </div><div class="line">android:paddingBottom=&quot;@dimen/activity_vertical_margin&quot;    </div><div class="line">android:paddingLeft=&quot;@dimen/activity_horizontal_margin&quot;    </div><div class="line">android:paddingRight=&quot;@dimen/activity_horizontal_margin&quot;    </div><div class="line">android:paddingTop=&quot;@dimen/activity_vertical_margin&quot;    </div><div class="line">tools:context=&quot;com.example.carson_ho.adapte_demo.MainActivity&quot;&gt;   </div><div class="line"> &lt;ListView        </div><div class="line">  android:id=&quot;@+id/list_item&quot;        </div><div class="line">  android:layout_width=&quot;match_parent&quot;        </div><div class="line">  android:layout_height=&quot;match_parent&quot;        </div><div class="line">  android:divider=&quot;#f00&quot;        </div><div class="line">  android:dividerHeight=&quot;1sp&quot;        </div><div class="line">  android:headerDividersEnabled=&quot;false&quot;&gt;        </div><div class="line">&lt;/ListView&gt;</div><div class="line">&lt;/RelativeLayout&gt;</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/944365-d4dbba7ea1bf8194.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="效果图.png"></p>
+<p><strong>2. 在MainActivity上定义一个链表，将所要展示的数据以存放在里面</strong><br><strong>3. 构造ArrayAdapter对象，设置适配器</strong><br><strong>4. 将LsitView绑定到ArrayAdapter上</strong><br>如下图：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">public class MainActivity extends AppCompatActivity &#123;     </div><div class="line"></div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">        super.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line"></div><div class="line">       ListView listView = (ListView) findViewById(R.id.list_item);</div><div class="line">        //定义一个链表用于存放要显示的数据</div><div class="line">        final List&lt;String&gt; adapterData = new ArrayList&lt;String&gt;();</div><div class="line">        //存放要显示的数据</div><div class="line">        for (int i = 0; i &lt; 20; i++) &#123;</div><div class="line">            adapterData.add(&quot;ListItem&quot; + i);</div><div class="line">        &#125;</div><div class="line">        //创建ArrayAdapter对象adapter并设置适配器</div><div class="line">         ArrayAdapter&lt;String&gt; adapter = new ArrayAdapter&lt;String&gt;(this,</div><div class="line">                android.R.layout.simple_list_item_1, adapterData);</div><div class="line">        //将LsitView绑定到ArrayAdapter上</div><div class="line">        listView.setAdapter(adapter);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>创建ArrayAdapter对象要指定三个参数:</p>
+<ul>
+<li>context：代表方位Android应用的接口</li>
+<li>textViewRseourceld：资源ID，代表一个TextView</li>
+<li>数组：列表项展示的数据</li>
+</ul>
+</blockquote>
+<p><strong>5.  在xml文件布局添加资源文件TextView,该TextView组件将作列表项的组件</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line"></div><div class="line">&lt;TextView xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;    </div><div class="line">android:layout_width=&quot;match_parent&quot;    </div><div class="line">android:layout_height=&quot;wrap_content&quot;&gt;</div><div class="line">android:textSize=&quot;24sp&quot;</div><div class="line">&lt;/TextView&gt;</div></pre></td></tr></table></figure>
+<h3 id="最终效果图"><a href="#最终效果图" class="headerlink" title="最终效果图"></a>最终效果图</h3><p><img src="http://upload-images.jianshu.io/upload_images/944365-3b88a8f79cd9b51a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="最终效果图.png"></p>
+<p><strong>缺点</strong><br>ArrayAdapter较为简单，易用，但每个列表项只能是TextView，功能实现的局限性非常大。</p>
+<h5 id="2-SimpleAdapter"><a href="#2-SimpleAdapter" class="headerlink" title="2. SimpleAdapter"></a>2. SimpleAdapter</h5><p><strong>定义</strong><br>功能强大的Adapter，用于将XML中控件绑定作为列表项的数据源</p>
+<p><strong>特点</strong><br>可对每个列表项进行定制（自定义布局），能满足大多数开发的需求场景，灵活性较大</p>
+<p><strong>步骤</strong><br><strong>1. 在xml文件布局上实现ListView</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;RelativeLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;    </div><div class="line">xmlns:tools=&quot;http://schemas.android.com/tools&quot;    </div><div class="line">android:layout_width=&quot;match_parent&quot;    </div><div class="line">android:layout_height=&quot;match_parent&quot;    </div><div class="line">android:paddingBottom=&quot;@dimen/activity_vertical_margin&quot;    </div><div class="line">android:paddingLeft=&quot;@dimen/activity_horizontal_margin&quot;    </div><div class="line">android:paddingRight=&quot;@dimen/activity_horizontal_margin&quot;    </div><div class="line">android:paddingTop=&quot;@dimen/activity_vertical_margin&quot;    </div><div class="line">tools:context=&quot;com.example.carson_ho.adapte_demo.MainActivity&quot;&gt;   </div><div class="line"> &lt;ListView        </div><div class="line">  android:id=&quot;@+id/list_item&quot;        </div><div class="line">  android:layout_width=&quot;match_parent&quot;        </div><div class="line">  android:layout_height=&quot;match_parent&quot;        </div><div class="line">  android:divider=&quot;#f00&quot;        </div><div class="line">  android:dividerHeight=&quot;1sp&quot;        </div><div class="line">  android:headerDividersEnabled=&quot;false&quot;&gt;        </div><div class="line">&lt;/ListView&gt;</div><div class="line">&lt;/RelativeLayout&gt;</div></pre></td></tr></table></figure>
+<p><strong>2. 根据实际需求定制列表项：实现ListView每行的xml布局（即item布局）</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;RelativeLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;    </div><div class="line">android:layout_width=&quot;match_parent&quot;    </div><div class="line">android:layout_height=&quot;match_parent&quot;&gt;        </div><div class="line"></div><div class="line">&lt;TextView            </div><div class="line">android:id=&quot;@+id/name&quot;            </div><div class="line">android:layout_width=&quot;wrap_content&quot;            </div><div class="line">android:layout_height=&quot;wrap_content&quot;            </div><div class="line">android:textSize=&quot;17sp&quot;            </div><div class="line">android:paddingLeft=&quot;14dp&quot;/&gt;        </div><div class="line">&lt;TextView            </div><div class="line">android:id=&quot;@+id/address&quot;            </div><div class="line">android:layout_below=&quot;@id/name&quot;            </div><div class="line">android:textSize=&quot;17sp&quot;            </div><div class="line">android:layout_width=&quot;wrap_content&quot;            </div><div class="line">android:layout_height=&quot;wrap_content&quot; /&gt;        </div><div class="line">&lt;TextView            </div><div class="line">android:id=&quot;@+id/lowerest_wholesale&quot;            </div><div class="line">android:layout_toRightOf=&quot;@id/address&quot;            </div><div class="line">android:textSize=&quot;17sp&quot;            </div><div class="line">android:layout_width=&quot;wrap_content&quot;            </div><div class="line">android:layout_height=&quot;wrap_content&quot; /&gt;        </div><div class="line">&lt;TextView            </div><div class="line">android:id=&quot;@+id/price&quot;            </div><div class="line">android:textSize=&quot;17sp&quot;            </div><div class="line">android:layout_below=&quot;@id/address&quot;            </div><div class="line">android:layout_width=&quot;wrap_content&quot;            </div><div class="line">android:layout_height=&quot;wrap_content&quot; /&gt;        </div><div class="line">&lt;ImageView            </div><div class="line">android:id=&quot;@+id/picture&quot;            </div><div class="line">android:layout_alignParentRight=&quot;true&quot;            </div><div class="line">android:layout_width=&quot;115dp&quot;            </div><div class="line">android:layout_height=&quot;86dp&quot;         /&gt;        </div><div class="line">&lt;/RelativeLayout&gt;</div></pre></td></tr></table></figure>
+<p><strong>3. 定义一个HashMap构成的列表以键值对的方式存放数据</strong><br><strong>4. 构造SimpleAdapter对象，设置适配器</strong><br><strong>5. 将LsitView绑定到SimpleAdapter上</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line">public class MainActivity extends AppCompatActivity &#123;</div><div class="line">//定义数组以填充数据</div><div class="line">    private String[] name=new String[]&#123;            </div><div class="line">&quot;威龙注塑机&quot;,&quot;霸龙注塑机&quot;,&quot;恐龙注塑机&quot;    &#125;;    </div><div class="line">    private String[] address =new String[]&#123;        </div><div class="line">&quot;广东&quot;,&quot;北京&quot;,&quot;黑龙江&quot;    &#125;;    </div><div class="line">    private int[] lowerest_wholesale =new int[]&#123;            </div><div class="line">11,22,33    &#125;;    </div><div class="line">    private int[] price =new int[]&#123;            </div><div class="line">11,22,33    &#125;;    </div><div class="line">    private int[] picture =new int[]&#123;</div><div class="line">            R.drawable.home_selected,</div><div class="line">            R.drawable.home_selected, </div><div class="line">            R.drawable.home_selected   &#125;;    </div><div class="line"></div><div class="line">@Override    </div><div class="line">protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">        super.onCreate(savedInstanceState);   </div><div class="line">         setContentView(R.layout.activity_main);</div><div class="line"></div><div class="line">//定义一个HashMap构成的列表以键值对的方式存放数据</div><div class="line">ArrayList&lt;HashMap&lt;String, Object&gt;&gt; listItem = new ArrayList&lt;HashMap&lt;String,Object&gt;&gt;();        </div><div class="line">//循环填充数据   </div><div class="line">for(int i=0;i&lt;name.length;i++)        &#123; </div><div class="line">HashMap&lt;String,Object&gt; map = new HashMap&lt;String,Object&gt;();            </div><div class="line">map.put(&quot;name&quot;, name[i]);            </div><div class="line">map.put(&quot;address&quot;, address[i]);            </div><div class="line">map.put(&quot;lowerest_wholesale&quot;, lowerest_wholesale[i]);            </div><div class="line">map.put(&quot;price&quot;, price[i]);            </div><div class="line">map.put(&quot;picture&quot;, picture[i]);            </div><div class="line">listItem.add(map);       </div><div class="line"> &#125;        </div><div class="line"></div><div class="line">//构造SimpleAdapter对象，设置适配器        </div><div class="line">SimpleAdapter mSimpleAdapter = new SimpleAdapter(this,</div><div class="line">listItem,//需要绑定的数据                </div><div class="line">R.layout.item_imformation,//每一行的布局                </div><div class="line">new String[] &#123;&quot;name&quot;,&quot;address&quot;, &quot;lowerest_wholesale&quot;,&quot;price&quot;,&quot;picture&quot;&#125;,</div><div class="line">//数组中的数据源的键对应到定义布局的View中                </div><div class="line">new int[] &#123;R.id.name,R.id.address,R.id.lowerest_wholesale,R.id.price,R.id.picture&#125;);        </div><div class="line">ListView list= (ListView) findViewById(R.id.list_item);        </div><div class="line">//为ListView绑定适配器        </div><div class="line">list.setAdapter(mSimpleAdapter);   </div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>####结果显示</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/944365-22f55d183eaa50ad.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="结果显示"></p>
+<p>#BaseAdapter<br><strong>定义</strong><br>可自定义ListView，通用用于被扩展。扩展BaseAdapter可以对各个列表项进行最大程度的定制</p>
+<p><strong>使用步骤：</strong></p>
+<ol>
+<li>定义主xml布局</li>
+<li>根据需要定义ListView每行所实现的xml布局</li>
+<li>定义一个Adapter类继承BaseAdapter，重写里面的方法。</li>
+<li>定义一个HashMap构成的列表，将数据以键值对的方式存放在里面。</li>
+<li>构造Adapter对象，设置适配器。</li>
+<li>将LsitView绑定到Adapter上。</li>
+</ol>
+<p><strong>先定义一个Adapter类继承BaseAdapter，并重写里面的方法</strong></p>
+<blockquote>
+<p>使用BaseAdapter必须写一个类继承它，同时BaseAdapter是一个抽象类，继承它必须实现它的方法。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">class MyAdapter extends BaseAdapter &#123;</div><div class="line">    private LayoutInflater mInflater;//得到一个LayoutInfalter对象用来导入布局</div><div class="line"></div><div class="line"> //构造函数</div><div class="line">    public MyAdapter(Context context,ArrayList&lt;HashMap&lt;String, Object&gt;&gt; listItem) &#123;</div><div class="line">        this.mInflater = LayoutInflater.from(context);</div><div class="line">        this.listItem = listItem;</div><div class="line">    &#125;//声明构造函数</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public int getCount() &#123;</div><div class="line">        return listItem.size();</div><div class="line">    &#125;//这个方法返回了在适配器中所代表的数据集合的条目数</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public Object getItem(int position) &#123;</div><div class="line">        return listItem.get(position);</div><div class="line">    &#125;//这个方法返回了数据集合中与指定索引position对应的数据项</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public long getItemId(int position) &#123;</div><div class="line">        return position;</div><div class="line">    &#125;//这个方法返回了在列表中与指定索引对应的行id</div><div class="line"></div><div class="line"></div><div class="line">    @Override</div><div class="line">    public View getView(int position, View convertView, ViewGroup parent) &#123;</div><div class="line">        return null;</div><div class="line">    &#125;//这个方法返回了指定索引对应的数据项的视图，还没写完</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>这里主要讲一下BaseAdapter里必须要重写的4个方法</strong></p>
+<ul>
+<li>BaseAdapter的灵活性就在于它要重写很多方法，其中最重要的即为getView()方法。</li>
+<li>我们结合上述重写的4个方法了解下<strong>系统绘制ListView的原理：</strong><blockquote>
+<ol>
+<li>当系统开始绘制ListView的时候，首先调用getCount()方法。得到它的返回值，即ListView的长度。</li>
+<li>系统调用getView()方法，根据这个长度逐一绘制ListView的每一行。（如果让getCount()返回1，那么只显示一行）。</li>
+<li>getItem()和getItemId()则在需要处理和取得Adapter中的数据时调用。</li>
+<li>那么getView()如何使用呢？如果有10000行数据<br>，就绘制10000次？这肯定会极大的消耗资源，导致ListView滑动非常的慢，那应该怎么做呢？可以使用BaseAdapter进行优化ListView的显示。<br>以下将使用4种重写方法来说明getView()的使用</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li>重写getView()的第一种方法</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">public View getView(int position, View convertView, ViewGroup parent) &#123;</div><div class="line">    View item = mInflater.inflate(R.layout.item,null);</div><div class="line">    ImageView img = (ImageView)item.findViewById(R.id.ItemImage);</div><div class="line">    TextView title = (TextView)item.findViewById(R.id.ItemTitle);</div><div class="line">    TextView test = (TextView)item.findViewById(R.id.ItemText);</div><div class="line">    Button btn = (Button) item.findViewById(R.id.ItemBottom);</div><div class="line">    img.setImageResource((Integer) listItem.get(position).get(&quot;ItemImage&quot;));</div><div class="line">    title.setText((String) listItem.get(position).get(&quot;ItemTitle&quot;));</div><div class="line">    test.setText((String) listItem.get(position).get(&quot;ItemText&quot;));</div><div class="line"></div><div class="line">    return item;</div><div class="line">&#125;//这个方法返回了指定索引对应的数据项的视图</div></pre></td></tr></table></figure>
+<blockquote>
+<p>这种方法每次getView()都要findViewById和重新绘制一个View，当列表项数据量很大的时候会严重影响性能，造成下拉很慢，所以数据量大的时候不推荐用这种方式。</p>
+</blockquote>
+<ul>
+<li>重写getView()的第二种方法：使用convertView作为缓存进行优化<br>getView()返回值是一个View，把它作为输入参数并放到getView()输入参数里，形成反馈。这样就形成了Adapter的itemView重用机制，减少了重绘View的次数。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">public View getView(int position, View convertView, ViewGroup parent) &#123;</div><div class="line">    if(convertView == null)</div><div class="line">    &#123;</div><div class="line">        convertView = mInflater.inflate(R.layout.item, null);</div><div class="line">    &#125;//检测有没有可以重用的View，没有就重新绘制</div><div class="line">    ImageView img = (ImageView)convertView.findViewById(R.id.ItemImage);</div><div class="line">    TextView title = (TextView)convertView.findViewById(R.id.ItemTitle);</div><div class="line">    TextView test = (TextView)convertView.findViewById(R.id.ItemText);</div><div class="line">    Button btn = (Button) convertView.findViewById(R.id.ItemBottom);</div><div class="line">    img.setImageResource((Integer) listItem.get(position).get(&quot;ItemImage&quot;));</div><div class="line">    title.setText((String) listItem.get(position).get(&quot;ItemTitle&quot;));</div><div class="line">    test.setText((String) listItem.get(position).get(&quot;ItemText&quot;));</div><div class="line"></div><div class="line">    return convertView;</div><div class="line">&#125;//这个方法返回了指定索引对应的数据项的视图</div></pre></td></tr></table></figure>
+<blockquote>
+<p>这种方法和第一种相比减少了重绘View的次数，但是还是每一次都要findViewById</p>
+</blockquote>
+<ul>
+<li>重写getView()第三种方法<br>通过convertView+ViewHolder来实现缓存进而进行优化<blockquote>
+<p>convertView缓存了View，ViewHolder相当于更加具体的缓存：View里的组件，即把View和View的组件一并进行缓存，那么重用View的时候就不用再重绘View和View的组件（findViewById）</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">static class ViewHolder</div><div class="line">   &#123;</div><div class="line">       public ImageView img;</div><div class="line">       public TextView title;</div><div class="line">       public TextView text;</div><div class="line">       public Button btn;</div><div class="line">   &#125;//声明一个外部静态类</div><div class="line">   @Override</div><div class="line">   public View getView(int position, View convertView, ViewGroup parent) &#123;</div><div class="line">       ViewHolder holder ;</div><div class="line">       if(convertView == null)</div><div class="line">       &#123;</div><div class="line">           holder = new ViewHolder();</div><div class="line">           convertView = mInflater.inflate(R.layout.item, null);</div><div class="line">           holder.img = (ImageView)convertView.findViewById(R.id.ItemImage);</div><div class="line">           holder.title = (TextView)convertView.findViewById(R.id.ItemTitle);</div><div class="line">           holder.text = (TextView)convertView.findViewById(R.id.ItemText);</div><div class="line">           holder.btn = (Button) convertView.findViewById(R.id.ItemBottom);</div><div class="line">           convertView.setTag(holder);</div><div class="line">       &#125;</div><div class="line">       else &#123;</div><div class="line">           holder = (ViewHolder)convertView.getTag();</div><div class="line"></div><div class="line">       &#125;</div><div class="line">       holder.img.setImageResource((Integer) listItem.get(position).get(&quot;ItemImage&quot;));</div><div class="line">       holder.title.setText((String) listItem.get(position).get(&quot;ItemTitle&quot;));</div><div class="line">       holder.text.setText((String) listItem.get(position).get(&quot;ItemText&quot;));</div><div class="line"></div><div class="line">       return convertView;</div><div class="line">   &#125;//这个方法返回了指定索引对应的数据项的视图</div></pre></td></tr></table></figure>
+<blockquote>
+<p>这种方法就既减少了重绘View，又减少了findViewById的次数，所以这种方法是最能节省资源的，所以非常推荐大家使用通过convertView+ViewHolder来重写getView()</p>
+</blockquote>
+<p><strong>利用convertView+ViewHolder来重写getView()的实现BaseAdapter的具体实现代码：</strong></p>
+<ol>
+<li><p>定义主xml的布局<br><em>activity_main.xml:</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">    xmlns:tools=&quot;http://schemas.android.com/tools&quot;</div><div class="line">    android:layout_width=&quot;match_parent&quot;</div><div class="line">    android:layout_height=&quot;match_parent&quot;</div><div class="line">    android:background=&quot;#FFFFFF&quot;</div><div class="line">    android:orientation=&quot;vertical&quot; &gt;</div><div class="line">    &lt;ListView</div><div class="line">        android:id=&quot;@+id/listView1&quot;</div><div class="line">        android:layout_width=&quot;match_parent&quot;</div><div class="line">        android:layout_height=&quot;match_parent&quot; /&gt;</div><div class="line">&lt;/LinearLayout&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>根据需要，定义ListView每行所实现的xml布局（item布局）<br><em>item.xml:</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;RelativeLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">android:layout_width=&quot;match_parent&quot; </div><div class="line">android:layout_height=&quot;match_parent&quot;&gt;</div><div class="line">    &lt;ImageView</div><div class="line">        android:layout_alignParentRight=&quot;true&quot;</div><div class="line">        android:layout_width=&quot;wrap_content&quot;</div><div class="line">        android:layout_height=&quot;wrap_content&quot;</div><div class="line">        android:id=&quot;@+id/ItemImage&quot;/&gt;</div><div class="line">    &lt;Button</div><div class="line">        android:layout_width=&quot;wrap_content&quot;</div><div class="line">        android:layout_height=&quot;wrap_content&quot;</div><div class="line">        android:text=&quot;按钮&quot;</div><div class="line">        android:id=&quot;@+id/ItemBottom&quot;</div><div class="line">        android:focusable=&quot;false&quot;</div><div class="line">        android:layout_toLeftOf=&quot;@+id/ItemImage&quot; /&gt;</div><div class="line">    &lt;TextView android:id=&quot;@+id/ItemTitle&quot;</div><div class="line">        android:layout_height=&quot;wrap_content&quot;</div><div class="line">        android:layout_width=&quot;fill_parent&quot;</div><div class="line">        android:textSize=&quot;20sp&quot;/&gt;</div><div class="line">    &lt;TextView android:id=&quot;@+id/ItemText&quot;</div><div class="line">        android:layout_height=&quot;wrap_content&quot;</div><div class="line">        android:layout_width=&quot;fill_parent&quot;</div><div class="line">        android:layout_below=&quot;@+id/ItemTitle&quot;/&gt;</div><div class="line">&lt;/RelativeLayout&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>定义一个Adapter类继承BaseAdapter，重写里面的方法。</p>
+<blockquote>
+<p>（利用convertView+ViewHolder来重写getView()）</p>
+</blockquote>
+</li>
+</ol>
+<p><em>MyAdapter.java</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div></pre></td><td class="code"><pre><div class="line">package scut.learnlistview;</div><div class="line"></div><div class="line">import android.content.Context;</div><div class="line">import android.view.LayoutInflater;</div><div class="line">import android.view.View;</div><div class="line">import android.view.ViewGroup;</div><div class="line">import android.widget.BaseAdapter;</div><div class="line">import android.widget.Button;</div><div class="line">import android.widget.ImageView;</div><div class="line">import android.widget.TextView;</div><div class="line"></div><div class="line">import java.util.ArrayList;</div><div class="line">import java.util.HashMap;</div><div class="line"></div><div class="line">/**</div><div class="line"> * Created by yany on 2016/4/11.</div><div class="line"> */</div><div class="line">class MyAdapter extends BaseAdapter &#123;</div><div class="line">    private LayoutInflater mInflater;//得到一个LayoutInfalter对象用来导入布局 </div><div class="line">    ArrayList&lt;HashMap&lt;String, Object&gt;&gt; listItem;</div><div class="line"></div><div class="line">    public MyAdapter(Context context,ArrayList&lt;HashMap&lt;String, Object&gt;&gt; listItem) &#123;</div><div class="line">        this.mInflater = LayoutInflater.from(context);</div><div class="line">        this.listItem = listItem;</div><div class="line">    &#125;//声明构造函数</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public int getCount() &#123;</div><div class="line">        return listItem.size();</div><div class="line">    &#125;//这个方法返回了在适配器中所代表的数据集合的条目数</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public Object getItem(int position) &#123;</div><div class="line">        return listItem.get(position);</div><div class="line">    &#125;//这个方法返回了数据集合中与指定索引position对应的数据项</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public long getItemId(int position) &#123;</div><div class="line">        return position;</div><div class="line">    &#125;//这个方法返回了在列表中与指定索引对应的行id</div><div class="line"></div><div class="line">//利用convertView+ViewHolder来重写getView()</div><div class="line">    static class ViewHolder</div><div class="line">    &#123;</div><div class="line">        public ImageView img;</div><div class="line">        public TextView title;</div><div class="line">        public TextView text;</div><div class="line">        public Button btn;</div><div class="line">    &#125;//声明一个外部静态类</div><div class="line">    @Override</div><div class="line">    public View getView(final int position, View convertView, final ViewGroup parent) &#123;</div><div class="line">        ViewHolder holder ;</div><div class="line">        if(convertView == null)</div><div class="line">        &#123;</div><div class="line">            holder = new ViewHolder();</div><div class="line">            convertView = mInflater.inflate(R.layout.item, null);</div><div class="line">            holder.img = (ImageView)convertView.findViewById(R.id.ItemImage);</div><div class="line">            holder.title = (TextView)convertView.findViewById(R.id.ItemTitle);</div><div class="line">            holder.text = (TextView)convertView.findViewById(R.id.ItemText);</div><div class="line">            holder.btn = (Button) convertView.findViewById(R.id.ItemBottom);</div><div class="line">            convertView.setTag(holder);</div><div class="line">        &#125;</div><div class="line">        else &#123;</div><div class="line">            holder = (ViewHolder)convertView.getTag();</div><div class="line"></div><div class="line">        &#125;</div><div class="line">        holder.img.setImageResource((Integer) listItem.get(position).get(&quot;ItemImage&quot;));</div><div class="line">        holder.title.setText((String) listItem.get(position).get(&quot;ItemTitle&quot;));</div><div class="line">        holder.text.setText((String) listItem.get(position).get(&quot;ItemText&quot;));</div><div class="line">        holder.btn.setOnClickListener(new View.OnClickListener() &#123;</div><div class="line">            @Override</div><div class="line">            public void onClick(View v) &#123;</div><div class="line">                System.out.println(&quot;你点击了选项&quot;+position);//bottom会覆盖item的焦点，所以要在xml里面配置android:focusable=&quot;false&quot;</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line"></div><div class="line">        return convertView;</div><div class="line">    &#125;//这个方法返回了指定索引对应的数据项的视图</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>4.在MainActivity里：</p>
+<ul>
+<li>定义一个HashMap构成的列表，将数据以键值对的方式存放在里面。</li>
+<li>构造Adapter对象，设置适配器。</li>
+<li>将LsitView绑定到Adapter上。</li>
+</ul>
+<p><em>MainActivity.java</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">package scut.learnlistview;</div><div class="line"></div><div class="line">import android.support.v7.app.AppCompatActivity;</div><div class="line">import android.os.Bundle;</div><div class="line">import android.view.View;</div><div class="line">import android.widget.AdapterView;</div><div class="line">import android.widget.ArrayAdapter;</div><div class="line">import android.widget.ListView;</div><div class="line">import android.widget.SimpleAdapter;</div><div class="line"></div><div class="line">import java.util.ArrayList;</div><div class="line">import java.util.HashMap;</div><div class="line">import java.util.List;</div><div class="line"></div><div class="line">public class MainActivity extends AppCompatActivity &#123;</div><div class="line">    private ListView lv;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">        super.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line"></div><div class="line">        lv = (ListView) findViewById(R.id.listView1);</div><div class="line">        /*定义一个以HashMap为内容的动态数组*/</div><div class="line">        ArrayList&lt;HashMap&lt;String, Object&gt;&gt; listItem = new ArrayList&lt;HashMap&lt;String, Object&gt;&gt;();/*在数组中存放数据*/</div><div class="line">        for (int i = 0; i &lt; 100; i++) &#123;</div><div class="line">            HashMap&lt;String, Object&gt; map = new HashMap&lt;String, Object&gt;();</div><div class="line">            map.put(&quot;ItemImage&quot;, R.mipmap.ic_launcher);//加入图片</div><div class="line">            map.put(&quot;ItemTitle&quot;, &quot;第&quot; + i + &quot;行&quot;);</div><div class="line">            map.put(&quot;ItemText&quot;, &quot;这是第&quot; + i + &quot;行&quot;);</div><div class="line">            listItem.add(map);</div><div class="line">        &#125;</div><div class="line">        MyAdapter adapter = new MyAdapter(this, listItem);</div><div class="line">        lv.setAdapter(adapter);//为ListView绑定适配器</div><div class="line"></div><div class="line">        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() &#123;</div><div class="line">            @Override</div><div class="line">            public void onItemClick(AdapterView&lt;?&gt; arg0, View arg1, int arg2, long arg3) &#123;</div><div class="line">                System.out.println(&quot;你点击了第&quot; + arg2 + &quot;行&quot;);//设置系统输出点击的行</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line"></div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>###运行结果<br><img src="http://upload-images.jianshu.io/upload_images/944365-e1825ac3fd612605.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>点击输出结果：<br><img src="http://upload-images.jianshu.io/upload_images/944365-805e90713f7ad8e1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<hr>
+<h1 id="RecyclerView介绍"><a href="#RecyclerView介绍" class="headerlink" title="RecyclerView介绍"></a>RecyclerView介绍</h1><h4 id="1-定义"><a href="#1-定义" class="headerlink" title="1. 定义"></a>1. 定义</h4><p>RecyclerView是Google推出用来<strong>代替ListView组件的</strong>，是一个强大的滑动组件。</p>
+<blockquote>
+<p>RecyclerView强制使用了ViewHolder，直接把viewholder的实现封装起来，用户只要实现自己的viewholder就可以了，该组件会自动帮你回收复用每一个item。</p>
+</blockquote>
+<h4 id="2-工作原理"><a href="#2-工作原理" class="headerlink" title="2. 工作原理"></a>2. 工作原理</h4><p>当屏幕需要显示x个item时，那么ListView只会创建x+1个视图，当第一个item离开屏幕时，此item的view就会被拿来重用（用于显示下一个item（即第x+1个）的内容）。</p>
+<h4 id="3-工作原理实例"><a href="#3-工作原理实例" class="headerlink" title="3. 工作原理实例"></a>3. 工作原理实例</h4><p>假如屏幕只能显示7个item，那么ListView只会创建（7+1）个item的视图。当第1个item离开屏幕时，此item的view就会被拿来重用（用于显示第8个item的内容）。原理如下图显示<br><img src="http://upload-images.jianshu.io/upload_images/944365-bae0adba10cc7f46.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h4 id="4-RecyclerView的重要概念介绍"><a href="#4-RecyclerView的重要概念介绍" class="headerlink" title="4. RecyclerView的重要概念介绍"></a>4. RecyclerView的重要概念介绍</h4><ul>
+<li><p>RecyclerView.Adapter<br>和ListView一样，RecyclerView一样需要适配器，而且这个适配器强制要求了我们必须要用Viewholder，让性能得到优化，而且getView方法不需自己写，我们只需要写好Viewholder，View的复用已经封装好了。</p>
+</li>
+<li><p>LayoutManager<br>管理布局，设置为LinearLayoutManager、GridLayoutManager、StaggeredGridLayoutManager可以轻易地实现ListView，GridView以及流式布局的列表效果。它还可以管理滚动和循环利用。</p>
+</li>
+<li><p>ItemAnimator<br>这个类可以实现增删动画，而且不想设置的话它的默认效果已经很好了。</p>
+</li>
+</ul>
+<h4 id="5-优缺点"><a href="#5-优缺点" class="headerlink" title="5. 优缺点"></a>5. 优缺点</h4><p><strong>优点 ：</strong><br>有了ListView、GridView为什么还需要RecyclerView这样的控件呢？优点在于：</p>
+<ul>
+<li>item复用性高<br>把ViewHolder的实现封装起来，规范了ViewHolder，把item的view写入ViewHolder中，可以通过复用ViewHolder来实现view的复用</li>
+<li>灵活、可定制化高、可拓展性高<br>整体上看RecyclerView架构，提供了一种插拔式的体验：高度的解耦，异常的灵活：<ul>
+<li>控制其显示的方式-通过布局管理器LayoutManager</li>
+<li>控制Item间的间隔（可绘制）-通过ItemDecoration</li>
+<li>控制Item增删的动画- 通过ItemAnimator</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">mRecyclerView = findView(R.id.id_recyclerview);</div><div class="line">//设置布局管理器</div><div class="line">mRecyclerView.setLayoutManager(layout);</div><div class="line">//设置adapter</div><div class="line">mRecyclerView.setAdapter(adapter)</div><div class="line">//设置Item增加、移除动画</div><div class="line">mRecyclerView.setItemAnimator(new DefaultItemAnimator());</div><div class="line">//添加分割线</div><div class="line">mRecyclerView.addItemDecoration(new DividerItemDecoration(</div><div class="line">                getActivity(), DividerItemDecoration.HORIZONTAL_LIST));</div></pre></td></tr></table></figure>
+<ul>
+<li>问：相比较于ListView，RecyclerView基本需要上面一系列步骤进行设置，而ListView可能只需要去设置一个adapter就能正常使用。那么为什么会添加这么多的步骤呢？</li>
+<li>答：从名字上看RecyclerView，即回收循环视图，也就是说RecyclerView只管回收与复用View，其他的你可以自己去设置，可以看出其高度的解耦，给予你充分的定制自由</li>
+</ul>
+<p><strong>缺点：</strong><br>RecyclerView实现控制点击、长按事件较为麻烦，需要自己写</p>
+<h1 id="使用实例"><a href="#使用实例" class="headerlink" title="使用实例"></a>使用实例</h1><h4 id="使用RecyclerView的步骤："><a href="#使用RecyclerView的步骤：" class="headerlink" title="使用RecyclerView的步骤："></a>使用RecyclerView的步骤：</h4><ol>
+<li>定义主xml布局</li>
+<li>根据需要定义RecyclerView每行所实现的xml布局</li>
+<li>定义一个Adapter类继承RecyclerView.Adapter，重写里面的方法。</li>
+<li>定义一个HashMap构成的列表，将数据以键值对的方式存放在里面。</li>
+<li>构造Adapter对象，设置适配器。</li>
+<li>将RecyclerView绑定到Adapter上。</li>
+</ol>
+<h4 id="Demo的源码下载"><a href="#Demo的源码下载" class="headerlink" title="Demo的源码下载"></a>Demo的源码下载</h4><p><a href="https://github.com/Carson-Ho/RecyclerView" target="_blank" rel="external">https://github.com/Carson-Ho/RecyclerView</a><br>（个人推荐先fork下来再对着下面的分析看，效果会更好哦！）</p>
+<p>步骤1. 定义主xml布局<br><em>activity_main.xml</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;RelativeLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">    xmlns:tools=&quot;http://schemas.android.com/tools&quot;</div><div class="line">    android:layout_width=&quot;match_parent&quot;</div><div class="line">    android:layout_height=&quot;match_parent&quot;</div><div class="line">    tools:context=&quot;$&#123;relativePackage&#125;.$&#123;activityClass&#125;&quot; &gt;</div><div class="line"></div><div class="line"></div><div class="line">    &lt;android.support.v7.widget.RecyclerView</div><div class="line">        android:id=&quot;@+id/my_recycler_view&quot;</div><div class="line">        android:layout_width=&quot;match_parent&quot;</div><div class="line">        android:layout_height=&quot;match_parent&quot;</div><div class="line">        android:scrollbars=&quot;horizontal&quot;</div><div class="line">        /&gt;&lt;!--设置一个RecyclerView--&gt;</div><div class="line"></div><div class="line">&lt;/RelativeLayout&gt;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>在AndroidStudio1.5使用support-v7包：</p>
+<ul>
+<li>右键文件目录的app目录进入Moudle Setting</li>
+<li>在Dependencies里面加入</li>
+</ul>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">compile &apos;com.android.support:recyclerview-v7:23.1.1&apos;</div></pre></td></tr></table></figure>
+<p>步骤2. 根据需要定义RecyclerView每行所实现的xml布局（item布局）<br><em>list_cell.xml</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">    android:orientation=&quot;vertical&quot; android:layout_width=&quot;match_parent&quot;</div><div class="line">    android:layout_height=&quot;match_parent&quot;&gt;</div><div class="line">&lt;RelativeLayout</div><div class="line">    android:layout_width=&quot;match_parent&quot;</div><div class="line">    android:layout_height=&quot;match_parent&quot;&gt;</div><div class="line">    &lt;ImageView</div><div class="line">        android:layout_alignParentRight=&quot;true&quot;</div><div class="line">        android:layout_width=&quot;wrap_content&quot;</div><div class="line">        android:layout_height=&quot;wrap_content&quot;</div><div class="line">        android:id=&quot;@+id/ItemImage&quot;/&gt;</div><div class="line">    &lt;TextView</div><div class="line">        android:layout_width=&quot;wrap_content&quot;</div><div class="line">        android:layout_height=&quot;wrap_content&quot;</div><div class="line">        android:text=&quot;New Text&quot;</div><div class="line">        android:id=&quot;@+id/Itemtitle&quot; /&gt;</div><div class="line"></div><div class="line">    &lt;TextView</div><div class="line">        android:layout_width=&quot;wrap_content&quot;</div><div class="line">        android:layout_height=&quot;wrap_content&quot;</div><div class="line">        android:text=&quot;New Text&quot;</div><div class="line">        android:id=&quot;@+id/Itemtext&quot;</div><div class="line">        android:layout_below=&quot;@+id/Itemtitle&quot;/&gt;</div><div class="line">&lt;/RelativeLayout&gt;</div><div class="line">&lt;/LinearLayout&gt;</div></pre></td></tr></table></figure>
+<p>步骤3. 定义一个Adapter类继承 RecyclerView.Adapter，重写里面的方法。<br><em>MyAdapter.java</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div></pre></td><td class="code"><pre><div class="line">package scut.receiverview;</div><div class="line"></div><div class="line">import android.content.Context;</div><div class="line">import android.support.v7.widget.RecyclerView;</div><div class="line">import android.view.LayoutInflater;</div><div class="line">import android.view.View;</div><div class="line">import android.view.ViewGroup;</div><div class="line">import android.widget.ImageView;</div><div class="line">import android.widget.TextView;</div><div class="line"></div><div class="line">import java.util.ArrayList;</div><div class="line">import java.util.HashMap;</div><div class="line"></div><div class="line">/**</div><div class="line"> * Created by yany on 2016/4/11.</div><div class="line"> */</div><div class="line">public class MyAdapter extends RecyclerView.Adapter &#123;</div><div class="line">    private LayoutInflater inflater;</div><div class="line">    private ArrayList&lt;HashMap&lt;String, Object&gt;&gt; listItem;</div><div class="line">    private MyItemClickListener myItemClickListener;</div><div class="line"></div><div class="line">    public MyAdapter(Context context, ArrayList&lt;HashMap&lt;String, Object&gt;&gt; listItem) &#123;</div><div class="line">        inflater = LayoutInflater.from(context);</div><div class="line">        this.listItem = listItem;</div><div class="line">    &#125;//构造函数，传入数据</div><div class="line"></div><div class="line"></div><div class="line">    //定义Viewholder</div><div class="line">    class Viewholder extends RecyclerView.ViewHolder  &#123;</div><div class="line">        private TextView Title, Text;</div><div class="line">        private ImageView ima;</div><div class="line"></div><div class="line">        public Viewholder(View root) &#123;</div><div class="line">            super(root);</div><div class="line">            Title = (TextView) root.findViewById(R.id.Itemtitle);</div><div class="line">            Text = (TextView) root.findViewById(R.id.Itemtext);</div><div class="line">            ima = (ImageView) root.findViewById(R.id.ItemImage);</div><div class="line">            root.setOnClickListener(new View.OnClickListener() &#123;</div><div class="line">                @Override</div><div class="line">                public void onClick(View v) &#123;</div><div class="line">                    if (myItemClickListener != null)</div><div class="line">                        myItemClickListener .onItemClick(v,getPosition());</div><div class="line">                &#125;</div><div class="line"></div><div class="line">            &#125;//监听到点击就回调MainActivity的onItemClick函数</div><div class="line">            );</div><div class="line"></div><div class="line">        &#125;</div><div class="line"></div><div class="line">        public TextView getTitle() &#123;</div><div class="line">            return Title;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        public TextView getText() &#123;</div><div class="line">            return Text;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        public ImageView getIma() &#123;</div><div class="line">            return ima;</div><div class="line">        &#125;</div><div class="line"></div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">        @Override</div><div class="line">        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) &#123;</div><div class="line">            return new Viewholder(inflater.inflate(R.layout.list_cell, null));</div><div class="line">        &#125;//在这里把ViewHolder绑定Item的布局</div><div class="line"></div><div class="line">        @Override</div><div class="line">        public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) &#123;</div><div class="line">            Viewholder vh = (Viewholder) holder;</div><div class="line">            vh.Title.setText((String) listItem.get(position).get(&quot;ItemTitle&quot;));</div><div class="line">            vh.Text.setText((String) listItem.get(position).get(&quot;ItemText&quot;));</div><div class="line">            vh.ima.setImageResource((Integer) listItem.get(position).get(&quot;ItemImage&quot;));</div><div class="line">        &#125;//在这里绑定数据到ViewHolder里面</div><div class="line"></div><div class="line">        @Override</div><div class="line">        public int getItemCount() &#123;</div><div class="line">            return listItem.size();</div><div class="line">        &#125;//返回Item数目</div><div class="line"></div><div class="line">        public void setOnItemClickListener(MyItemClickListener listener)&#123;</div><div class="line">        myItemClickListener = listener;</div><div class="line">        &#125;//绑定MainActivity传进来的点击监听器</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>实现点击事件:</p>
+<ol>
+<li>在Viewholder里面设置了点击事件监听器</li>
+<li>通过调用OnItemClickListener的接口方法回调MainActivity里的方法。</li>
+</ol>
+</blockquote>
+<p>MyItemClickListener.java接口：用来实现点击事件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">package scut.receiverview;</div><div class="line"></div><div class="line">import android.view.View;</div><div class="line"></div><div class="line"></div><div class="line">public interface MyItemClickListener &#123;</div><div class="line">    public void onItemClick(View view,int postion);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>步骤4：在MainActicity.java里：</p>
+<ul>
+<li>定义一个HashMap构成的列表，将数据以键值对的方式存放在里面。</li>
+<li>构造Adapter对象，设置适配器</li>
+<li>将RecyclerView绑定到Adapter上</li>
+</ul>
+<p>MainActicity.java</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div></pre></td><td class="code"><pre><div class="line">package scut.receiverview;</div><div class="line"></div><div class="line">import android.os.Bundle;</div><div class="line">import android.support.v7.app.AppCompatActivity;</div><div class="line">import android.support.v7.widget.LinearLayoutManager;</div><div class="line">import android.support.v7.widget.RecyclerView;</div><div class="line">import android.view.View;</div><div class="line">import android.widget.Toast;</div><div class="line"></div><div class="line">import java.util.ArrayList;</div><div class="line">import java.util.HashMap;</div><div class="line"></div><div class="line">public class MainActivity extends AppCompatActivity implements MyItemClickListener &#123;</div><div class="line">    private RecyclerView Rv;</div><div class="line">    private ArrayList&lt;HashMap&lt;String,Object&gt;&gt; listItem;</div><div class="line">    private MyAdapter myAdapter;</div><div class="line">    @Override</div><div class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">        super.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line">        initData();</div><div class="line">        initView();</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void initData()&#123;</div><div class="line">        listItem = new ArrayList&lt;HashMap&lt;String, Object&gt;&gt;();/*在数组中存放数据*/</div><div class="line">        for (int i = 0; i &lt; 100; i++) &#123;</div><div class="line">            HashMap&lt;String, Object&gt; map = new HashMap&lt;String, Object&gt;();</div><div class="line">            map.put(&quot;ItemTitle&quot;, &quot;第&quot; + i + &quot;行&quot;);</div><div class="line">            map.put(&quot;ItemText&quot;, &quot;这是第&quot; + i + &quot;行&quot;);</div><div class="line">            map.put(&quot;ItemImage&quot;,R.mipmap.ic_launcher);</div><div class="line">            listItem.add(map);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    public void initView()&#123;</div><div class="line">      //为ListView绑定适配器</div><div class="line">      myAdapter = new MyAdapter(this,listItem);</div><div class="line">      myAdapter.setOnItemClickListener(this);</div><div class="line">      Rv.setAdapter(myAdapter);  </div><div class="line"></div><div class="line">     Rv = (RecyclerView) findViewById(R.id.my_recycler_view);</div><div class="line">        //使用线性布局</div><div class="line">        LinearLayoutManager layoutManager = new LinearLayoutManager(this);</div><div class="line">        Rv.setLayoutManager(layoutManager);</div><div class="line">        Rv.setHasFixedSize(true);</div><div class="line">        Rv.addItemDecoration(new DividerItemDecoration(this, layoutManager.getOrientation()));//用类设置分割线</div><div class="line">//Rv.addItemDecoration(new DividerItemDecoration(this, R.drawable.list_divider)); //用已有图片设置分割线</div><div class="line">        </div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onItemClick(View view, int postion) &#123;//点击事件的回调函数</div><div class="line">        System.out.println(&quot;点击了第&quot;+postion+&quot;行&quot;);</div><div class="line">        Toast.makeText(this, (String)listItem.get(postion).get(&quot;ItemText&quot;), Toast.LENGTH_SHORT).show();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p> <strong>5. 最后是一个步骤是实现分割线ItemDecoration</strong></p>
+<blockquote>
+<p>如果自己画了分割线就可以直接添上去，不需要写这个类</p>
+</blockquote>
+<p>DividerItemDecoration.java:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div></pre></td><td class="code"><pre><div class="line">package scut.receiverview;</div><div class="line"></div><div class="line">import android.content.Context;</div><div class="line">import android.graphics.Canvas;</div><div class="line">import android.graphics.Color;</div><div class="line">import android.graphics.Paint;</div><div class="line">import android.graphics.Rect;</div><div class="line">import android.support.v7.widget.LinearLayoutManager;</div><div class="line">import android.support.v7.widget.RecyclerView;</div><div class="line">import android.util.TypedValue;</div><div class="line">import android.view.View;</div><div class="line"></div><div class="line"></div><div class="line">public class DividerItemDecoration extends RecyclerView.ItemDecoration &#123;</div><div class="line">    /*</div><div class="line">      * RecyclerView的布局方向，默认先赋值</div><div class="line">      * 为纵向布局</div><div class="line">      * RecyclerView 布局可横向，也可纵向</div><div class="line">      * 横向和纵向对应的分割想画法不一样</div><div class="line">      * */</div><div class="line">    private int mOrientation = LinearLayoutManager.VERTICAL ;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * item之间分割线的size，默认为1</div><div class="line">     */</div><div class="line">    private int mItemSize = 1 ;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 绘制item分割线的画笔，和设置其属性</div><div class="line">     * 来绘制个性分割线</div><div class="line">     */</div><div class="line">    private Paint mPaint ;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 构造方法传入布局方向，不可不传</div><div class="line">     * @param context</div><div class="line">     * @param orientation</div><div class="line">     */</div><div class="line">    public DividerItemDecoration(Context context,int orientation) &#123;</div><div class="line">        this.mOrientation = orientation;</div><div class="line">        if(orientation != LinearLayoutManager.VERTICAL &amp;&amp; orientation != LinearLayoutManager.HORIZONTAL)&#123;</div><div class="line">            throw new IllegalArgumentException(&quot;请传入正确的参数&quot;) ;</div><div class="line">        &#125;</div><div class="line">        mItemSize = (int) TypedValue.applyDimension(mItemSize, TypedValue.COMPLEX_UNIT_DIP,context.getResources().getDisplayMetrics());</div><div class="line">        mPaint = new Paint(Paint.ANTI_ALIAS_FLAG) ;</div><div class="line">        mPaint.setColor(Color.BLUE);</div><div class="line">         /*设置填充*/</div><div class="line">        mPaint.setStyle(Paint.Style.FILL);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) &#123;</div><div class="line">        if(mOrientation == LinearLayoutManager.VERTICAL)&#123;</div><div class="line">            drawVertical(c,parent) ;</div><div class="line">        &#125;else &#123;</div><div class="line">            drawHorizontal(c,parent) ;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 绘制纵向 item 分割线</div><div class="line">     * @param canvas</div><div class="line">     * @param parent</div><div class="line">     */</div><div class="line">    private void drawVertical(Canvas canvas,RecyclerView parent)&#123;</div><div class="line">        final int left = parent.getPaddingLeft() ;</div><div class="line">        final int right = parent.getMeasuredWidth() - parent.getPaddingRight() ;</div><div class="line">        final int childSize = parent.getChildCount() ;</div><div class="line">        for(int i = 0 ; i &lt; childSize ; i ++)&#123;</div><div class="line">            final View child = parent.getChildAt( i ) ;</div><div class="line">            RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) child.getLayoutParams();</div><div class="line">            final int top = child.getBottom() + layoutParams.bottomMargin ;</div><div class="line">            final int bottom = top + mItemSize ;</div><div class="line">            canvas.drawRect(left,top,right,bottom,mPaint);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 绘制横向 item 分割线</div><div class="line">     * @param canvas</div><div class="line">     * @param parent</div><div class="line">     */</div><div class="line">    private void drawHorizontal(Canvas canvas,RecyclerView parent)&#123;</div><div class="line">        final int top = parent.getPaddingTop() ;</div><div class="line">        final int bottom = parent.getMeasuredHeight() - parent.getPaddingBottom() ;</div><div class="line">        final int childSize = parent.getChildCount() ;</div><div class="line">        for(int i = 0 ; i &lt; childSize ; i ++)&#123;</div><div class="line">            final View child = parent.getChildAt( i ) ;</div><div class="line">            RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) child.getLayoutParams();</div><div class="line">            final int left = child.getRight() + layoutParams.rightMargin ;</div><div class="line">            final int right = left + mItemSize ;</div><div class="line">            canvas.drawRect(left,top,right,bottom,mPaint);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 设置item分割线的size</div><div class="line">     * @param outRect</div><div class="line">     * @param view</div><div class="line">     * @param parent</div><div class="line">     * @param state</div><div class="line">     */</div><div class="line">    @Override</div><div class="line">    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) &#123;</div><div class="line">        if(mOrientation == LinearLayoutManager.VERTICAL)&#123;</div><div class="line">            outRect.set(0,0,0,mItemSize);</div><div class="line">        &#125;else &#123;</div><div class="line">            outRect.set(0,0,mItemSize,0);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="效果输出图"><a href="#效果输出图" class="headerlink" title="效果输出图"></a>效果输出图</h2><p><img src="http://upload-images.jianshu.io/upload_images/944365-5754645a85169cdc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>本文对ListView、AdapterView、RecyclerView进行了全面整理，接下来我会介绍继续介绍Android开发中的相关知识，有兴趣可以继续关注<a href="http://www.jianshu.com/users/383970bef0a0/latest_articles" target="_blank" rel="external">Carson_Ho的安卓开发笔记</a></p>
+<hr>
+<h3 id="欢迎关注Carson-Ho的简书！"><a href="#欢迎关注Carson-Ho的简书！" class="headerlink" title="欢迎关注Carson_Ho的简书！"></a>欢迎关注<a href="http://www.jianshu.com/users/383970bef0a0/latest_articles" target="_blank" rel="external">Carson_Ho</a>的简书！</h3><p>不定期分享关于<strong>安卓开发</strong>的干货，追求<strong>短、平、快</strong>，但<strong>却不缺深度</strong>。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/944365-9b76fa3c52d478a7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/04/20/Listview/">Android开发：ListView、AdapterView、RecyclerView全面解析</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 Carson_Ho 的个人博客">Carson_Ho</a></p>
+        <p><span>发布时间:</span>2016年04月20日 - 19时33分</p>
+        <p><span>最后更新:</span>2016年10月04日 - 22时37分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/04/20/Listview/" title="Android开发：ListView、AdapterView、RecyclerView全面解析">http://yoursite.com/2016/04/20/Listview/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/04/20/Listview/　　作者: Carson_Ho" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/2016/03/25/Json/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Android开发：JSON最全面解析方法(Gson、AS自带org.json、Jackson解析)</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#目录"><span class="toc-number">1.</span> <span class="toc-text">目录</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#AdapterView简介"><span class="toc-number">2.</span> <span class="toc-text">AdapterView简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ListView简介"><span class="toc-number">3.</span> <span class="toc-text">ListView简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-什么是ListView"><span class="toc-number">4.</span> <span class="toc-text">1. 什么是ListView</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-ListView的作用"><span class="toc-number">5.</span> <span class="toc-text">2. ListView的作用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-关于Adapter"><span class="toc-number">6.</span> <span class="toc-text">3. 关于Adapter</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-ListView的工作原理"><span class="toc-number">7.</span> <span class="toc-text">4. ListView的工作原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#工作原理实例"><span class="toc-number">7.0.0.1.</span> <span class="toc-text">工作原理实例</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ListView的使用"><span class="toc-number">8.</span> <span class="toc-text">ListView的使用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Adapter介绍"><span class="toc-number">9.</span> <span class="toc-text">Adapter介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常用适配器介绍"><span class="toc-number">10.</span> <span class="toc-text">常用适配器介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-ArrayAdapter"><span class="toc-number">10.0.0.0.1.</span> <span class="toc-text">1. ArrayAdapter</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#最终效果图"><span class="toc-number">10.0.1.</span> <span class="toc-text">最终效果图</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-SimpleAdapter"><span class="toc-number">10.0.1.0.1.</span> <span class="toc-text">2. SimpleAdapter</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RecyclerView介绍"><span class="toc-number">11.</span> <span class="toc-text">RecyclerView介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-定义"><span class="toc-number">11.0.0.1.</span> <span class="toc-text">1. 定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-工作原理"><span class="toc-number">11.0.0.2.</span> <span class="toc-text">2. 工作原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-工作原理实例"><span class="toc-number">11.0.0.3.</span> <span class="toc-text">3. 工作原理实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-RecyclerView的重要概念介绍"><span class="toc-number">11.0.0.4.</span> <span class="toc-text">4. RecyclerView的重要概念介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-优缺点"><span class="toc-number">11.0.0.5.</span> <span class="toc-text">5. 优缺点</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#使用实例"><span class="toc-number">12.</span> <span class="toc-text">使用实例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#使用RecyclerView的步骤："><span class="toc-number">12.0.0.1.</span> <span class="toc-text">使用RecyclerView的步骤：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Demo的源码下载"><span class="toc-number">12.0.0.2.</span> <span class="toc-text">Demo的源码下载</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#效果输出图"><span class="toc-number">12.1.</span> <span class="toc-text">效果输出图</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number">12.1.1.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#欢迎关注Carson-Ho的简书！"><span class="toc-number">12.1.2.</span> <span class="toc-text">欢迎关注Carson_Ho的简书！</span></a></li></ol></li></ol></li></ol>
+</div>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
+
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="2016/04/20/Listview/" data-title="Android开发：ListView、AdapterView、RecyclerView全面解析" data-url="http://yoursite.com/2016/04/20/Listview/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"null"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '/js/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+    <!-- 多说公共JS代码 end -->
+</div>
+
+    
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2016/03/25/Json/" title="下一篇: Android开发：JSON最全面解析方法(Gson、AS自带org.json、Jackson解析)">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/04/20/Listview/">Android开发：ListView、AdapterView、RecyclerView全面解析</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/25/Json/">Android开发：JSON最全面解析方法(Gson、AS自带org.json、Jackson解析)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/23/五大布局属性大全/">Android开发： 五大布局属性设置大全</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/12/Intent详解/">Android开发：  Intent介绍及使用方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/05/XML简介及DOM、SAX、PULL解析对比/">Android开发：XML简介及DOM、SAX、PULL解析对比</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/01/ 最全面的HTTP知识总结/">Android网络通信：最全面的HTTP知识总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/07/Fragment详解/">Android开发： Fragment最全面使用详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/21/Activity生命周期/">Android开发：5分钟解析Activity&Fragment生命周期</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/11/Handler源码分析/">Android开发：Handler异步通信机制全面解析（包含Looper、Message Queue）</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/12/21/Android屏幕适配/">Android开发：最全面、最易懂的Android屏幕适配解决方案</a></li></ul>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+            }
+        })
+    </script>
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2016 Carson_Ho
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/luuman/hexo-theme-spfk" target="_blank">spfk</a> by luuman
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" >到访数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 24;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+  </div>
+</body>
+</html>
