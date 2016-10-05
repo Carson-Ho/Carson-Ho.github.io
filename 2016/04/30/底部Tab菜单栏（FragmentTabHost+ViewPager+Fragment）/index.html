@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Android开发：底部Tab菜单栏（FragmentTabHost+ViewPager+Fragment） | Carson_Ho Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="底部Tab菜单栏（FragmentTabHost+ViewPager+Fragment）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android开发：底部Tab菜单栏（FragmentTabHost+ViewPager+Fragment）">
+<meta property="og:url" content="http://yoursite.com/2016/04/30/底部Tab菜单栏（FragmentTabHost+ViewPager+Fragment）/index.html">
+<meta property="og:site_name" content="Carson_Ho Blog">
+<meta property="og:description" content="底部Tab菜单栏（FragmentTabHost+ViewPager+Fragment）">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-72201fe5d1f0d09d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-f0d169218633451b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-336bd6cec59bcc58.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-904df922e0d90aa7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-9b76fa3c52d478a7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2016-10-05T14:04:09.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android开发：底部Tab菜单栏（FragmentTabHost+ViewPager+Fragment）">
+<meta name="twitter:description" content="底部Tab菜单栏（FragmentTabHost+ViewPager+Fragment）">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/944365-72201fe5d1f0d09d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+  
+    <link rel="alternative" href="/atom.xml" title="Carson_Ho Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <script>
+      var yiliaConfig = {
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/head.png" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+          <h1 class="header-author"><a href="/">Carson_Ho</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">一个走在产品路上的Android攻城狮</p>
+        
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl CSDN" target="_blank" href="http://blog.csdn.net/carson_ho" title="CSDN">CSDN</a>
+                            
+                                <a class="fl github" target="_blank" href="https://github.com/Carson-Ho" title="github">github</a>
+                            
+                                <a class="fl 简书" target="_blank" href="http://www.jianshu.com/users/383970bef0a0/latest_articles" title="简书">简书</a>
+                            
+                                <a class="fl E-mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=mPv56uv39rbw99j_9_D1_fH0tvv39Q" title="E-mail">E-mail</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/Android基础/" style="font-size: 20px;">Android基础</a> <a href="/tags/Android常用汇总/" style="font-size: 20px;">Android常用汇总</a> <a href="/tags/多线程-源码分析/" style="font-size: 10px;">多线程&源码分析</a> <a href="/tags/源码分析/" style="font-size: 10px;">源码分析</a>
+                    </div>
+                </section>
+                
+                
+                
+
+                
+                
+                <section class="switch-part switch-part3">
+                
+                    <div id="js-aboutme">Android攻城狮、产品经理、健身狂热者、球鞋Sneaker。工作邮箱：carson.ho@foxmail.com</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Carson_Ho</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/head.png" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Carson_Ho</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">一个走在产品路上的Android攻城狮</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="CSDN" target="_blank" href="http://blog.csdn.net/carson_ho" title="CSDN">CSDN</a>
+                    
+                        <a class="github" target="_blank" href="https://github.com/Carson-Ho" title="github">github</a>
+                    
+                        <a class="简书" target="_blank" href="http://www.jianshu.com/users/383970bef0a0/latest_articles" title="简书">简书</a>
+                    
+                        <a class="E-mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=mPv56uv39rbw99j_9_D1_fH0tvv39Q" title="E-mail">E-mail</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-底部Tab菜单栏（FragmentTabHost+ViewPager+Fragment）" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/30/底部Tab菜单栏（FragmentTabHost+ViewPager+Fragment）/" class="article-date">
+      <time datetime="2016-04-30T07:33:26.000Z" itemprop="datePublished">2016-04-30</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android开发：底部Tab菜单栏（FragmentTabHost+ViewPager+Fragment）
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android常用汇总/">Android常用汇总</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <hr>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Android开发中使用底部菜单栏的频次非常高，主要的实现手段有以下：</p>
+<ul>
+<li>TabWidget</li>
+<li>隐藏TabWidget，使用RadioGroup和RadioButton</li>
+<li>FragmentTabHost</li>
+<li>5.0以后的TabLayout</li>
+<li>最近推出的 Bottom navigation</li>
+</ul>
+<p>今天带大家来探索下如何用<strong>Fragment+FragmentTabHost++ViewPager</strong><br>实现底部菜单栏</p>
+<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p><img src="http://upload-images.jianshu.io/upload_images/944365-72201fe5d1f0d09d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="目录"></p>
+<h1 id="总体设计思路"><a href="#总体设计思路" class="headerlink" title="总体设计思路"></a>总体设计思路</h1><ul>
+<li>Fragment：存放不同选项的页面内容</li>
+<li>FragmentTabHost：点击切换选项卡</li>
+<li>ViewPager：实现页面的左右滑动效果</li>
+</ul>
+<h1 id="概念介绍"><a href="#概念介绍" class="headerlink" title="概念介绍"></a>概念介绍</h1><p><strong>1. FragmentTabHost</strong><br>用于实现点击选项进行切换选项卡的自定义效果</p>
+<blockquote>
+<p>使用FragmentTabHost，就是先用TabHost“装着”Fragment，然后放进MainActivity里面</p>
+</blockquote>
+<p><strong>2. ViewPager</strong></p>
+<ul>
+<li>定义<br>ViewPager是android扩展包v4包中的类</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">android.support.v4.view.ViewPager</div></pre></td></tr></table></figure>
+<ul>
+<li>作用<br>左右切换当前的view，实现滑动切换的效果。<blockquote>
+<p>注：<br>1.ViewPager类直接继承了ViewGroup类，和LinearLayout等布局一样，都是一个容器，需要在里面添加我们想要显示的内容。<br>2.ViewPager类需要PagerAdapter适配器类提供数据，与ListView类似      3.Google官方建议ViewPager配合Fragment使用</p>
+</blockquote>
+</li>
+</ul>
+<p>具体使用请参考我写的另外一篇文章：<a href="http://www.jianshu.com/p/f70073f7e837" target="_blank" rel="external">Android开发：ViewPage的介绍</a><br><strong>3. Fragment</strong></p>
+<ul>
+<li><p>定义<br>Fragment是activity的界面中的一部分或一种行为</p>
+<blockquote>
+<p>1.把Fragment认为模块化的一段activity<br>2.它具有自己的生命周期，接收它自己的事件，并可以在activity运行时被添加或删除<br>3.Fragment不能独立存在，它必须嵌入到activity中，而且Fragment的生命周期直接受所在的activity的影响。例如：当activity暂停时，它拥有的所有的Fragment们都暂停了，当activity销毁时，它拥有的所有Fragment们都被销毁。</p>
+</blockquote>
+</li>
+<li><p>作用<br>主要是为了支持更动态、更灵活的界面设计（从3.0开始引入）</p>
+</li>
+</ul>
+<p>具体使用请参考我写的另外一篇文章<a href="http://www.jianshu.com/p/2bf21cefb763" target="_blank" rel="external">Android开发：Fragment介绍&amp;使用方法解析</a></p>
+<h1 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h1><ol>
+<li>在主xml布局里面定义一个FragmentTabHost控件</li>
+<li>定义底部菜单栏布局</li>
+<li>定义每个Fragment布局</li>
+<li>定义每个Fragment的Java类</li>
+<li>定义适配器以关联页卡和ViewPage</li>
+<li>定义MainActivity（具体实现请看注释）</li>
+</ol>
+<h1 id="工程文件目录"><a href="#工程文件目录" class="headerlink" title="工程文件目录"></a>工程文件目录</h1><p><img src="http://upload-images.jianshu.io/upload_images/944365-f0d169218633451b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="工程文件目录"></p>
+<h1 id="具体实现实例"><a href="#具体实现实例" class="headerlink" title="具体实现实例"></a>具体实现实例</h1><p><strong>步骤1：在主xml布局里面定义一个FragmentTabHost控件</strong></p>
+<p><em>主xml布局：Main_tab_layout.xml</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;RelativeLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">    xmlns:tools=&quot;http://schemas.android.com/tools&quot;</div><div class="line">    android:layout_width=&quot;fill_parent&quot;</div><div class="line">    android:layout_height=&quot;fill_parent&quot;</div><div class="line">    android:orientation=&quot;vertical&quot; &gt;</div><div class="line"></div><div class="line">    &lt;include layout=&quot;@layout/main_top&quot; /&gt;</div><div class="line"></div><div class="line">    &lt;android.support.v4.view.ViewPager</div><div class="line">        android:id=&quot;@+id/pager&quot;</div><div class="line">        android:layout_width=&quot;match_parent&quot;</div><div class="line">        android:layout_height=&quot;0dp&quot;</div><div class="line">        android:layout_weight=&quot;1&quot; /&gt;&lt;!--装4个Fragment--&gt;</div><div class="line"></div><div class="line">    &lt;FrameLayout</div><div class="line">        android:visibility=&quot;gone&quot;</div><div class="line">        android:layout_width=&quot;match_parent&quot;</div><div class="line">        android:layout_height=&quot;0dp&quot;</div><div class="line">        android:layout_weight=&quot;1&quot; /&gt;</div><div class="line"></div><div class="line">    &lt;!--定义FragmentTabHost控件--&gt;</div><div class="line">    &lt;android.support.v4.app.FragmentTabHost</div><div class="line">        android:id=&quot;@android:id/tabhost&quot;</div><div class="line">        android:layout_width=&quot;fill_parent&quot;</div><div class="line">        android:layout_height=&quot;wrap_content&quot;</div><div class="line">        android:background=&quot;@android:color/black&quot; &gt;&lt;!--装4个Fragment--&gt;</div><div class="line"></div><div class="line">        &lt;FrameLayout</div><div class="line">            android:id=&quot;@android:id/tabcontent&quot;</div><div class="line">            android:layout_width=&quot;0dp&quot;</div><div class="line">            android:layout_height=&quot;0dp&quot;</div><div class="line">            android:layout_weight=&quot;0&quot; /&gt;&lt;!--装Tab的内容--&gt;</div><div class="line">    &lt;/android.support.v4.app.FragmentTabHost&gt;</div><div class="line">&lt;/RelativeLayout&gt;</div></pre></td></tr></table></figure>
+<p><strong>步骤2：定义底部菜单栏布局</strong></p>
+<p><em>tab_content.xml</em></p>
+<blockquote>
+<p>一般是图片在上，文字在下</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;    </div><div class="line">android:layout_width=&quot;match_parent&quot;    </div><div class="line">android:layout_height=&quot;match_parent&quot;    </div><div class="line">android:gravity=&quot;center&quot;   </div><div class="line">android:orientation=&quot;vertical&quot;    </div><div class="line">android:background=&quot;#ffffff&quot;&gt;    </div><div class="line">&lt;ImageView        </div><div class="line">android:id=&quot;@+id/tab_imageview&quot;        </div><div class="line">android:layout_width=&quot;wrap_content&quot;        </div><div class="line">android:layout_height=&quot;wrap_content&quot;        </div><div class="line">/&gt;    </div><div class="line">&lt;TextView        </div><div class="line">android:id=&quot;@+id/tab_textview&quot;        </div><div class="line">android:layout_width=&quot;wrap_content&quot;        </div><div class="line">android:layout_height=&quot;wrap_content&quot;        </div><div class="line">android:text=&quot;&quot;        </div><div class="line">android:textColor=&quot;@drawable/selector_text_background&quot; /&gt;</div><div class="line">&lt;/LinearLayout&gt;</div></pre></td></tr></table></figure>
+<p><strong>步骤3：定义Fragment布局</strong><br>fragment_item1.xml&amp;fragment_item2.xml</p>
+<blockquote>
+<p>这里使用两个选项，由于fragment_item1.xml与fragment_item2.xml相同，这里只贴出一个</p>
+</blockquote>
+<p><em>fragment_item1.xml</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">    android:orientation=&quot;vertical&quot;</div><div class="line">    android:layout_width=&quot;match_parent&quot;</div><div class="line">    android:layout_height=&quot;match_parent&quot;&gt;</div><div class="line"></div><div class="line">    &lt;TextView</div><div class="line">        android:id=&quot;@+id/textView1&quot;</div><div class="line">        android:layout_width=&quot;wrap_content&quot;</div><div class="line">        android:layout_height=&quot;wrap_content&quot;</div><div class="line">        android:text=&quot;fragment1&quot;</div><div class="line">        android:textSize=&quot;20sp&quot;/&gt;</div><div class="line"></div><div class="line">&lt;/LinearLayout&gt;</div></pre></td></tr></table></figure>
+<p><strong>步骤4： 定义每个Fragment的Java类</strong></p>
+<blockquote>
+<ol>
+<li>这里使用两个选项：Fragment1.java&amp;fragmen2.java</li>
+<li>由于Fragment1.java&amp;fragmen2.java相同，这里只贴出一个</li>
+</ol>
+</blockquote>
+<p><em>Fragment1.java</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">package com.example.carson_ho.tab_menu_demo;</div><div class="line"></div><div class="line">import android.os.Bundle;</div><div class="line">import android.support.v4.app.Fragment;</div><div class="line">import android.view.LayoutInflater;</div><div class="line">import android.view.View;</div><div class="line">import android.view.ViewGroup;</div><div class="line"></div><div class="line">/**</div><div class="line"> * Created by Carson_Ho on 16/5/23.</div><div class="line"> */</div><div class="line">public class Fragment1 extends Fragment</div><div class="line"></div><div class="line">    &#123;</div><div class="line">        @Override</div><div class="line">        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) &#123;</div><div class="line">        View view = inflater.inflate(R.layout.fragment_item1, null);</div><div class="line">        return view;</div><div class="line">    &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p><strong>步骤5： 定义适配器关联页卡和ViewPage</strong><br><em>MyFragmentAdapter.java</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">package com.example.carson_ho.tab_menu_demo;</div><div class="line"></div><div class="line">import android.support.v4.app.Fragment;</div><div class="line">import android.support.v4.app.FragmentManager;</div><div class="line">import android.support.v4.app.FragmentPagerAdapter;</div><div class="line"></div><div class="line">import java.util.List;</div><div class="line"></div><div class="line">/**</div><div class="line"> * Created by Carson_Ho on 16/5/23.</div><div class="line"> */</div><div class="line">public class MyFragmentAdapter &#123;extends FragmentPagerAdapter</div><div class="line"></div><div class="line">    &#123;</div><div class="line"></div><div class="line">        List&lt;Fragment&gt; list;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">        public MyFragmentAdapter(FragmentManager fm,List&lt;Fragment&gt; list) &#123;</div><div class="line">        super(fm);</div><div class="line">        this.list=list;</div><div class="line">    &#125;//写构造方法，方便赋值调用</div><div class="line">        @Override</div><div class="line">        public Fragment getItem(int arg0) &#123;</div><div class="line">        return list.get(arg0);</div><div class="line">    &#125;//根据Item的位置返回对应位置的Fragment，绑定item和Fragment</div><div class="line"></div><div class="line">        @Override</div><div class="line">        public int getCount() &#123;</div><div class="line">        return list.size();</div><div class="line">    &#125;//设置Item的数量</div><div class="line"></div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p><strong>步骤6： 定义MainActivity</strong><br>具体实现看注释<br><em>MainActivity.java</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div></pre></td><td class="code"><pre><div class="line">package com.example.carson_ho.tab_menu_demo;</div><div class="line"></div><div class="line">import android.os.Bundle;</div><div class="line">import android.support.v4.app.Fragment;</div><div class="line">import android.support.v4.app.FragmentActivity;</div><div class="line">import android.support.v4.app.FragmentTabHost;</div><div class="line">import android.support.v4.view.ViewPager;</div><div class="line">import android.view.LayoutInflater;</div><div class="line">import android.view.View;</div><div class="line">import android.view.ViewGroup;</div><div class="line">import android.widget.ImageView;</div><div class="line">import android.widget.TabHost;</div><div class="line">import android.widget.TabWidget;</div><div class="line">import android.widget.TextView;</div><div class="line"></div><div class="line">import java.util.ArrayList;</div><div class="line">import java.util.List;</div><div class="line"></div><div class="line">public class MainActivity extends FragmentActivity implements</div><div class="line">        ViewPager.OnPageChangeListener, TabHost.OnTabChangeListener &#123;</div><div class="line"></div><div class="line">    private FragmentTabHost mTabHost;</div><div class="line">    private LayoutInflater layoutInflater;</div><div class="line">    private Class fragmentArray[] = &#123; Fragment1.class, Fragment2.class &#125;;</div><div class="line">    private int imageViewArray[] = &#123; R.drawable.tab_home_btn, R.drawable.tab_view_btn &#125;;</div><div class="line">    private String textViewArray[] = &#123; &quot;首页&quot;, &quot;分类&quot;&#125;;</div><div class="line">    private List&lt;Fragment&gt; list = new ArrayList&lt;Fragment&gt;();</div><div class="line">    private ViewPager vp;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">        super.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line">        initView();//初始化控件</div><div class="line">        initPage();//初始化页面</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    //    控件初始化控件</div><div class="line">    private void initView() &#123;</div><div class="line">        vp = (ViewPager) findViewById(R.id.pager);</div><div class="line"></div><div class="line">        /*实现OnPageChangeListener接口,目的是监听Tab选项卡的变化，然后通知ViewPager适配器切换界面*/</div><div class="line">        /*简单来说,是为了让ViewPager滑动的时候能够带着底部菜单联动*/</div><div class="line"></div><div class="line">        vp.addOnPageChangeListener(this);//设置页面切换时的监听器</div><div class="line">        layoutInflater = LayoutInflater.from(this);//加载布局管理器</div><div class="line"></div><div class="line">        /*实例化FragmentTabHost对象并进行绑定*/</div><div class="line">        mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);//绑定tahost</div><div class="line">        mTabHost.setup(this, getSupportFragmentManager(), R.id.pager);//绑定viewpager</div><div class="line"></div><div class="line">        /*实现setOnTabChangedListener接口,目的是为监听界面切换），然后实现TabHost里面图片文字的选中状态切换*/</div><div class="line">        /*简单来说,是为了当点击下面菜单时,上面的ViewPager能滑动到对应的Fragment*/</div><div class="line">        mTabHost.setOnTabChangedListener(this);</div><div class="line"></div><div class="line">        int count = textViewArray.length;</div><div class="line"></div><div class="line">        /*新建Tabspec选项卡并设置Tab菜单栏的内容和绑定对应的Fragment*/</div><div class="line">        for (int i = 0; i &lt; count; i++) &#123;</div><div class="line">            // 给每个Tab按钮设置标签、图标和文字</div><div class="line">            TabHost.TabSpec tabSpec = mTabHost.newTabSpec(textViewArray[i])</div><div class="line">                    .setIndicator(getTabItemView(i));</div><div class="line">            // 将Tab按钮添加进Tab选项卡中，并绑定Fragment</div><div class="line">            mTabHost.addTab(tabSpec, fragmentArray[i], null);</div><div class="line">            mTabHost.setTag(i);</div><div class="line">            mTabHost.getTabWidget().getChildAt(i)</div><div class="line">                    .setBackgroundResource(R.drawable.selector_tab_background);//设置Tab被选中的时候颜色改变</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /*初始化Fragment*/</div><div class="line">    private void initPage() &#123;</div><div class="line">        Fragment1 fragment1 = new Fragment1();</div><div class="line">        Fragment2 fragment2 = new Fragment2();</div><div class="line"></div><div class="line">        list.add(fragment1);</div><div class="line">        list.add(fragment2);</div><div class="line"></div><div class="line">        //绑定Fragment适配器</div><div class="line">        vp.setAdapter(new MyFragmentAdapter(getSupportFragmentManager(), list));</div><div class="line">        mTabHost.getTabWidget().setDividerDrawable(null);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    private View getTabItemView(int i) &#123;</div><div class="line">        //将xml布局转换为view对象</div><div class="line">        View view = layoutInflater.inflate(R.layout.tab_content, null);</div><div class="line">        //利用view对象，找到布局中的组件,并设置内容，然后返回视图</div><div class="line">        ImageView mImageView = (ImageView) view</div><div class="line">                .findViewById(R.id.tab_imageview);</div><div class="line">        TextView mTextView = (TextView) view.findViewById(R.id.tab_textview);</div><div class="line">        mImageView.setBackgroundResource(imageViewArray[i]);</div><div class="line">        mTextView.setText(textViewArray[i]);</div><div class="line">        return view;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onPageScrollStateChanged(int arg0) &#123;</div><div class="line"></div><div class="line">    &#125;//arg0 ==1的时候表示正在滑动，arg0==2的时候表示滑动完毕了，arg0==0的时候表示什么都没做，就是停在那。</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onPageScrolled(int arg0, float arg1, int arg2) &#123;</div><div class="line"></div><div class="line">    &#125;//表示在前一个页面滑动到后一个页面的时候，在前一个页面滑动前调用的方法</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onPageSelected(int arg0) &#123;//arg0是表示你当前选中的页面位置Postion，这事件是在你页面跳转完毕的时候调用的。</div><div class="line">        TabWidget widget = mTabHost.getTabWidget();</div><div class="line">        int oldFocusability = widget.getDescendantFocusability();</div><div class="line">        widget.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);//设置View覆盖子类控件而直接获得焦点</div><div class="line">        mTabHost.setCurrentTab(arg0);//根据位置Postion设置当前的Tab</div><div class="line">        widget.setDescendantFocusability(oldFocusability);//设置取消分割线</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onTabChanged(String tabId) &#123;//Tab改变的时候调用</div><div class="line">        int position = mTabHost.getCurrentTab();</div><div class="line">        vp.setCurrentItem(position);//把选中的Tab的位置赋给适配器，让它控制页面切换</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>效果图</strong><br>经过上述6个步骤就完成了可滑动的底部菜单栏了，效果图如下：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/944365-336bd6cec59bcc58.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="默认第一个Tab"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/944365-904df922e0d90aa7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="点击或滑动到第二个Tab"></p>
+<h1 id="完整Demo下载地址"><a href="#完整Demo下载地址" class="headerlink" title="完整Demo下载地址"></a>完整Demo下载地址</h1><p>Carson_Ho的Github：<a href="https://github.com/Carson-Ho/Tab_menu_Demo" target="_blank" rel="external">Tab_menu_Demo</a></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>本文对底部菜单栏进行了全面的实现，也讲解得非常详细。接下来我会介绍继续介绍Android开发中的相关知识，有兴趣可以继续关注<a href="http://www.jianshu.com/users/383970bef0a0/latest_articles" target="_blank" rel="external">Carson_Ho的安卓开发笔记</a></p>
+<hr>
+<h1 id="欢迎关注Carson-Ho的简书！"><a href="#欢迎关注Carson-Ho的简书！" class="headerlink" title="欢迎关注Carson_Ho的简书！"></a>欢迎关注<a href="http://www.jianshu.com/users/383970bef0a0/latest_articles" target="_blank" rel="external">Carson_Ho</a>的简书！</h1><p>不定期分享关于<strong>安卓开发</strong>的干货，追求<strong>短、平、快</strong>，但<strong>却不缺深度</strong>。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/944365-9b76fa3c52d478a7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/04/30/底部Tab菜单栏（FragmentTabHost+ViewPager+Fragment）/">Android开发：底部Tab菜单栏（FragmentTabHost+ViewPager+Fragment）</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 Carson_Ho 的个人博客">Carson_Ho</a></p>
+        <p><span>发布时间:</span>2016年04月30日 - 15时33分</p>
+        <p><span>最后更新:</span>2016年10月05日 - 22时04分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/04/30/底部Tab菜单栏（FragmentTabHost+ViewPager+Fragment）/" title="Android开发：底部Tab菜单栏（FragmentTabHost+ViewPager+Fragment）">http://yoursite.com/2016/04/30/底部Tab菜单栏（FragmentTabHost+ViewPager+Fragment）/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/04/30/底部Tab菜单栏（FragmentTabHost+ViewPager+Fragment）/　　作者: Carson_Ho" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/2016/04/20/Listview/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Android开发：ListView、AdapterView、RecyclerView全面解析</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#目录"><span class="toc-number">2.</span> <span class="toc-text">目录</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总体设计思路"><span class="toc-number">3.</span> <span class="toc-text">总体设计思路</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#概念介绍"><span class="toc-number">4.</span> <span class="toc-text">概念介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#实现步骤"><span class="toc-number">5.</span> <span class="toc-text">实现步骤</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#工程文件目录"><span class="toc-number">6.</span> <span class="toc-text">工程文件目录</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#具体实现实例"><span class="toc-number">7.</span> <span class="toc-text">具体实现实例</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#完整Demo下载地址"><span class="toc-number">8.</span> <span class="toc-text">完整Demo下载地址</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-number">9.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#欢迎关注Carson-Ho的简书！"><span class="toc-number">10.</span> <span class="toc-text">欢迎关注Carson_Ho的简书！</span></a></li></ol>
+</div>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
+
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="2016/04/30/底部Tab菜单栏（FragmentTabHost+ViewPager+Fragment）/" data-title="Android开发：底部Tab菜单栏（FragmentTabHost+ViewPager+Fragment）" data-url="http://yoursite.com/2016/04/30/底部Tab菜单栏（FragmentTabHost+ViewPager+Fragment）/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"null"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '/js/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+    <!-- 多说公共JS代码 end -->
+</div>
+
+    
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2016/04/20/Listview/" title="下一篇: Android开发：ListView、AdapterView、RecyclerView全面解析">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/04/30/底部Tab菜单栏（FragmentTabHost+ViewPager+Fragment）/">Android开发：底部Tab菜单栏（FragmentTabHost+ViewPager+Fragment）</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/20/Listview/">Android开发：ListView、AdapterView、RecyclerView全面解析</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/25/Json/">Android开发：JSON最全面解析方法(Gson、AS自带org.json、Jackson解析)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/23/五大布局属性大全/">Android开发： 五大布局属性设置大全</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/12/Intent详解/">Android开发：  Intent介绍及使用方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/05/XML简介及DOM、SAX、PULL解析对比/">Android开发：XML简介及DOM、SAX、PULL解析对比</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/01/ 最全面的HTTP知识总结/">Android网络通信：最全面的HTTP知识总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/07/Fragment详解/">Android开发： Fragment最全面使用详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/21/Activity生命周期/">Android开发：5分钟解析Activity&Fragment生命周期</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/11/Handler源码分析/">Android开发：Handler异步通信机制全面解析（包含Looper、Message Queue）</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/12/21/Android屏幕适配/">Android开发：最全面、最易懂的Android屏幕适配解决方案</a></li></ul>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+            }
+        })
+    </script>
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2016 Carson_Ho
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/luuman/hexo-theme-spfk" target="_blank">spfk</a> by luuman
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" >到访数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 24;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+  </div>
+</body>
+</html>
