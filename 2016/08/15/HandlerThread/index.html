@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Android多线程全面解析：HandlerThread用法&amp;源码 | Carson_Ho Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="HandlerThread用法&amp;源码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android多线程全面解析：HandlerThread用法&源码">
+<meta property="og:url" content="http://yoursite.com/2016/08/15/HandlerThread/index.html">
+<meta property="og:site_name" content="Carson_Ho Blog">
+<meta property="og:description" content="HandlerThread用法&amp;源码">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-207a738cb165a2da.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-e7981e816b55b2e2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-875bd659e9173086.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-586570218c8b2b2b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-c7d3e5862be98665.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-9b76fa3c52d478a7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2016-10-08T02:17:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android多线程全面解析：HandlerThread用法&源码">
+<meta name="twitter:description" content="HandlerThread用法&amp;源码">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/944365-207a738cb165a2da.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+  
+    <link rel="alternative" href="/atom.xml" title="Carson_Ho Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <script>
+      var yiliaConfig = {
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/head.png" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+          <h1 class="header-author"><a href="/">Carson_Ho</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">一个走在产品路上的Android攻城狮</p>
+        
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl CSDN" target="_blank" href="http://blog.csdn.net/carson_ho" title="CSDN">CSDN</a>
+                            
+                                <a class="fl github" target="_blank" href="https://github.com/Carson-Ho" title="github">github</a>
+                            
+                                <a class="fl 简书" target="_blank" href="http://www.jianshu.com/users/383970bef0a0/latest_articles" title="简书">简书</a>
+                            
+                                <a class="fl E-mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=mPv56uv39rbw99j_9_D1_fH0tvv39Q" title="E-mail">E-mail</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/Android基础/" style="font-size: 16.67px;">Android基础</a> <a href="/tags/Android常用汇总/" style="font-size: 20px;">Android常用汇总</a> <a href="/tags/多线程-源码分析/" style="font-size: 10px;">多线程&源码分析</a> <a href="/tags/源码分析/" style="font-size: 13.33px;">源码分析</a> <a href="/tags/设计模式系列/" style="font-size: 13.33px;">设计模式系列</a>
+                    </div>
+                </section>
+                
+                
+                
+
+                
+                
+                <section class="switch-part switch-part3">
+                
+                    <div id="js-aboutme">Android攻城狮、产品经理、健身狂热者、球鞋Sneaker。工作邮箱：carson.ho@foxmail.com</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Carson_Ho</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/head.png" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Carson_Ho</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">一个走在产品路上的Android攻城狮</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="CSDN" target="_blank" href="http://blog.csdn.net/carson_ho" title="CSDN">CSDN</a>
+                    
+                        <a class="github" target="_blank" href="https://github.com/Carson-Ho" title="github">github</a>
+                    
+                        <a class="简书" target="_blank" href="http://www.jianshu.com/users/383970bef0a0/latest_articles" title="简书">简书</a>
+                    
+                        <a class="E-mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=mPv56uv39rbw99j_9_D1_fH0tvv39Q" title="E-mail">E-mail</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-HandlerThread" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/08/15/HandlerThread/" class="article-date">
+      <time datetime="2016-08-15T11:33:26.000Z" itemprop="datePublished">2016-08-15</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android多线程全面解析：HandlerThread用法&amp;源码
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码分析/">源码分析</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p><img src="http://upload-images.jianshu.io/upload_images/944365-207a738cb165a2da.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<hr>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><ul>
+<li><p>多线程的应用在Android开发中是非常常见的，常用方法主要有：</p>
+<ol>
+<li>继承Thread类</li>
+<li>实现Runnable接口</li>
+<li>Handler</li>
+<li>AsyncTask</li>
+<li>HandlerThread</li>
+</ol>
+</li>
+<li><p>今天，我将全面解析多线程其中一种常见用法：HandlerThread</p>
+</li>
+</ul>
+<blockquote>
+<p>由于本文涉及多线程知识和Handler源码解析，所以阅读本文前建议先看：<br><a href="http://www.jianshu.com/p/9fe944ee02f7" target="_blank" rel="external">Android开发：Handler异步通信机制全面解析（包含Looper、Message Queue）</a></p>
+</blockquote>
+<h1 id="多线程完全总结"><a href="#多线程完全总结" class="headerlink" title="多线程完全总结"></a>多线程完全总结</h1><hr>
+<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p><img src="http://upload-images.jianshu.io/upload_images/944365-e7981e816b55b2e2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="目录"></p>
+<hr>
+<h1 id="1-定义"><a href="#1-定义" class="headerlink" title="1. 定义"></a>1. 定义</h1><ul>
+<li>Android API提供的一个封装类</li>
+<li>继承自Thread类</li>
+</ul>
+<hr>
+<h1 id="2-作用"><a href="#2-作用" class="headerlink" title="2. 作用"></a>2. 作用</h1><ul>
+<li>通过继承Thread类，实现<strong>快速地创建一个带有Looper的新工作线程</strong>的功能</li>
+<li>通过对Handler类使用的封装，实现<strong>快速创建Handler并与其他线程进行通信</strong>的功能</li>
+</ul>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>HandlerThread本质上是<strong>通过继承Thread类</strong>和<strong>封装Handler类的使用</strong>，从而使得<strong>创建新线程和与其他线程进行通信</strong>变得更加方便易用</p>
+<hr>
+<h1 id="3-使用对比"><a href="#3-使用对比" class="headerlink" title="3. 使用对比"></a>3. 使用对比</h1><h4 id="3-1-Thread-Handler用法"><a href="#3-1-Thread-Handler用法" class="headerlink" title="3.1 Thread+Handler用法"></a>3.1 Thread+Handler用法</h4><p>因为HandlerThread本质上是继承Thread类和对Handler类使用的封装，所以我们先来看下一般情况下使用Thread+Handler创建线程的用法：</p>
+<ol>
+<li>使用Thread类创建一个新的线程</li>
+<li>通过创建Handler与其他线程进行通信<blockquote>
+<p>如果你还没阅读过Handler的源码，强烈建议先看文章：<br><a href="http://www.jianshu.com/p/9fe944ee02f7" target="_blank" rel="external">Android开发：Handler异步通信机制全面解析（包含Looper、Message Queue）</a></p>
+</blockquote>
+</li>
+</ol>
+<p><em>Thread+Handler的一般用法</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">Handler mHandler;</div><div class="line">private void Thread_With_Handler() &#123;</div><div class="line">//步骤1：实例化Thread类对象</div><div class="line">  new Thread() &#123;</div><div class="line">      @Override</div><div class="line">        public void run() &#123;</div><div class="line">            super.run();</div><div class="line">            //步骤2：创建与当前线程绑定的Looper实例，并初始化MessageQueue</div><div class="line">            Looper.prepare();</div><div class="line">            //步骤3：生成Handler实例并与上面创建的Looper进行绑定</div><div class="line">            mHandler = new Handler(Looper.myLooper());</div><div class="line">            //步骤4：实现消息循环</div><div class="line">            Looper.loop();</div><div class="line">        &#125;</div><div class="line">    &#125;.start();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在注释里已经非常清晰了，接下来我将继续介绍更加方便易用的HandlerThread</p>
+<h3 id="3-2-HandlerThread用法"><a href="#3-2-HandlerThread用法" class="headerlink" title="3.2  HandlerThread用法"></a>3.2  HandlerThread用法</h3><ul>
+<li>HandlerThread的本质：继承Thread类和对Handler类使用的封装。</li>
+<li>我们先来看HandlerThread的具体使用步骤</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">//步骤1：创建HandlerThread的实例对象=已经创建了一个新线程</div><div class="line">//参数=线程名字，作用是标记该线程</div><div class="line">HandlerThread mHandlerThread = new HandlerThread(&quot;handlerThread&quot;);</div><div class="line"></div><div class="line">//步骤2：启动线程</div><div class="line">mHandlerThread.start();</div><div class="line"></div><div class="line">//步骤3：创建工作线程Handler，实现消息处理的操作，并与其他线程进行通信</div><div class="line">Handler mHandler = new Handler( handlerThread.getLooper() ) &#123;</div><div class="line">            @Override</div><div class="line">            public boolean handleMessage(Message msg) &#123;</div><div class="line">                //消息处理</div><div class="line">                return true;</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line"></div><div class="line">//步骤4：结束线程，即停止线程的消息循环</div><div class="line">mHandlerThread.quit();</div></pre></td></tr></table></figure>
+<ul>
+<li>是不是感觉 HandlerThread更加清晰、简单、易用？！</li>
+<li>接下来，我们开始对HandlerThread的用法进行源码分析，看一下HandlerThread是如何通过继承Thread类和封装Handler类用法从而使得多线程通信变得如此方便。</li>
+</ul>
+<hr>
+<h1 id="4-HandlerThread源码分析"><a href="#4-HandlerThread源码分析" class="headerlink" title="4. HandlerThread源码分析"></a>4. HandlerThread源码分析</h1><p>结合HandlerThread上面的用法和本质来看，其实主要是分析：</p>
+<ul>
+<li>如何创建新线程，即分析</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">HandlerThread mHandlerThread = new HandlerThread(&quot;handlerThread&quot;);</div></pre></td></tr></table></figure>
+<ul>
+<li>如何创建Handler并进行通信，即分析</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mHandlerThread.start();</div><div class="line">Handler mHandler = new Handler( handlerThread.getLooper()） ；</div></pre></td></tr></table></figure>
+<ul>
+<li>如何结束线程，即分析</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mHandlerThread.quit();</div></pre></td></tr></table></figure>
+<h4 id="以下是HandlerThread类的源码（注释标注得非常清晰）"><a href="#以下是HandlerThread类的源码（注释标注得非常清晰）" class="headerlink" title="以下是HandlerThread类的源码（注释标注得非常清晰）"></a>以下是HandlerThread类的源码（注释标注得非常清晰）</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div></pre></td><td class="code"><pre><div class="line">public class HandlerThread extends Thread &#123;</div><div class="line">    //线程优先级</div><div class="line">    int mPriority;</div><div class="line">    //当前线程id</div><div class="line">    int mTid = -1;</div><div class="line">    //当前线程持有的Looper对象</div><div class="line">    Looper mLooper;</div><div class="line"></div><div class="line">/*分析1：如何创建新线程*/</div><div class="line"></div><div class="line">   //HandlerThread在进行实例化的同时，已经创建了一个新线程，这说明猫腻是在构造方法</div><div class="line">   //HandlerThread类有两个构造方法</div><div class="line">   //不同之处就是设置当前线程的优先级参数。你可以根据自己的情况来设置优先级，也可以使用默认优先级。</div><div class="line"></div><div class="line">    //方法1. 默认优先级</div><div class="line">    public HandlerThread(String name) &#123;</div><div class="line">        //通过调用父类默认的方法创建线程</div><div class="line">        super(name);</div><div class="line">        mPriority = Process.THREAD_PRIORITY_DEFAULT;</div><div class="line">    &#125;</div><div class="line">  </div><div class="line">    //方法2. 根据需求设置优先级-构造方法带优先级参数</div><div class="line">    public HandlerThread(String name, int priority) &#123;</div><div class="line">        super(name);</div><div class="line">        mPriority = priority;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">/*分析2：如何创建Handler*/</div><div class="line"></div><div class="line">    //步骤1：通过run()方法作好创建Handler的准备</div><div class="line">    @Override</div><div class="line">    public void run() &#123;</div><div class="line">        //获得当前线程的id</div><div class="line">        mTid = Process.myTid();</div><div class="line">        //创建了一个Looper对象并初始化了一个MessageQueue</div><div class="line">        Looper.prepare();</div><div class="line">        //持有锁机制来获得当前线程的Looper对象</div><div class="line">        synchronized (this) &#123;</div><div class="line">            mLooper = Looper.myLooper();</div><div class="line">           </div><div class="line">            //通知getLooper方法中的wait当前线程已经创建mLooper对象成功，让wait结束等待</div><div class="line">            notifyAll();</div><div class="line">        &#125;</div><div class="line">        //设置当前线程的优先级</div><div class="line">        Process.setThreadPriority(mPriority);</div><div class="line">        //在线程循环之前做一些准备工作</div><div class="line">        //该方法实现体是空的，子类可以实现该方法，也可以不实现。</div><div class="line">        onLooperPrepared();</div><div class="line">        //进行消息循环，即不断从MessageQueue中取消息和派发消息</div><div class="line">        Looper.loop();</div><div class="line">        mTid = -1;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">    //线程循环前的准备工作</div><div class="line">    protected void onLooperPrepared() &#123;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    //步骤2：在创建Handler时调用了getLooper()</div><div class="line">    //Handler mHandler = new Handler( handlerThread.getLooper()）</div><div class="line">    //getLooper()的作用主要是获得当前HandlerThread线程中的mLooper对象</div><div class="line">    public Looper getLooper() &#123;</div><div class="line">        //如果线程不是存活的，则直接返回null</div><div class="line">        if (!isAlive()) &#123;</div><div class="line">            return null;</div><div class="line">        &#125; </div><div class="line"></div><div class="line">        synchronized (this) &#123;</div><div class="line">      //首先判断当前线程是否存活</div><div class="line">      //如果不是存活的，这直接返回null。</div><div class="line">      //其次如果当前线程存活的，在判断线程的成员变量mLooper是否为null，如果为null，说明当前线程已经创建成功，但是还没来得及创建Looper对象</div><div class="line">            while (isAlive() &amp;&amp; mLooper == null) &#123;</div><div class="line">                try &#123;</div><div class="line">      //因此，这里会调用wait方法去等待</div><div class="line">                    wait();</div><div class="line">                &#125; catch (InterruptedException e) &#123;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        //当run方法中的notifyAll方法调用之后通知当前线程的wait方法结束等待并跳出循环</div><div class="line">        //最终getLooper()返回的是我们在run方法中创建的mLooper</div><div class="line">        return mLooper;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">/*分析3：结束新线程*/</div><div class="line"></div><div class="line">  //Handler有两种让当前线程退出循环的方法：quit() 和 quitSafely()</div><div class="line">  //第一种：效率高，但线程不安全</div><div class="line">  public boolean quit() &#123;</div><div class="line">        Looper looper = getLooper();</div><div class="line">        if (looper != null) &#123;</div><div class="line">            looper.quit();</div><div class="line">            return true;</div><div class="line">        &#125;</div><div class="line">        return false;</div><div class="line">    &#125;</div><div class="line">  //第二种：效率低，但线程安全</div><div class="line">  public boolean quitSafely() &#123;</div><div class="line">        Looper looper = getLooper();</div><div class="line">        if (looper != null) &#123;</div><div class="line">            looper.quitSafely();</div><div class="line">            return true;</div><div class="line">        &#125;</div><div class="line">        return false;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>注意：</p>
+<ul>
+<li>在获得mLooper对象的时候存在一个同步的问题：只有当线程创建成功并且Looper对象也创建成功之后才能获得mLooper的值，才能将创建的Handler与该Looper绑定</li>
+<li>解决方案：在run()中成功创建Looper对象后，立即调用notifyAll（）通知 getLooper()中的wait（）结束等待，并返回run()中成功创建的Looper对象，使得Handler与该Looper对象绑定</li>
+</ul>
+<h1 id="5-实例使用"><a href="#5-实例使用" class="headerlink" title="5. 实例使用"></a>5. 实例使用</h1><h4 id="5-1-实例说明："><a href="#5-1-实例说明：" class="headerlink" title="5.1 实例说明："></a>5.1 实例说明：</h4><ul>
+<li>目的：点击按钮实现延迟操作并更新UI组件</li>
+<li>使用方法：HandlerThread类</li>
+</ul>
+<p>在看下面例子之前我建议你们先去下载Demo，边下边读效果更佳哦！</p>
+<blockquote>
+<p>源码地址：<a href="https://github.com/Carson-Ho/HandlerThread" target="_blank" rel="external">Demo for HandlerThread</a></p>
+</blockquote>
+<h4 id="5-2-具体代码"><a href="#5-2-具体代码" class="headerlink" title="5.2 具体代码"></a>5.2 具体代码</h4><ol>
+<li>主布局文件<br><em>activity_main.xml</em></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;RelativeLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">    xmlns:tools=&quot;http://schemas.android.com/tools&quot;</div><div class="line">    android:layout_width=&quot;match_parent&quot;</div><div class="line">    android:layout_height=&quot;match_parent&quot;</div><div class="line">   </div><div class="line"> tools:context=&quot;com.example.carson_ho.handlerthread.MainActivity&quot;&gt;</div><div class="line">//用于显示结果</div><div class="line">    &lt;TextView</div><div class="line">        android:id=&quot;@+id/text1&quot;</div><div class="line">        android:layout_centerInParent=&quot;true&quot;</div><div class="line">        android:layout_width=&quot;wrap_content&quot;</div><div class="line">        android:layout_height=&quot;wrap_content&quot;</div><div class="line">        android:text=&quot;显示结果&quot; /&gt;</div><div class="line">//点击按钮1和2实现相应延时操作 &amp; UI组件更新</div><div class="line">    &lt;Button</div><div class="line">        android:id=&quot;@+id/button1&quot;</div><div class="line">        android:layout_centerInParent=&quot;true&quot;</div><div class="line">        android:layout_below=&quot;@+id/text1&quot;</div><div class="line">        android:layout_width=&quot;wrap_content&quot;</div><div class="line">        android:layout_height=&quot;wrap_content&quot;</div><div class="line">        android:text=&quot;延迟3秒显示我爱学习&quot;/&gt;</div><div class="line"></div><div class="line">    &lt;Button</div><div class="line">        android:id=&quot;@+id/button2&quot;</div><div class="line">        android:layout_centerInParent=&quot;true&quot;</div><div class="line">        android:layout_below=&quot;@+id/button1&quot;</div><div class="line">        android:layout_width=&quot;wrap_content&quot;</div><div class="line">        android:layout_height=&quot;wrap_content&quot;</div><div class="line">        android:text=&quot;延迟10秒显示我不爱学习&quot;/&gt;</div><div class="line">//点击按钮结束线程</div><div class="line">    &lt;Button</div><div class="line">        android:id=&quot;@+id/button3&quot;</div><div class="line">        android:layout_centerInParent=&quot;true&quot;</div><div class="line">        android:layout_below=&quot;@+id/button2&quot;</div><div class="line">        android:layout_width=&quot;wrap_content&quot;</div><div class="line">        android:layout_height=&quot;wrap_content&quot;</div><div class="line">        android:text=&quot;结束线程的消息循环&quot;/&gt;</div><div class="line">&lt;/RelativeLayout&gt;</div></pre></td></tr></table></figure>
+<ol>
+<li>MainActivity文件</li>
+</ol>
+<p><em>MainActivity.java</em>（注释已经标注得非常清楚）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div></pre></td><td class="code"><pre><div class="line">package com.example.carson_ho.handlerthread;</div><div class="line"></div><div class="line">import android.os.Bundle;</div><div class="line">import android.os.Handler;</div><div class="line">import android.os.HandlerThread;</div><div class="line">import android.os.Message;</div><div class="line">import android.support.v7.app.AppCompatActivity;</div><div class="line">import android.view.View;</div><div class="line">import android.widget.Button;</div><div class="line">import android.widget.TextView;</div><div class="line"></div><div class="line">public class MainActivity extends AppCompatActivity &#123;</div><div class="line"></div><div class="line">    HandlerThread mHandlerThread;</div><div class="line">    Handler mainHandler,workHandler;</div><div class="line">    TextView text;</div><div class="line">    Button button1,button2,button3;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">        super.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line"></div><div class="line">        //显示文本</div><div class="line">        text = (TextView) findViewById(R.id.text1);</div><div class="line"></div><div class="line">        //创建与主线程关联的Handler</div><div class="line">        mainHandler = new Handler();</div><div class="line"></div><div class="line">        //创建后台线程</div><div class="line">        initBackground();</div><div class="line"></div><div class="line">        //点击Button1-通过SendMessage方法将0x121消息发送至MessageQueue</div><div class="line">        //在工作线程中,当消息循环时取出0x121消息并在工作线程执行相关操作</div><div class="line">        button1 = (Button) findViewById(R.id.button1);</div><div class="line">        button1.setOnClickListener(new View.OnClickListener() &#123;</div><div class="line">            @Override</div><div class="line">            public void onClick(View v) &#123;</div><div class="line"></div><div class="line">                workHandler.sendEmptyMessage(0x121);</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line"></div><div class="line">        //点击Button2-通过SendMessage方法将0x122消息发送至MessageQueue</div><div class="line">        //在工作线程中,当消息循环时取出0x122消息并在工作线程执行相关操作</div><div class="line">        button2 = (Button) findViewById(R.id.button2);</div><div class="line">        button2.setOnClickListener(new View.OnClickListener() &#123;</div><div class="line">            @Override</div><div class="line">            public void onClick(View v) &#123;</div><div class="line"></div><div class="line">                workHandler.sendEmptyMessage(0x122);</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line"></div><div class="line"></div><div class="line">        //点击Button3-退出消息循环</div><div class="line">        button3 = (Button) findViewById(R.id.button3);</div><div class="line">        button3.setOnClickListener(new View.OnClickListener() &#123;</div><div class="line">            @Override</div><div class="line">            public void onClick(View v) &#123;</div><div class="line"></div><div class="line">                mHandlerThread.quit();</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    private void initBackground()&#123;</div><div class="line">        //通过实例化mHandlerThread从而创建新线程</div><div class="line">        mHandlerThread = new HandlerThread(&quot;handlerThread&quot;);</div><div class="line">        //启动新线程</div><div class="line">        mHandlerThread.start();</div><div class="line"></div><div class="line">        //创建与工作线程相关联的Handler,并与mHandlerThread所创建的Looper相关联</div><div class="line">        //实现了Handler与工作线程相关联</div><div class="line">        //下面HandlerMessage的方法体均会在mHandlerThread所创建的工作线程中执行</div><div class="line">        workHandler = new Handler(mHandlerThread.getLooper())&#123;</div><div class="line">            @Override</div><div class="line">            //消息处理的操作</div><div class="line">            public void handleMessage(Message msg)</div><div class="line">            &#123;</div><div class="line">                //设置了两种消息处理操作,通过msg来进行识别</div><div class="line">                switch(msg.what)&#123;</div><div class="line">                    //标识1:0x121</div><div class="line">                    case 0x121:</div><div class="line">                        try &#123;</div><div class="line">                            //延时操作</div><div class="line">                            Thread.sleep(3000);</div><div class="line">                        &#125; catch (InterruptedException e) &#123;</div><div class="line">                            e.printStackTrace();</div><div class="line">                        &#125;</div><div class="line">                        //通过主线程Handler.post方法进行在主线程的UI更新操作</div><div class="line">                        //可能有人看到new了一个Runnable就以为是又开了一个新线程</div><div class="line">                        //事实上并没有开启任何新线程，只是使run()方法体的代码抛到与mHandler相关联的线程中执行，我们知道mainHandler是与主线程关联的，所以更新TextView组件依然发生在主线程</div><div class="line">                        mainHandler.post(new Runnable() &#123;</div><div class="line">                            @Override</div><div class="line">                            public void run () &#123;</div><div class="line">                                text.setText(&quot;我爱学习&quot;);</div><div class="line">                            &#125;</div><div class="line">                        &#125;);</div><div class="line">                        break;</div><div class="line"></div><div class="line">                    //标识2:0x122</div><div class="line">                    case 0x122:</div><div class="line">                        try &#123;</div><div class="line">                            Thread.sleep(10000);</div><div class="line">                        &#125; catch (InterruptedException e) &#123;</div><div class="line">                            e.printStackTrace();</div><div class="line">                        &#125;</div><div class="line">                        mainHandler.post(new Runnable() &#123;</div><div class="line">                            @Override</div><div class="line">                            public void run () &#123;</div><div class="line">                                text.setText(&quot;我不喜欢学习&quot;);</div><div class="line">                            &#125;</div><div class="line">                        &#125;);</div><div class="line">                        break;</div><div class="line">                    default:</div><div class="line">                        break;</div><div class="line">                      &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="5-3-运行结果"><a href="#5-3-运行结果" class="headerlink" title="5.3 运行结果"></a>5.3 运行结果</h1><p><img src="http://upload-images.jianshu.io/upload_images/944365-875bd659e9173086.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="未点击状态"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/944365-586570218c8b2b2b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="点击了“延迟3秒”按钮"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/944365-c7d3e5862be98665.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="点击了“延迟10秒”按钮"></p>
+<h1 id="5-4-特别注意"><a href="#5-4-特别注意" class="headerlink" title="5.4 特别注意"></a>5.4 特别注意</h1><p>从上面的例子中会出现两个细节问题：<br><strong>5.4.1 细节问题1：内存泄露</strong><br>在上面的例子中，你会发现出现了严重的警告：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">In Android, Handler classes should be static or leaks might occur.</div></pre></td></tr></table></figure>
+<p>即造成了严重的<strong>内存泄漏</strong>，关于Handler的内存泄露请参考XXX</p>
+<p><strong>5.4.2 细节问题2：连续发送消息</strong></p>
+<ul>
+<li>当你连续点击3下时，发现并没有马上按照最新点击的按钮的操作去显示，而是按顺序的一个个显示出来</li>
+<li>原因：使用HandlerThread时只是开了一个工作线程，当你点击了x下后，只是将x个消息发送到消息队列MessageQueue里排队，等候派发消息给Handler再进行对应的操作</li>
+</ul>
+<h1 id="5-5-Demo的源码地址"><a href="#5-5-Demo的源码地址" class="headerlink" title="5.5 Demo的源码地址"></a>5.5 Demo的源码地址</h1><p>源码地址放在Github上：<a href="https://github.com/Carson-Ho/HandlerThread" target="_blank" rel="external">Demo for HandlerThread</a></p>
+<h1 id="6-总结"><a href="#6-总结" class="headerlink" title="6. 总结"></a>6. 总结</h1><ul>
+<li>本文主要对多线程HandlerThread的用法和源码进行了全面介绍</li>
+<li>接下来，我会继续讲解Android开发中关于多线程的知识，包括继承Thread类、实现Runnable接口、Handler等等，有兴趣可以继续关注<a href="http://www.jianshu.com/users/383970bef0a0/latest_articles" target="_blank" rel="external">Carson_Ho的安卓开发笔记</a></li>
+</ul>
+<hr>
+<h3 id="欢迎关注Carson-Ho的简书！"><a href="#欢迎关注Carson-Ho的简书！" class="headerlink" title="欢迎关注Carson_Ho的简书！"></a>欢迎关注<a href="http://www.jianshu.com/users/383970bef0a0/latest_articles" target="_blank" rel="external">Carson_Ho</a>的简书！</h3><p>不定期分享关于<strong>安卓开发</strong>的干货，追求<strong>短、平、快</strong>，但<strong>却不缺深度</strong>。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/944365-9b76fa3c52d478a7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/08/15/HandlerThread/">Android多线程全面解析：HandlerThread用法&amp;源码</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 Carson_Ho 的个人博客">Carson_Ho</a></p>
+        <p><span>发布时间:</span>2016年08月15日 - 19时33分</p>
+        <p><span>最后更新:</span>2016年10月08日 - 10时17分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/08/15/HandlerThread/" title="Android多线程全面解析：HandlerThread用法&amp;源码">http://yoursite.com/2016/08/15/HandlerThread/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/08/15/HandlerThread/　　作者: Carson_Ho" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/2016/07/21/详解Handler的内存泄露/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Android开发：详解Handler的内存泄露</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#多线程完全总结"><span class="toc-number">2.</span> <span class="toc-text">多线程完全总结</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#目录"><span class="toc-number">3.</span> <span class="toc-text">目录</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-定义"><span class="toc-number">4.</span> <span class="toc-text">1. 定义</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-作用"><span class="toc-number">5.</span> <span class="toc-text">2. 作用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-number">6.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-使用对比"><span class="toc-number">7.</span> <span class="toc-text">3. 使用对比</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-Thread-Handler用法"><span class="toc-number">7.0.0.1.</span> <span class="toc-text">3.1 Thread+Handler用法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-HandlerThread用法"><span class="toc-number">7.0.1.</span> <span class="toc-text">3.2  HandlerThread用法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-HandlerThread源码分析"><span class="toc-number">8.</span> <span class="toc-text">4. HandlerThread源码分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#以下是HandlerThread类的源码（注释标注得非常清晰）"><span class="toc-number">8.0.0.1.</span> <span class="toc-text">以下是HandlerThread类的源码（注释标注得非常清晰）</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-实例使用"><span class="toc-number">9.</span> <span class="toc-text">5. 实例使用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-1-实例说明："><span class="toc-number">9.0.0.1.</span> <span class="toc-text">5.1 实例说明：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-具体代码"><span class="toc-number">9.0.0.2.</span> <span class="toc-text">5.2 具体代码</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-3-运行结果"><span class="toc-number">10.</span> <span class="toc-text">5.3 运行结果</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-4-特别注意"><span class="toc-number">11.</span> <span class="toc-text">5.4 特别注意</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-5-Demo的源码地址"><span class="toc-number">12.</span> <span class="toc-text">5.5 Demo的源码地址</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-总结"><span class="toc-number">13.</span> <span class="toc-text">6. 总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#欢迎关注Carson-Ho的简书！"><span class="toc-number">13.0.1.</span> <span class="toc-text">欢迎关注Carson_Ho的简书！</span></a></li></ol></li></ol></li></ol>
+</div>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
+
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="2016/08/15/HandlerThread/" data-title="Android多线程全面解析：HandlerThread用法&amp;源码" data-url="http://yoursite.com/2016/08/15/HandlerThread/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"null"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '/js/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+    <!-- 多说公共JS代码 end -->
+</div>
+
+    
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2016/07/21/详解Handler的内存泄露/" title="下一篇: Android开发：详解Handler的内存泄露">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/08/15/HandlerThread/">Android多线程全面解析：HandlerThread用法&源码</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/21/详解Handler的内存泄露/">Android开发：详解Handler的内存泄露</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/11/工厂方法模式（Factory Method）/">工厂方法模式（Factory Method）- 最易懂的设计模式解析</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/11/推送/">史上最全解析Android消息推送解决方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/30/底部Tab菜单栏（FragmentTabHost+ViewPager+Fragment）/">Android开发：底部Tab菜单栏（FragmentTabHost+ViewPager+Fragment）</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/20/Listview/">Android开发：ListView、AdapterView、RecyclerView全面解析</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/25/Json/">Android开发：JSON最全面解析方法(Gson、AS自带org.json、Jackson解析)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/23/五大布局属性大全/">Android开发： 五大布局属性设置大全</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/12/Intent详解/">Android开发：  Intent介绍及使用方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/05/XML简介及DOM、SAX、PULL解析对比/">Android开发：XML简介及DOM、SAX、PULL解析对比</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/01/ 最全面的HTTP知识总结/">Android网络通信：最全面的HTTP知识总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/07/Fragment详解/">Android开发： Fragment最全面使用详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/21/Activity生命周期/">Android开发：5分钟解析Activity&Fragment生命周期</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/21/底部Tab导航栏实现（TabLayout+ViewPager+Fragment）/">Android开发：顶部&底部Tab导航栏实现（TabLayout+ViewPager+Fragment）</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/21/1分钟全面了解“设计模式”/">Android开发： 1分钟全面了解“设计模式”</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/21/简单工厂模式（SimpleFactoryPattern）/">简单工厂模式（SimpleFactoryPattern）- 最易懂的设计模式解析</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/11/Handler源码分析/">Android开发：Handler异步通信机制全面解析（包含Looper、Message Queue）</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/05/单例模式（Singleton）/">单例模式（Singleton）- 最易懂的设计模式解析</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/12/21/Android屏幕适配/">Android开发：最全面、最易懂的Android屏幕适配解决方案</a></li></ul>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+            }
+        })
+    </script>
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2016 Carson_Ho
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/luuman/hexo-theme-spfk" target="_blank">spfk</a> by luuman
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" >到访数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 24;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+  </div>
+</body>
+</html>
