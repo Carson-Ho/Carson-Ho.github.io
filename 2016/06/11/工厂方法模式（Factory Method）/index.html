@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>工厂方法模式（Factory Method）- 最易懂的设计模式解析 | Carson_Ho Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="工厂方法模式（Factory Method）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="工厂方法模式（Factory Method）- 最易懂的设计模式解析">
+<meta property="og:url" content="http://yoursite.com/2016/06/11/工厂方法模式（Factory Method）/index.html">
+<meta property="og:site_name" content="Carson_Ho Blog">
+<meta property="og:description" content="工厂方法模式（Factory Method）">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-5b4efef4eb3ac5c1.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-27764702a32834a3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-9b76fa3c52d478a7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2016-10-08T01:54:10.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="工厂方法模式（Factory Method）- 最易懂的设计模式解析">
+<meta name="twitter:description" content="工厂方法模式（Factory Method）">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/944365-5b4efef4eb3ac5c1.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+  
+    <link rel="alternative" href="/atom.xml" title="Carson_Ho Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <script>
+      var yiliaConfig = {
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/head.png" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+          <h1 class="header-author"><a href="/">Carson_Ho</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">一个走在产品路上的Android攻城狮</p>
+        
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl CSDN" target="_blank" href="http://blog.csdn.net/carson_ho" title="CSDN">CSDN</a>
+                            
+                                <a class="fl github" target="_blank" href="https://github.com/Carson-Ho" title="github">github</a>
+                            
+                                <a class="fl 简书" target="_blank" href="http://www.jianshu.com/users/383970bef0a0/latest_articles" title="简书">简书</a>
+                            
+                                <a class="fl E-mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=mPv56uv39rbw99j_9_D1_fH0tvv39Q" title="E-mail">E-mail</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/Android基础/" style="font-size: 16.67px;">Android基础</a> <a href="/tags/Android常用汇总/" style="font-size: 20px;">Android常用汇总</a> <a href="/tags/多线程-源码分析/" style="font-size: 10px;">多线程&源码分析</a> <a href="/tags/源码分析/" style="font-size: 10px;">源码分析</a> <a href="/tags/设计模式系列/" style="font-size: 13.33px;">设计模式系列</a>
+                    </div>
+                </section>
+                
+                
+                
+
+                
+                
+                <section class="switch-part switch-part3">
+                
+                    <div id="js-aboutme">Android攻城狮、产品经理、健身狂热者、球鞋Sneaker。工作邮箱：carson.ho@foxmail.com</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Carson_Ho</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/head.png" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Carson_Ho</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">一个走在产品路上的Android攻城狮</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="CSDN" target="_blank" href="http://blog.csdn.net/carson_ho" title="CSDN">CSDN</a>
+                    
+                        <a class="github" target="_blank" href="https://github.com/Carson-Ho" title="github">github</a>
+                    
+                        <a class="简书" target="_blank" href="http://www.jianshu.com/users/383970bef0a0/latest_articles" title="简书">简书</a>
+                    
+                        <a class="E-mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=mPv56uv39rbw99j_9_D1_fH0tvv39Q" title="E-mail">E-mail</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-工厂方法模式（Factory Method）" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/06/11/工厂方法模式（Factory Method）/" class="article-date">
+      <time datetime="2016-06-11T11:33:26.000Z" itemprop="datePublished">2016-06-11</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      工厂方法模式（Factory Method）- 最易懂的设计模式解析
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/设计模式系列/">设计模式系列</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在上文提到的<a href="http://www.jianshu.com/p/e55fbddc071c" target="_blank" rel="external">最易懂的设计模式系列解析：简单工厂模式</a>，发现简单工厂模式存在一系列问题：</p>
+<ul>
+<li>工厂类集中了所有实例（产品）的创建逻辑，一旦这个工厂不能正常工作，整个系统都会受到影响；</li>
+<li>违背“开放 - 关闭原则”，一旦添加新产品就不得不修改工厂类的逻辑，这样就会造成工厂逻辑过于复杂。</li>
+<li>简单工厂模式由于使用了静态工厂方法，静态方法不能被继承和重写，会造成工厂角色无法形成基于继承的等级结构。</li>
+</ul>
+<p>为了解决上述的问题，我们又使用了一种新的设计模式：工厂方法模式。</p>
+<blockquote>
+<p>在阅读下文前强烈建议先阅读<a href="http://www.jianshu.com/p/e55fbddc071c" target="_blank" rel="external">最易懂的设计模式系列解析：简单工厂模式</a></p>
+</blockquote>
+<hr>
+<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p><img src="http://upload-images.jianshu.io/upload_images/944365-5b4efef4eb3ac5c1.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="工厂方法模式.jpg"></p>
+<hr>
+<h1 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1. 介绍"></a>1. 介绍</h1><h4 id="1-1-定义"><a href="#1-1-定义" class="headerlink" title="1.1 定义"></a>1.1 定义</h4><p>工厂方法模式，又称工厂模式、多态工厂模式和虚拟构造器模式，通过定义工厂父类负责定义创建对象的公共接口，而子类则负责生成具体的对象。</p>
+<h4 id="1-2-主要作用"><a href="#1-2-主要作用" class="headerlink" title="1.2 主要作用"></a>1.2 主要作用</h4><p>将类的实例化（具体产品的创建）延迟到工厂类的子类（具体工厂）中完成，即由子类来决定应该实例化（创建）哪一个类。</p>
+<h4 id="1-3-解决的问题"><a href="#1-3-解决的问题" class="headerlink" title="1.3 解决的问题"></a>1.3 解决的问题</h4><p>工厂一旦需要生产新产品就需要修改工厂类的方法逻辑，违背了“开放 - 关闭原则</p>
+<blockquote>
+<ol>
+<li>即<strong>简单工厂模式</strong>的缺点</li>
+<li>之所以可以解决简单工厂的问题，是因为工厂方法模式把具体产品的创建推迟到工厂类的子类（具体工厂）中，此时工厂类不再负责所有产品的创建，而只是给出具体工厂必须实现的接口，这样工厂方法模式在添加新产品的时候就不修改工厂类逻辑而是添加新的工厂子类，符合开放封闭原则，克服了简单工厂模式中缺点</li>
+</ol>
+</blockquote>
+<hr>
+<h1 id="2-模式原理"><a href="#2-模式原理" class="headerlink" title="2. 模式原理"></a>2. 模式原理</h1><h4 id="2-1-UML类图"><a href="#2-1-UML类图" class="headerlink" title="2.1 UML类图"></a>2.1 UML类图</h4><p><img src="http://upload-images.jianshu.io/upload_images/944365-27764702a32834a3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="UML类图"></p>
+<h4 id="2-2-模式组成"><a href="#2-2-模式组成" class="headerlink" title="2.2 模式组成"></a>2.2 模式组成</h4><table>
+<thead>
+<tr>
+<th>组成（角色）</th>
+<th style="text-align:center">关系</th>
+<th style="text-align:right">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>抽象产品（Product）</td>
+<td style="text-align:center">具体产品的父类</td>
+<td style="text-align:right">描述具体产品的公共接口</td>
+</tr>
+<tr>
+<td>具体产品（Concrete Product）</td>
+<td style="text-align:center">抽象产品的子类；工厂类创建的目标类</td>
+<td style="text-align:right">描述生产的具体产品</td>
+</tr>
+<tr>
+<td>抽象工厂（Creator）</td>
+<td style="text-align:center">具体工厂的父类</td>
+<td style="text-align:right">描述具体工厂的公共接口</td>
+</tr>
+<tr>
+<td>具体工厂（Concrete Creator）</td>
+<td style="text-align:center">抽象工厂的子类；被外界调用</td>
+<td style="text-align:right">描述具体工厂；实现FactoryMethod工厂方法创建产品的实例</td>
+</tr>
+</tbody>
+</table>
+<h4 id="2-3-使用步骤"><a href="#2-3-使用步骤" class="headerlink" title="2.3 使用步骤"></a>2.3 使用步骤</h4><p><strong>步骤1：</strong> 创建<strong>抽象工厂类</strong>，定义具体工厂的公共接口；<br><strong>步骤2：</strong> 创建<strong>抽象产品类</strong> ，定义具体产品的公共接口；<br><strong>步骤3：</strong> 创建<strong>具体产品类</strong>（继承抽象产品类） &amp; 定义生产的具体产品；<br><strong>步骤4：</strong>创建<strong>具体工厂类</strong>（继承抽象工厂类），定义创建对应具体产品实例的方法；<br><strong>步骤5：</strong>外界通过调用具体工厂类的方法，从而创建不同<strong>具体产品类的实例</strong></p>
+<hr>
+<h1 id="3-实例讲解"><a href="#3-实例讲解" class="headerlink" title="3. 实例讲解"></a>3. 实例讲解</h1><p>接下来我用一个实例来对工厂方法模式进行更深一步的介绍。</p>
+<h4 id="3-1-实例概况"><a href="#3-1-实例概况" class="headerlink" title="3.1 实例概况"></a>3.1 实例概况</h4><ul>
+<li>背景：小成有一间塑料加工厂（仅生产A类产品）；随着客户需求的变化，客户需要生产B类产品；</li>
+<li>冲突：改变原有塑料加工厂的配置和变化非常困难，假设下一次客户需要再发生变化，再次改变将增大非常大的成本；</li>
+<li>解决方案：小成决定置办<strong>塑料分厂B</strong>来生产B类产品；<blockquote>
+<p>即工厂方法模式</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="3-2-使用步骤"><a href="#3-2-使用步骤" class="headerlink" title="3.2 使用步骤"></a>3.2 使用步骤</h4><p><strong>步骤1：</strong> 创建<strong>抽象工厂类</strong>，定义具体工厂的公共接口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">abstract class Factory&#123;</div><div class="line">    public abstract Product Manufacture();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>步骤2：</strong> 创建<strong>抽象产品类</strong> ，定义具体产品的公共接口；<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">abstract class Product&#123;</div><div class="line">    public abstract void Show();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>步骤3：</strong> 创建<strong>具体产品类</strong>（继承抽象产品类）， 定义生产的具体产品</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">//具体产品A类</div><div class="line">class  ProductA extends  Product&#123;</div><div class="line">    @Override</div><div class="line">    public void Show() &#123;</div><div class="line">        System.out.println(&quot;生产出了产品A&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//具体产品B类</div><div class="line">class  ProductB extends  Product&#123;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void Show() &#123;</div><div class="line">        System.out.println(&quot;生产出了产品B&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>步骤4：</strong>创建<strong>具体工厂类</strong>（继承抽象工厂类），定义创建对应具体产品实例的方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">//工厂A类 - 生产A类产品</div><div class="line">class  FactoryA extends Factory&#123;</div><div class="line">    @Override</div><div class="line">    public Product Manufacture() &#123;</div><div class="line">        return new ProductA();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//工厂B类 - 生产B类产品</div><div class="line">class  FactoryB extends Factory&#123;</div><div class="line">    @Override</div><div class="line">    public Product Manufacture() &#123;</div><div class="line">        return new ProductB();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>步骤5：</strong>外界通过调用具体工厂类的方法，从而创建不同<strong>具体产品类的实例</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">//生产工作流程</div><div class="line">public class FactoryPattern &#123;</div><div class="line">    public static void main(String[] args)&#123;</div><div class="line">        //客户要产品A</div><div class="line">        FactoryA mFactoryA = new FactoryA();</div><div class="line">        mFactoryA.Manufacture().Show();</div><div class="line"></div><div class="line">        //客户要产品B</div><div class="line">        FactoryB mFactoryB = new FactoryB();</div><div class="line">        mFactoryB.Manufacture().Show();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">生产出了产品A</div><div class="line">生产出了产品C</div></pre></td></tr></table></figure>
+<hr>
+<h1 id="4-优点"><a href="#4-优点" class="headerlink" title="4. 优点"></a>4. 优点</h1><ul>
+<li><p>更符合开-闭原则<br>新增一种产品时，只需要增加相应的具体产品类和相应的工厂子类即可</p>
+<blockquote>
+<p>简单工厂模式需要修改工厂类的判断逻辑</p>
+</blockquote>
+</li>
+<li><p>符合单一职责原则<br>每个具体工厂类只负责创建对应的产品</p>
+<blockquote>
+<p>简单工厂中的工厂类存在复杂的switch逻辑判断</p>
+</blockquote>
+</li>
+<li><p>不使用静态工厂方法，可以形成基于继承的等级结构。</p>
+<blockquote>
+<p>简单工厂模式的工厂类使用静态工厂方法</p>
+</blockquote>
+</li>
+</ul>
+<p>总结：工厂模式可以说是简单工厂模式的进一步抽象和拓展，在保留了简单工厂的封装优点的同时，让扩展变得简单，让继承变得可行，增加了多态性的体现。</p>
+<hr>
+<h1 id="5-缺点"><a href="#5-缺点" class="headerlink" title="5. 缺点"></a>5. 缺点</h1><ul>
+<li>添加新产品时，除了增加新产品类外，还要提供与之对应的具体工厂类，系统类的个数将成对增加，在一定程度上增加了系统的复杂度；同时，有更多的类需要编译和运行，会给系统带来一些额外的开销；</li>
+<li>由于考虑到系统的可扩展性，需要引入抽象层，在客户端代码中均使用抽象层进行定义，增加了系统的抽象性和理解难度，且在实现时可能需要用到DOM、反射等技术，增加了系统的实现难度。</li>
+<li>虽然保证了工厂方法内的对修改关闭，但对于使用工厂方法的类，如果要更换另外一种产品，仍然需要修改实例化的具体工厂类；</li>
+<li>一个具体工厂只能创建一种具体产品</li>
+</ul>
+<hr>
+<h1 id="6-应用场景"><a href="#6-应用场景" class="headerlink" title="6. 应用场景"></a>6. 应用场景</h1><p>在了解了优缺点后，我总结了工厂方法模式的应用场景：</p>
+<ul>
+<li>当一个类不知道它所需要的对象的类时<br>在工厂方法模式中，客户端不需要知道具体产品类的类名，只需要知道所对应的工厂即可；</li>
+<li>当一个类希望通过其子类来指定创建对象时<br>在工厂方法模式中，对于抽象工厂类只需要提供一个创建产品的接口，而由其子类来确定具体要创建的对象，利用面向对象的多态性和里氏代换原则，在程序运行时，子类对象将覆盖父类对象，从而使得系统更容易扩展。</li>
+<li>将创建对象的任务委托给多个工厂子类中的某一个，客户端在使用时可以无须关心是哪一个工厂子类创建产品子类，需要时再动态指定，可将具体工厂类的类名存储在配置文件或数据库中。</li>
+</ul>
+<hr>
+<h1 id="7-总结"><a href="#7-总结" class="headerlink" title="7. 总结"></a>7. 总结</h1><p>本文主要对<strong>工厂方法模式</strong>进行了全面介绍，接下来将介绍其他设计模式，有兴趣可以继续关注<a href="http://www.jianshu.com/users/383970bef0a0/latest_articles" target="_blank" rel="external">Carson_Ho的安卓开发笔记</a>！！！！</p>
+<hr>
+<h3 id="欢迎关注Carson-Ho的简书！"><a href="#欢迎关注Carson-Ho的简书！" class="headerlink" title="欢迎关注Carson_Ho的简书！"></a>欢迎关注<a href="http://www.jianshu.com/users/383970bef0a0/latest_articles" target="_blank" rel="external">Carson_Ho</a>的简书！</h3><p>不定期分享关于<strong>安卓开发</strong>的干货，追求<strong>短、平、快</strong>，但<strong>却不缺深度</strong>。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/944365-9b76fa3c52d478a7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/06/11/工厂方法模式（Factory Method）/">工厂方法模式（Factory Method）- 最易懂的设计模式解析</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 Carson_Ho 的个人博客">Carson_Ho</a></p>
+        <p><span>发布时间:</span>2016年06月11日 - 19时33分</p>
+        <p><span>最后更新:</span>2016年10月08日 - 09时54分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/06/11/工厂方法模式（Factory Method）/" title="工厂方法模式（Factory Method）- 最易懂的设计模式解析">http://yoursite.com/2016/06/11/工厂方法模式（Factory Method）/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/06/11/工厂方法模式（Factory Method）/　　作者: Carson_Ho" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/2016/06/11/推送/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">史上最全解析Android消息推送解决方案</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#目录"><span class="toc-number">2.</span> <span class="toc-text">目录</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-介绍"><span class="toc-number">3.</span> <span class="toc-text">1. 介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-定义"><span class="toc-number">3.0.0.1.</span> <span class="toc-text">1.1 定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-主要作用"><span class="toc-number">3.0.0.2.</span> <span class="toc-text">1.2 主要作用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-解决的问题"><span class="toc-number">3.0.0.3.</span> <span class="toc-text">1.3 解决的问题</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-模式原理"><span class="toc-number">4.</span> <span class="toc-text">2. 模式原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-UML类图"><span class="toc-number">4.0.0.1.</span> <span class="toc-text">2.1 UML类图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-模式组成"><span class="toc-number">4.0.0.2.</span> <span class="toc-text">2.2 模式组成</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-使用步骤"><span class="toc-number">4.0.0.3.</span> <span class="toc-text">2.3 使用步骤</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-实例讲解"><span class="toc-number">5.</span> <span class="toc-text">3. 实例讲解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-实例概况"><span class="toc-number">5.0.0.1.</span> <span class="toc-text">3.1 实例概况</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-使用步骤"><span class="toc-number">5.0.0.2.</span> <span class="toc-text">3.2 使用步骤</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-优点"><span class="toc-number">6.</span> <span class="toc-text">4. 优点</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-缺点"><span class="toc-number">7.</span> <span class="toc-text">5. 缺点</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-应用场景"><span class="toc-number">8.</span> <span class="toc-text">6. 应用场景</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-总结"><span class="toc-number">9.</span> <span class="toc-text">7. 总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#欢迎关注Carson-Ho的简书！"><span class="toc-number">9.0.1.</span> <span class="toc-text">欢迎关注Carson_Ho的简书！</span></a></li></ol></li></ol></li></ol>
+</div>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
+
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="2016/06/11/工厂方法模式（Factory Method）/" data-title="工厂方法模式（Factory Method）- 最易懂的设计模式解析" data-url="http://yoursite.com/2016/06/11/工厂方法模式（Factory Method）/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"null"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '/js/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+    <!-- 多说公共JS代码 end -->
+</div>
+
+    
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2016/06/11/推送/" title="下一篇: 史上最全解析Android消息推送解决方案">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/06/11/工厂方法模式（Factory Method）/">工厂方法模式（Factory Method）- 最易懂的设计模式解析</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/11/推送/">史上最全解析Android消息推送解决方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/30/底部Tab菜单栏（FragmentTabHost+ViewPager+Fragment）/">Android开发：底部Tab菜单栏（FragmentTabHost+ViewPager+Fragment）</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/20/Listview/">Android开发：ListView、AdapterView、RecyclerView全面解析</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/25/Json/">Android开发：JSON最全面解析方法(Gson、AS自带org.json、Jackson解析)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/23/五大布局属性大全/">Android开发： 五大布局属性设置大全</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/12/Intent详解/">Android开发：  Intent介绍及使用方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/05/XML简介及DOM、SAX、PULL解析对比/">Android开发：XML简介及DOM、SAX、PULL解析对比</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/01/ 最全面的HTTP知识总结/">Android网络通信：最全面的HTTP知识总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/07/Fragment详解/">Android开发： Fragment最全面使用详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/21/底部Tab导航栏实现（TabLayout+ViewPager+Fragment）/">Android开发：顶部&底部Tab导航栏实现（TabLayout+ViewPager+Fragment）</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/21/简单工厂模式（SimpleFactoryPattern）/">简单工厂模式（SimpleFactoryPattern）- 最易懂的设计模式解析</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/21/1分钟全面了解“设计模式”/">Android开发： 1分钟全面了解“设计模式”</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/21/Activity生命周期/">Android开发：5分钟解析Activity&Fragment生命周期</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/11/Handler源码分析/">Android开发：Handler异步通信机制全面解析（包含Looper、Message Queue）</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/05/单例模式（Singleton）/">单例模式（Singleton）- 最易懂的设计模式解析</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/12/21/Android屏幕适配/">Android开发：最全面、最易懂的Android屏幕适配解决方案</a></li></ul>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+            }
+        })
+    </script>
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2016 Carson_Ho
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/luuman/hexo-theme-spfk" target="_blank">spfk</a> by luuman
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" >到访数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 24;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+  </div>
+</body>
+</html>
