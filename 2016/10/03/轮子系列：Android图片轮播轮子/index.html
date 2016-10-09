@@ -3,23 +3,23 @@
 <head>
   <meta charset="utf-8">
   
-  <title>3分钟全面了解Android主流图片加载库 | Carson_Ho Blog</title>
+  <title>轮子系列：一款能用易用好用的Android图片轮播轮子 | Carson_Ho Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="3分钟全面了解Android主流图片加载库">
+  <meta name="description" content="一款能用易用好用的Android图片轮播轮子">
 <meta property="og:type" content="article">
-<meta property="og:title" content="3分钟全面了解Android主流图片加载库">
-<meta property="og:url" content="http://yoursite.com/2016/08/21/图片开源库/index.html">
+<meta property="og:title" content="轮子系列：一款能用易用好用的Android图片轮播轮子">
+<meta property="og:url" content="http://yoursite.com/2016/10/03/轮子系列：Android图片轮播轮子/index.html">
 <meta property="og:site_name" content="Carson_Ho Blog">
-<meta property="og:description" content="3分钟全面了解Android主流图片加载库">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-c07e4f7d2c75be90.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-43434f7b1f8c143c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-fa9f0985a37dadfb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:description" content="一款能用易用好用的Android图片轮播轮子">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-a6f3651b87f0a5ba.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-859f977100ad3bbf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-fce0609759cad842.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-9b76fa3c52d478a7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2016-10-09T01:06:36.000Z">
+<meta property="og:updated_time" content="2016-10-09T01:30:18.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="3分钟全面了解Android主流图片加载库">
-<meta name="twitter:description" content="3分钟全面了解Android主流图片加载库">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/944365-c07e4f7d2c75be90.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:title" content="轮子系列：一款能用易用好用的Android图片轮播轮子">
+<meta name="twitter:description" content="一款能用易用好用的Android图片轮播轮子">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/944365-a6f3651b87f0a5ba.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
   
     <link rel="alternative" href="/atom.xml" title="Carson_Ho Blog" type="application/atom+xml">
   
@@ -193,11 +193,11 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-图片开源库" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-轮子系列：Android图片轮播轮子" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/08/21/图片开源库/" class="article-date">
-      <time datetime="2016-08-21T11:33:26.000Z" itemprop="datePublished">2016-08-21</time>
+      <a href="/2016/10/03/轮子系列：Android图片轮播轮子/" class="article-date">
+      <time datetime="2016-10-03T11:33:26.000Z" itemprop="datePublished">2016-10-03</time>
 </a>
     </div>
   
@@ -210,7 +210,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      3分钟全面了解Android主流图片加载库
+      轮子系列：一款能用易用好用的Android图片轮播轮子
     </h1>
   
 
@@ -231,31 +231,71 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>图片加载在 Android开发项目中非常常见，为了降低开发周期和难度，我们经常会选用一些图片加载的开源库，而现在图片加载开源库越来越多，我们应该选用哪种呢？今天我就给大家分别介绍 &amp; 对比现今主流的图片加载框架。</p>
-<hr>
-<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p><img src="http://upload-images.jianshu.io/upload_images/944365-c07e4f7d2c75be90.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片加载开源库.jpg"></p>
-<hr>
-<h1 id="1-主流的图片加载库-介绍"><a href="#1-主流的图片加载库-介绍" class="headerlink" title="1. 主流的图片加载库-介绍"></a>1. 主流的图片加载库-介绍</h1><p>从Github上的Star数排序来看，现在主流的Android图片加载库有</p>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><ul>
+<li>Banner功能在Android开发中实在是太常见了，主要用于广告轮播、商品照片轮播等等，如下图：</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/944365-a6f3651b87f0a5ba.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片轮播"></p>
 <ul>
-<li>Universal-Image-Loader</li>
-<li>Picasso</li>
-<li>Fresco</li>
-<li>Glide</li>
-</ul>
-<p>下面是简单的介绍</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/944365-43434f7b1f8c143c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片加载库-介绍"></p>
-<hr>
-<h1 id="2-图片加载库-对比"><a href="#2-图片加载库-对比" class="headerlink" title="2. 图片加载库- 对比"></a>2. 图片加载库- 对比</h1><p>一图让你了解全部的图片加载库和他们之间的区别！</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/944365-fa9f0985a37dadfb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片加载库- 对比"></p>
-<hr>
-<h1 id="3-各个主流图片加载库的Github地址"><a href="#3-各个主流图片加载库的Github地址" class="headerlink" title="3. 各个主流图片加载库的Github地址"></a>3. 各个主流图片加载库的Github地址</h1><ul>
-<li><a href="https://github.com/nostra13/Android-Universal-Image-Loader" target="_blank" rel="external">UniversalImageLoader</a></li>
-<li><a href="https://github.com/square/picasso" target="_blank" rel="external">Picasso</a></li>
-<li><a href="https://github.com/bumptech/glide" target="_blank" rel="external">Glide</a></li>
-<li><a href="https://github.com/facebook/fresco" target="_blank" rel="external">Fresco</a></li>
+<li>今天我来手把手教你如何使用一个能用易用好用的Android图片轮播轮子。</li>
 </ul>
 <hr>
-<h1 id="4-总结"><a href="#4-总结" class="headerlink" title="4. 总结"></a>4. 总结</h1><p>本文对Android的主流图片加载库进行了全面的介绍 &amp; 对比。接下来我会逐个介绍<strong>其使用方法 &amp; 源码分析</strong>，有兴趣可以继续关注<a href="http://www.jianshu.com/users/383970bef0a0/latest_articles" target="_blank" rel="external">Carson_Ho的安卓开发笔记</a></p>
+<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p><img src="http://upload-images.jianshu.io/upload_images/944365-859f977100ad3bbf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="文章目录"></p>
+<hr>
+<h1 id="1-实现轮播功能为什么要选择轮子？"><a href="#1-实现轮播功能为什么要选择轮子？" class="headerlink" title="1. 实现轮播功能为什么要选择轮子？"></a>1. 实现轮播功能为什么要选择轮子？</h1><p>主要原因是自己实现的话功能实现和性能优化会耗费太多工期，包括；</p>
+<h4 id="耗费原因1：功能实现"><a href="#耗费原因1：功能实现" class="headerlink" title="耗费原因1：功能实现"></a>耗费原因1：功能实现</h4><p>常见的Banner的功能主要有：</p>
+<ol>
+<li>实现图片 &amp; 标语展示</li>
+<li>循环播放</li>
+<li>支持手动切换</li>
+<li>支持加载本地 &amp; 网络图片</li>
+</ol>
+<h4 id="耗费原因2：性能优化"><a href="#耗费原因2：性能优化" class="headerlink" title="耗费原因2：性能优化"></a>耗费原因2：性能优化</h4><ol>
+<li>对于实现图片展示：不止一张图片 &amp; 指示器展示</li>
+<li>对于循环播放：自动、定时、无限 &amp; 循环播放</li>
+<li>对于支持手动切换：滑动流畅 &amp; 无卡顿</li>
+<li>对于支持加载本地 &amp; 网络图片：加载速度 &amp; 点击打开图片</li>
+</ol>
+<p>好了你终于明白为什么要选择轮子了</p>
+<h1 id="2-如何选择轮子？"><a href="#2-如何选择轮子？" class="headerlink" title="2. 如何选择轮子？"></a>2. 如何选择轮子？</h1><p>选择标准：</p>
+<ol>
+<li><p>实现上述所有功能</p>
+<blockquote>
+<p>什么动画那些其实暂时我们并不需要，所以只需要能实现上述基本的功能就能满足现在市面上大多数的功能了。</p>
+</blockquote>
+</li>
+<li><p>性能的优化</p>
+<blockquote>
+<p>上面说的一切一切，比如说轮播是用ViewPager实现，但会出现卡顿什么的blabla</p>
+</blockquote>
+</li>
+<li><p>配置程度高</p>
+<blockquote>
+<p>可灵活设置图片数量、循环时间、图片加载的方式、指示器的样式&amp;位置等等</p>
+</blockquote>
+</li>
+<li><p>简洁易用<br>千万别忘了我们为什么要用轮子！！！！！</p>
+</li>
+</ol>
+<p>按照上面的标准我们就可以开始去网上找轮子了。</p>
+<p>好了不用去Google不用去Github不用去Bing找了（对不起我真的不建议你去百度），因为我已经帮你找了一个好轮子了：<a href="https://github.com/youth5201314/banner" target="_blank" rel="external">Android广告图片轮播控件</a></p>
+<blockquote>
+<p>作者不是我，我也没收钱帮他打广告，因为这个轮子真的能用、易用和好用。</p>
+</blockquote>
+<h1 id="3-使用步骤"><a href="#3-使用步骤" class="headerlink" title="3. 使用步骤"></a>3. 使用步骤</h1><p>步骤1. 加入依赖包<br>步骤2. 在需要展示的布局定义Banner布局<br>步骤3. 在MainActivity布局中定义配置Banner<br>步骤4. 在Manifest加入网络请求权限</p>
+<h1 id="4-Demo实战"><a href="#4-Demo实战" class="headerlink" title="4. Demo实战"></a>4. Demo实战</h1><p>没有Demo的代码讲解不是好文章，让我们来一步步学会使用这个好轮子</p>
+<p><strong>步骤1. 在gradle加入依赖包</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">compile &apos;com.youth.banner:banner:1.1.5&apos;  //指定版本</div></pre></td></tr></table></figure>
+<p><strong>步骤2. 在需要展示的布局定义Banner布局</strong><br><em>main_layout.xml</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;com.youth.banner.Banner   </div><div class="line"> xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;  </div><div class="line">  android:id=&quot;@+id/banner&quot;    </div><div class="line">  android:layout_width=&quot;match_parent&quot; </div><div class="line">  android:layout_height=&quot;300dp&quot; /&gt;</div></pre></td></tr></table></figure>
+<p><strong>步骤3. 在MainActivity布局中定义配置Banner（具体请看注释）</strong><br><em>MainActivity.java</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div></pre></td><td class="code"><pre><div class="line">package com.example.carson_ho.android_banner;</div><div class="line"></div><div class="line">import android.os.Bundle;</div><div class="line">import android.support.v7.app.AppCompatActivity;</div><div class="line">import android.util.Log;</div><div class="line">import android.view.View;</div><div class="line">import android.widget.ImageView;</div><div class="line">import android.widget.Toast;</div><div class="line"></div><div class="line">import com.bumptech.glide.Glide;</div><div class="line">import com.youth.banner.Banner;</div><div class="line"></div><div class="line">public class MainActivity extends AppCompatActivity &#123;</div><div class="line">    private Banner banner;</div><div class="line">    //设置图片资源:url或本地资源</div><div class="line">    String[] images= new String[] &#123;</div><div class="line">            &quot;http://218.192.170.132/BS80.jpg&quot;,</div><div class="line">            &quot;http://img.zcool.cn/community/0166c756e1427432f875520f7cc838.jpg&quot;,</div><div class="line">            &quot;http://img.zcool.cn/community/018fdb56e1428632f875520f7b67cb.jpg&quot;,</div><div class="line">            &quot;http://img.zcool.cn/community/01c8dc56e1428e6ac72531cbaa5f2c.jpg&quot;,</div><div class="line">            &quot;http://img.zcool.cn/community/01fda356640b706ac725b2c8b99b08.jpg&quot;,</div><div class="line">            &quot;http://img.zcool.cn/community/01fd2756e142716ac72531cbf8bbbf.jpg&quot;,</div><div class="line">            &quot;http://img.zcool.cn/community/0114a856640b6d32f87545731c076a.jpg&quot;&#125;;</div><div class="line"></div><div class="line">    //设置图片标题:自动对应</div><div class="line">    String[] titles=new String[]&#123;&quot;十大星级品牌联盟，全场2折起&quot;,&quot;全场2折起&quot;,&quot;十大星级品牌联盟&quot;,&quot;嗨购5折不要停&quot;,&quot;12趁现在&quot;,&quot;嗨购5折不要停，12.12趁现在&quot;,&quot;实打实大顶顶顶顶&quot;&#125;;</div><div class="line">    @Override</div><div class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">        super.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line">    </div><div class="line">        </div><div class="line">        banner = (Banner) findViewById(R.id.banner);</div><div class="line"></div><div class="line">        //设置样式,默认为:Banner.NOT_INDICATOR(不显示指示器和标题)</div><div class="line">        //可选样式如下:</div><div class="line">        //1. Banner.CIRCLE_INDICATOR	显示圆形指示器</div><div class="line">        //2. Banner.NUM_INDICATOR	显示数字指示器</div><div class="line">        //3. Banner.NUM_INDICATOR_TITLE	显示数字指示器和标题</div><div class="line">        //4. Banner.CIRCLE_INDICATOR_TITLE	显示圆形指示器和标题</div><div class="line">        banner.setBannerStyle(Banner.CIRCLE_INDICATOR_TITLE);</div><div class="line"></div><div class="line">        //设置轮播样式（没有标题默认为右边,有标题时默认左边）</div><div class="line">        //可选样式:</div><div class="line">        //Banner.LEFT	指示器居左</div><div class="line">        //Banner.CENTER	指示器居中</div><div class="line">        //Banner.RIGHT	指示器居右</div><div class="line">        banner.setIndicatorGravity(Banner.CENTER);</div><div class="line"></div><div class="line">        //设置轮播要显示的标题和图片对应（如果不传默认不显示标题）</div><div class="line">        banner.setBannerTitle(titles);</div><div class="line"></div><div class="line">        //设置是否自动轮播（不设置则默认自动）</div><div class="line">        banner.isAutoPlay(true)	;</div><div class="line"></div><div class="line">        //设置轮播图片间隔时间（不设置默认为2000）</div><div class="line">        banner.setDelayTime(5000);</div><div class="line">        //设置图片资源:可选图片网址/资源文件，默认用Glide加载,也可自定义图片的加载框架</div><div class="line">        //所有设置参数方法都放在此方法之前执行</div><div class="line">        //banner.setImages(images);</div><div class="line"></div><div class="line">        //自定义图片加载框架</div><div class="line">        banner.setImages(images, new Banner.OnLoadImageListener() &#123;</div><div class="line">            @Override</div><div class="line">            public void OnLoadImage(ImageView view, Object url) &#123;</div><div class="line">                System.out.println(&quot;加载中&quot;);</div><div class="line">                Glide.with(getApplicationContext()).load(url).into(view);</div><div class="line">                System.out.println(&quot;加载完&quot;);</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">        //设置点击事件，下标是从1开始</div><div class="line">        banner.setOnBannerClickListener(new Banner.OnBannerClickListener() &#123;//设置点击事件</div><div class="line">            @Override</div><div class="line">            public void OnBannerClick(View view, int position) &#123;</div><div class="line">                Toast.makeText(getApplicationContext(), &quot;你点击了：&quot; + position, Toast.LENGTH_LONG).show();</div><div class="line">            &#125;</div><div class="line">        &#125;);</div></pre></td></tr></table></figure>
+<p><strong>步骤4：在Manifest.xml加入网络请求权限</strong></p>
+<p><em>AndroidManifest.xml</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;uses-permission android:name=&quot;android.permission.INTERNET&quot;/&gt;</div></pre></td></tr></table></figure>
+<p><strong>效果图</strong></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/944365-fce0609759cad842.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="效果图"></p>
+<h1 id="源代码"><a href="#源代码" class="headerlink" title="源代码"></a>源代码</h1><p>请移步<a href="https://github.com/Carson-Ho/Android_Banner" target="_blank" rel="external">Carson_Ho的Github-Android_Banner</a></p>
+<h1 id="5-总结"><a href="#5-总结" class="headerlink" title="5. 总结"></a>5. 总结</h1><p>本文主要对Android轮播的好轮子进行了全面介绍，接下来我会继续讲解其他安卓开发的知识，有兴趣可以继续关注<a href="http://www.jianshu.com/users/383970bef0a0/latest_articles" target="_blank" rel="external">Carson_Ho的安卓开发笔记</a>！！！！</p>
 <hr>
 <h3 id="欢迎关注Carson-Ho的简书！"><a href="#欢迎关注Carson-Ho的简书！" class="headerlink" title="欢迎关注Carson_Ho的简书！"></a>欢迎关注<a href="http://www.jianshu.com/users/383970bef0a0/latest_articles" target="_blank" rel="external">Carson_Ho</a>的简书！</h3><p>不定期分享关于<strong>安卓开发</strong>的干货，追求<strong>短、平、快</strong>，但<strong>却不缺深度</strong>。</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/944365-9b76fa3c52d478a7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
@@ -267,13 +307,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/08/21/图片开源库/">3分钟全面了解Android主流图片加载库</a></p>
+        <p><span>本文标题:</span><a href="/2016/10/03/轮子系列：Android图片轮播轮子/">轮子系列：一款能用易用好用的Android图片轮播轮子</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Carson_Ho 的个人博客">Carson_Ho</a></p>
-        <p><span>发布时间:</span>2016年08月21日 - 19时33分</p>
-        <p><span>最后更新:</span>2016年10月09日 - 09时06分</p>
+        <p><span>发布时间:</span>2016年10月03日 - 19时33分</p>
+        <p><span>最后更新:</span>2016年10月09日 - 09时30分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/08/21/图片开源库/" title="3分钟全面了解Android主流图片加载库">http://yoursite.com/2016/08/21/图片开源库/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/08/21/图片开源库/　　作者: Carson_Ho" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2016/10/03/轮子系列：Android图片轮播轮子/" title="轮子系列：一款能用易用好用的Android图片轮播轮子">http://yoursite.com/2016/10/03/轮子系列：Android图片轮播轮子/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/10/03/轮子系列：Android图片轮播轮子/　　作者: Carson_Ho" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
@@ -286,18 +326,9 @@
 
 <nav id="article-nav">
   
-    <a href="/2016/09/15/Android图片加载库：Picasso讲解/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          Android图片加载库：最全面的Picasso讲解
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/08/15/HandlerThread/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Android多线程全面解析：HandlerThread用法&amp;源码</div>
+    <a href="/2016/09/15/Android图片加载库：Picasso讲解/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Android图片加载库：最全面的Picasso讲解</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -308,7 +339,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#目录"><span class="toc-number">2.</span> <span class="toc-text">目录</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-主流的图片加载库-介绍"><span class="toc-number">3.</span> <span class="toc-text">1. 主流的图片加载库-介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-图片加载库-对比"><span class="toc-number">4.</span> <span class="toc-text">2. 图片加载库- 对比</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-各个主流图片加载库的Github地址"><span class="toc-number">5.</span> <span class="toc-text">3. 各个主流图片加载库的Github地址</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-总结"><span class="toc-number">6.</span> <span class="toc-text">4. 总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#欢迎关注Carson-Ho的简书！"><span class="toc-number">6.0.1.</span> <span class="toc-text">欢迎关注Carson_Ho的简书！</span></a></li></ol></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#目录"><span class="toc-number">2.</span> <span class="toc-text">目录</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-实现轮播功能为什么要选择轮子？"><span class="toc-number">3.</span> <span class="toc-text">1. 实现轮播功能为什么要选择轮子？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#耗费原因1：功能实现"><span class="toc-number">3.0.0.1.</span> <span class="toc-text">耗费原因1：功能实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#耗费原因2：性能优化"><span class="toc-number">3.0.0.2.</span> <span class="toc-text">耗费原因2：性能优化</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-如何选择轮子？"><span class="toc-number">4.</span> <span class="toc-text">2. 如何选择轮子？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-使用步骤"><span class="toc-number">5.</span> <span class="toc-text">3. 使用步骤</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-Demo实战"><span class="toc-number">6.</span> <span class="toc-text">4. Demo实战</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#源代码"><span class="toc-number">7.</span> <span class="toc-text">源代码</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-总结"><span class="toc-number">8.</span> <span class="toc-text">5. 总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#欢迎关注Carson-Ho的简书！"><span class="toc-number">8.0.1.</span> <span class="toc-text">欢迎关注Carson_Ho的简书！</span></a></li></ol></li></ol></li></ol>
 </div>
 <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
 
@@ -356,7 +387,7 @@
     
       <div class="duoshuo" id="comments">
     <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="2016/08/21/图片开源库/" data-title="3分钟全面了解Android主流图片加载库" data-url="http://yoursite.com/2016/08/21/图片开源库/"></div>
+    <div class="ds-thread" data-thread-key="2016/10/03/轮子系列：Android图片轮播轮子/" data-title="轮子系列：一款能用易用好用的Android图片轮播轮子" data-url="http://yoursite.com/2016/10/03/轮子系列：Android图片轮播轮子/"></div>
     <!-- 多说评论框 end -->
     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
     <script type="text/javascript">
@@ -379,13 +410,11 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2016/09/15/Android图片加载库：Picasso讲解/" title="上一篇: Android图片加载库：最全面的Picasso讲解">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a href="/2016/08/15/HandlerThread/" title="下一篇: Android多线程全面解析：HandlerThread用法&amp;源码">
+            <a href="/2016/09/15/Android图片加载库：Picasso讲解/" title="下一篇: Android图片加载库：最全面的Picasso讲解">
                 <i class="fa fa-angle-right"></i>
             </a>
         
