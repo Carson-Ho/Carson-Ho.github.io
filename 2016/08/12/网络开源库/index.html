@@ -3,23 +3,24 @@
 <head>
   <meta charset="utf-8">
   
-  <title>3分钟全面了解Android主流图片加载库 | Carson_Ho Blog</title>
+  <title>Android主流网络请求开源库的对比（Android-Async-Http、Volley、OkHttp、Retrofit） | Carson_Ho Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="3分钟全面了解Android主流图片加载库">
+  <meta name="description" content="网络请求开源库">
 <meta property="og:type" content="article">
-<meta property="og:title" content="3分钟全面了解Android主流图片加载库">
-<meta property="og:url" content="http://yoursite.com/2016/08/21/图片开源库/index.html">
+<meta property="og:title" content="Android主流网络请求开源库的对比（Android-Async-Http、Volley、OkHttp、Retrofit）">
+<meta property="og:url" content="http://yoursite.com/2016/08/12/网络开源库/index.html">
 <meta property="og:site_name" content="Carson_Ho Blog">
-<meta property="og:description" content="3分钟全面了解Android主流图片加载库">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-c07e4f7d2c75be90.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-43434f7b1f8c143c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-fa9f0985a37dadfb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:description" content="网络请求开源库">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-d26cee4ba70dd1de.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-cd9cf3ca0a179b26.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-3089d23889f04d87.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-58819416dfd2767a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-9b76fa3c52d478a7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2016-10-09T01:06:36.000Z">
+<meta property="og:updated_time" content="2016-10-09T01:07:42.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="3分钟全面了解Android主流图片加载库">
-<meta name="twitter:description" content="3分钟全面了解Android主流图片加载库">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/944365-c07e4f7d2c75be90.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:title" content="Android主流网络请求开源库的对比（Android-Async-Http、Volley、OkHttp、Retrofit）">
+<meta name="twitter:description" content="网络请求开源库">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/944365-d26cee4ba70dd1de.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
   
     <link rel="alternative" href="/atom.xml" title="Carson_Ho Blog" type="application/atom+xml">
   
@@ -193,11 +194,11 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-图片开源库" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-网络开源库" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/08/21/图片开源库/" class="article-date">
-      <time datetime="2016-08-21T11:33:26.000Z" itemprop="datePublished">2016-08-21</time>
+      <a href="/2016/08/12/网络开源库/" class="article-date">
+      <time datetime="2016-08-12T11:33:26.000Z" itemprop="datePublished">2016-08-12</time>
 </a>
     </div>
   
@@ -210,7 +211,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      3分钟全面了解Android主流图片加载库
+      Android主流网络请求开源库的对比（Android-Async-Http、Volley、OkHttp、Retrofit）
     </h1>
   
 
@@ -231,31 +232,84 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>图片加载在 Android开发项目中非常常见，为了降低开发周期和难度，我们经常会选用一些图片加载的开源库，而现在图片加载开源库越来越多，我们应该选用哪种呢？今天我就给大家分别介绍 &amp; 对比现今主流的图片加载框架。</p>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><ul>
+<li>背景<br>网络请求在 Android开发项目中很常见，为了降低开发周期和难度，我们经常会选用网络请求的开源库。</li>
+<li>问题<br>而现在网络请求的开源库越来越多，我们应该选用哪种呢？</li>
+<li>解决方案<br>今天我就给大家分别介绍 &amp; 对比现今主流的网络请求库。</li>
+</ul>
 <hr>
-<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p><img src="http://upload-images.jianshu.io/upload_images/944365-c07e4f7d2c75be90.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片加载开源库.jpg"></p>
+<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p><img src="http://upload-images.jianshu.io/upload_images/944365-d26cee4ba70dd1de.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="网络请求开源库-目录"></p>
 <hr>
-<h1 id="1-主流的图片加载库-介绍"><a href="#1-主流的图片加载库-介绍" class="headerlink" title="1. 主流的图片加载库-介绍"></a>1. 主流的图片加载库-介绍</h1><p>从Github上的Star数排序来看，现在主流的Android图片加载库有</p>
+<h1 id="1-为什么要用网络请求开源库？"><a href="#1-为什么要用网络请求开源库？" class="headerlink" title="1. 为什么要用网络请求开源库？"></a>1. 为什么要用网络请求开源库？</h1><p>网络请求开源库是一个将<strong>网络请求的相关功能</strong>封装好的类库，并对外提供Api：</p>
 <ul>
-<li>Universal-Image-Loader</li>
-<li>Picasso</li>
-<li>Fresco</li>
-<li>Glide</li>
+<li><p>没有网络请求框架之前<br>App想与服务器进行网络请求交互是一件很痛苦的事：因为Android的主线程不能进行网络请求,还需要另外开一个线程进行请求,然后又要考虑到线程池,缓存等一堆问题。</p>
+</li>
+<li><p>使用网络请求库后（前人的轮子）<br>实现网络请求的需求同时不需要考虑:</p>
+<ul>
+<li>异步请求</li>
+<li>线程池</li>
+<li>缓存</li>
+<li>blabla</li>
 </ul>
-<p>下面是简单的介绍</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/944365-43434f7b1f8c143c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片加载库-介绍"></p>
-<hr>
-<h1 id="2-图片加载库-对比"><a href="#2-图片加载库-对比" class="headerlink" title="2. 图片加载库- 对比"></a>2. 图片加载库- 对比</h1><p>一图让你了解全部的图片加载库和他们之间的区别！</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/944365-fa9f0985a37dadfb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片加载库- 对比"></p>
-<hr>
-<h1 id="3-各个主流图片加载库的Github地址"><a href="#3-各个主流图片加载库的Github地址" class="headerlink" title="3. 各个主流图片加载库的Github地址"></a>3. 各个主流图片加载库的Github地址</h1><ul>
-<li><a href="https://github.com/nostra13/Android-Universal-Image-Loader" target="_blank" rel="external">UniversalImageLoader</a></li>
-<li><a href="https://github.com/square/picasso" target="_blank" rel="external">Picasso</a></li>
-<li><a href="https://github.com/bumptech/glide" target="_blank" rel="external">Glide</a></li>
-<li><a href="https://github.com/facebook/fresco" target="_blank" rel="external">Fresco</a></li>
+<p>同时还：</p>
+<ul>
+<li>降低开发难度</li>
+<li>缩短开发周期</li>
+<li>使用方便</li>
+</ul>
+</li>
 </ul>
 <hr>
-<h1 id="4-总结"><a href="#4-总结" class="headerlink" title="4. 总结"></a>4. 总结</h1><p>本文对Android的主流图片加载库进行了全面的介绍 &amp; 对比。接下来我会逐个介绍<strong>其使用方法 &amp; 源码分析</strong>，有兴趣可以继续关注<a href="http://www.jianshu.com/users/383970bef0a0/latest_articles" target="_blank" rel="external">Carson_Ho的安卓开发笔记</a></p>
+<h1 id="2-使用前知识了解"><a href="#2-使用前知识了解" class="headerlink" title="2. 使用前知识了解"></a>2. 使用前知识了解</h1><h4 id="2-1-Android实现网络请求的主流方法（SDK自带）"><a href="#2-1-Android实现网络请求的主流方法（SDK自带）" class="headerlink" title="2.1 Android实现网络请求的主流方法（SDK自带）"></a>2.1 Android实现网络请求的主流方法（SDK自带）</h4><ul>
+<li>HttpClient</li>
+<li>HttpURLConnection</li>
+</ul>
+<h6 id="2-1-1-二者介绍-amp-对比"><a href="#2-1-1-二者介绍-amp-对比" class="headerlink" title="2.1.1 二者介绍&amp;对比"></a>2.1.1 二者介绍&amp;对比</h6><ul>
+<li><p>HttpURLConnection<br>在Android2.2之前：HttpURLConnection 有个重大 Bug：调用 close() 函数会影响连接池,导致连接复用失效；</p>
+<blockquote>
+<p>所以Android2.2之前不建议使用HttpURLConnection</p>
+</blockquote>
+<p>在Android2.2之后：HttpURLConnection默认开启了 gzip 压缩&amp;提高了HTTPS 的性能</p>
+</li>
+</ul>
+<ul>
+<li>HttpClient<br>优点：相比于HttpURLConnection，更加高效简洁<br>缺点：结构过于复杂；维护成本高<blockquote>
+<p>在5.0版本后被Android官方弃用</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="2-2-网络请求库和Android网络请求实现方法的关系"><a href="#2-2-网络请求库和Android网络请求实现方法的关系" class="headerlink" title="2.2 网络请求库和Android网络请求实现方法的关系"></a>2.2 网络请求库和Android网络请求实现方法的关系</h4><p>网络请求框架本质上是一个将网络请求的相关方法（ HttpClient或HttpURLConnection）封装好的类库，并实现另开线程进行请求和处理数据，从而实现整个网络请求模块的功能。具体的关系可看下图:</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/944365-cd9cf3ca0a179b26.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="网络请求框架与网络请求功能的关系"></p>
+<hr>
+<h1 id="3-主流的网络请求库-介绍"><a href="#3-主流的网络请求库-介绍" class="headerlink" title="3. 主流的网络请求库-介绍"></a>3. 主流的网络请求库-介绍</h1><p>如今Android中主流的网络请求框架有：</p>
+<ul>
+<li>Android-Async-Http</li>
+<li>Volley</li>
+<li>OkHttp</li>
+<li>Retrofit</li>
+</ul>
+<p>下面是简单介绍：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/944365-3089d23889f04d87.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="网络请求加载 - 介绍"></p>
+<hr>
+<h1 id="4-网络请求库-对比"><a href="#4-网络请求库-对比" class="headerlink" title="4. 网络请求库- 对比"></a>4. 网络请求库- 对比</h1><p>一图让你了解全部的网络请求库和他们之间的区别！</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/944365-58819416dfd2767a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="网络请求库 - 对比"></p>
+<hr>
+<h1 id="5-各个主流网络请求库的Github地址"><a href="#5-各个主流网络请求库的Github地址" class="headerlink" title="5. 各个主流网络请求库的Github地址"></a>5. 各个主流网络请求库的Github地址</h1><ul>
+<li><a href="https://github.com/loopj/android-async-http" target="_blank" rel="external">Android-Async-Http</a></li>
+<li><a href="https://github.com/stormzhang/AndroidVolley" target="_blank" rel="external">Volley</a></li>
+<li><a href="https://github.com/square/okhttp" target="_blank" rel="external">OkHttp</a></li>
+<li><a href="https://github.com/square/retrofit" target="_blank" rel="external">Retrofit</a></li>
+</ul>
+<hr>
+<h1 id="6-总结"><a href="#6-总结" class="headerlink" title="6. 总结"></a>6. 总结</h1><p>本文对Android的主流网络请求库进行了全面的介绍 &amp; 对比，总的来说，网络请求库没有说哪个最好，只有最合适，只有真的了解其使用场景才能很好的选择网络请求库。</p>
+<hr>
+<h1 id="7-下篇预告"><a href="#7-下篇预告" class="headerlink" title="7. 下篇预告"></a>7. 下篇预告</h1><p>接下来我会逐个介绍其使用方法 &amp; 源码分析：</p>
+<ul>
+<li>Volley</li>
+<li>Okhttp</li>
+<li>Retrofit</li>
+</ul>
+<p>有兴趣可以继续关注<a href="http://www.jianshu.com/users/383970bef0a0/latest_articles" target="_blank" rel="external">Carson_Ho的安卓开发笔记</a>！！！！</p>
 <hr>
 <h3 id="欢迎关注Carson-Ho的简书！"><a href="#欢迎关注Carson-Ho的简书！" class="headerlink" title="欢迎关注Carson_Ho的简书！"></a>欢迎关注<a href="http://www.jianshu.com/users/383970bef0a0/latest_articles" target="_blank" rel="external">Carson_Ho</a>的简书！</h3><p>不定期分享关于<strong>安卓开发</strong>的干货，追求<strong>短、平、快</strong>，但<strong>却不缺深度</strong>。</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/944365-9b76fa3c52d478a7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
@@ -267,13 +321,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/08/21/图片开源库/">3分钟全面了解Android主流图片加载库</a></p>
+        <p><span>本文标题:</span><a href="/2016/08/12/网络开源库/">Android主流网络请求开源库的对比（Android-Async-Http、Volley、OkHttp、Retrofit）</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Carson_Ho 的个人博客">Carson_Ho</a></p>
-        <p><span>发布时间:</span>2016年08月21日 - 19时33分</p>
-        <p><span>最后更新:</span>2016年10月09日 - 09时06分</p>
+        <p><span>发布时间:</span>2016年08月12日 - 19时33分</p>
+        <p><span>最后更新:</span>2016年10月09日 - 09时07分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/08/21/图片开源库/" title="3分钟全面了解Android主流图片加载库">http://yoursite.com/2016/08/21/图片开源库/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/08/21/图片开源库/　　作者: Carson_Ho" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2016/08/12/网络开源库/" title="Android主流网络请求开源库的对比（Android-Async-Http、Volley、OkHttp、Retrofit）">http://yoursite.com/2016/08/12/网络开源库/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/08/12/网络开源库/　　作者: Carson_Ho" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
@@ -286,9 +340,18 @@
 
 <nav id="article-nav">
   
+    <a href="/2016/08/15/HandlerThread/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Android多线程全面解析：HandlerThread用法&amp;源码
+        
+      </div>
+    </a>
   
-    <a href="/2016/08/15/HandlerThread/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Android多线程全面解析：HandlerThread用法&amp;源码</div>
+  
+    <a href="/2016/07/21/详解Handler的内存泄露/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Android开发：详解Handler的内存泄露</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -299,7 +362,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#目录"><span class="toc-number">2.</span> <span class="toc-text">目录</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-主流的图片加载库-介绍"><span class="toc-number">3.</span> <span class="toc-text">1. 主流的图片加载库-介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-图片加载库-对比"><span class="toc-number">4.</span> <span class="toc-text">2. 图片加载库- 对比</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-各个主流图片加载库的Github地址"><span class="toc-number">5.</span> <span class="toc-text">3. 各个主流图片加载库的Github地址</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-总结"><span class="toc-number">6.</span> <span class="toc-text">4. 总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#欢迎关注Carson-Ho的简书！"><span class="toc-number">6.0.1.</span> <span class="toc-text">欢迎关注Carson_Ho的简书！</span></a></li></ol></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#目录"><span class="toc-number">2.</span> <span class="toc-text">目录</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-为什么要用网络请求开源库？"><span class="toc-number">3.</span> <span class="toc-text">1. 为什么要用网络请求开源库？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-使用前知识了解"><span class="toc-number">4.</span> <span class="toc-text">2. 使用前知识了解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-Android实现网络请求的主流方法（SDK自带）"><span class="toc-number">4.0.0.1.</span> <span class="toc-text">2.1 Android实现网络请求的主流方法（SDK自带）</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#2-1-1-二者介绍-amp-对比"><span class="toc-number">4.0.0.1.0.1.</span> <span class="toc-text">2.1.1 二者介绍&对比</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-网络请求库和Android网络请求实现方法的关系"><span class="toc-number">4.0.0.2.</span> <span class="toc-text">2.2 网络请求库和Android网络请求实现方法的关系</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-主流的网络请求库-介绍"><span class="toc-number">5.</span> <span class="toc-text">3. 主流的网络请求库-介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-网络请求库-对比"><span class="toc-number">6.</span> <span class="toc-text">4. 网络请求库- 对比</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-各个主流网络请求库的Github地址"><span class="toc-number">7.</span> <span class="toc-text">5. 各个主流网络请求库的Github地址</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-总结"><span class="toc-number">8.</span> <span class="toc-text">6. 总结</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-下篇预告"><span class="toc-number">9.</span> <span class="toc-text">7. 下篇预告</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#欢迎关注Carson-Ho的简书！"><span class="toc-number">9.0.1.</span> <span class="toc-text">欢迎关注Carson_Ho的简书！</span></a></li></ol></li></ol></li></ol>
 </div>
 <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
 
@@ -347,7 +410,7 @@
     
       <div class="duoshuo" id="comments">
     <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="2016/08/21/图片开源库/" data-title="3分钟全面了解Android主流图片加载库" data-url="http://yoursite.com/2016/08/21/图片开源库/"></div>
+    <div class="ds-thread" data-thread-key="2016/08/12/网络开源库/" data-title="Android主流网络请求开源库的对比（Android-Async-Http、Volley、OkHttp、Retrofit）" data-url="http://yoursite.com/2016/08/12/网络开源库/"></div>
     <!-- 多说评论框 end -->
     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
     <script type="text/javascript">
@@ -370,11 +433,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+            <a href="/2016/08/15/HandlerThread/" title="上一篇: Android多线程全面解析：HandlerThread用法&amp;源码">
+                <i class="fa fa-angle-left"></i>
+            </a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a href="/2016/08/15/HandlerThread/" title="下一篇: Android多线程全面解析：HandlerThread用法&amp;源码">
+            <a href="/2016/07/21/详解Handler的内存泄露/" title="下一篇: Android开发：详解Handler的内存泄露">
                 <i class="fa fa-angle-right"></i>
             </a>
         
