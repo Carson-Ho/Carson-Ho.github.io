@@ -3,21 +3,22 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Android开发：  Intent介绍及使用方法 | Carson_Ho Blog</title>
+  <title>Android图片加载库：最全面的Picasso讲解 | Carson_Ho Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Intent介绍及使用方法">
+  <meta name="description" content="最全面的Picasso讲解">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android开发：  Intent介绍及使用方法">
-<meta property="og:url" content="http://yoursite.com/2016/03/12/Intent详解/index.html">
+<meta property="og:title" content="Android图片加载库：最全面的Picasso讲解">
+<meta property="og:url" content="http://yoursite.com/2016/09/15/Android图片加载库：Picasso讲解/index.html">
 <meta property="og:site_name" content="Carson_Ho Blog">
-<meta property="og:description" content="Intent介绍及使用方法">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-1ddf0846fa2843d1.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:description" content="最全面的Picasso讲解">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-8f518070eff52d05.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-1464f8627b71f758.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/944365-9b76fa3c52d478a7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2016-10-02T01:58:27.000Z">
+<meta property="og:updated_time" content="2016-10-09T01:13:42.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android开发：  Intent介绍及使用方法">
-<meta name="twitter:description" content="Intent介绍及使用方法">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/944365-1ddf0846fa2843d1.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:title" content="Android图片加载库：最全面的Picasso讲解">
+<meta name="twitter:description" content="最全面的Picasso讲解">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/944365-8f518070eff52d05.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
   
     <link rel="alternative" href="/atom.xml" title="Carson_Ho Blog" type="application/atom+xml">
   
@@ -191,11 +192,11 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-Intent详解" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Android图片加载库：Picasso讲解" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/03/12/Intent详解/" class="article-date">
-      <time datetime="2016-03-12T11:33:26.000Z" itemprop="datePublished">2016-03-12</time>
+      <a href="/2016/09/15/Android图片加载库：Picasso讲解/" class="article-date">
+      <time datetime="2016-09-15T11:33:26.000Z" itemprop="datePublished">2016-09-15</time>
 </a>
     </div>
   
@@ -208,7 +209,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Android开发：  Intent介绍及使用方法
+      Android图片加载库：最全面的Picasso讲解
     </h1>
   
 
@@ -219,7 +220,7 @@
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android基础/">Android基础</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/常用开源库/">常用开源库</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -229,63 +230,78 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Intent在Android开发的应用非常常见，今天我就带给大家简单讲一下Intent的相关知识及其用法。</p>
-<hr>
-<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p><img src="http://upload-images.jianshu.io/upload_images/944365-1ddf0846fa2843d1.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Intent的介绍及用法.jpg"></p>
-<hr>
-<h1 id="一、定义"><a href="#一、定义" class="headerlink" title="一、定义"></a>一、定义</h1><p>意图，描述的是应用的动作及其对应的数据。</p>
-<hr>
-<h1 id="二、作用"><a href="#二、作用" class="headerlink" title="二、作用"></a>二、作用</h1><ul>
-<li>指定当前组件要完成的动作</li>
-<li>在Android不同组件不同组件进行数据的传递<blockquote>
-<p>Activity、Service、BroadcastReceiver之间的通信以Intent为通信载体</p>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><ul>
+<li><p>上文已经对当今<strong>Android主流的图片加载库</strong>进行了全面介绍 &amp; 对比</p>
+<blockquote>
+<p>如果你还没阅读，我建议你先<a href="http://www.jianshu.com/p/97994c9693f9" target="_blank" rel="external">移步这里阅读</a></p>
 </blockquote>
+</li>
+<li><p>今天我们来学习其中一个Android主流的图片加载库的使用 - Picasso</p>
 </li>
 </ul>
 <hr>
-<h1 id="三、使用方法"><a href="#三、使用方法" class="headerlink" title="三、使用方法"></a>三、使用方法</h1><h5 id="3-1指定当前组件要完成的动作"><a href="#3-1指定当前组件要完成的动作" class="headerlink" title="3.1指定当前组件要完成的动作"></a>3.1指定当前组件要完成的动作</h5><p>分为显式和隐式意图：</p>
-<ol>
-<li><p>显式意图<br>a. 作用<br>明确指定需要启动的组件名<br>(调用Intent的构造方法、Intent.setComponent()或Intent.setClass()方法明确指定组件名）<br>b. 实例：<br>（目的：使用显示Intent的方式使FirstActivity启动SecondActivity）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">mybutton.setOnClickListener(new OnClickListener() &#123;</div><div class="line">    @Override</div><div class="line">    public void onClick(View v) &#123;</div><div class="line">//实例化显式Intent,并通过构造函数接收两个参数</div><div class="line">//第一个参数Context：启动活动的上下文，一般为当前Activity</div><div class="line">//第二个参数Class是指定要启动的目标活动</div><div class="line">      Intent intent = new Intent(FirstActivity.this,SecondActivity.class);</div><div class="line">//通过Activity类的startActivity（）方法来执行该意图操作</div><div class="line">//startActivity（）方法是Activity类中提供的，专门用于启动活动的方法，它接收一个Intent对象</div><div class="line">//我们将构建好的意图对象传入该方法就可以启动目标活动。</div><div class="line">      startActivity (intent);</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-</li>
-<li><p>隐式意图<br>a. 作用<br>没有明确指定需要启动的组件名，但却指定了需要启动组件需要满足的条件</p>
-<blockquote>
-<ol>
-<li>通过IntentFilter声明<br>（AndroidManifest.xml文件下的<activity>标签下配置<intent -filter="">的内容，来指定当前活动能够响应的action和category。）</intent></activity></li>
-<li>声明条件包括动作（Action）和类型（Category）：<ul>
-<li>动作（Action）：用来指明要实施的动作是什么-具体请查看Android.content.intent类；</li>
-<li>类型（Category）：一个字符串，包含了关于处理该intent的组件的种类的信息：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">//为一个intent对象增加一个category</div><div class="line">addCategory()；</div><div class="line">//为一个intent对象删除一个category</div><div class="line">removeCategory；</div><div class="line">//获取intent所有的category</div><div class="line">getCategories()；</div></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ol>
-</blockquote>
-</li>
-</ol>
-<blockquote>
-<ol>
-<li>对于显式Intent不需要对Intent进行解析，直接启动；<br>对于隐式Intent需要对Intent进行解析：解析出条件-匹配组件-启动符合条件的组件；</li>
-</ol>
-</blockquote>
-<p>  b. 实例<br>（目的：使用隐示Intent的方式使FirstActivity启动SecondActivity）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">      mybutton.setOnClickListener(new OnClickListener() &#123;</div><div class="line">    @Override</div><div class="line">    public void onClick(View v) &#123;</div><div class="line">//实例化一个隐式Intent对象，并指定action参数</div><div class="line">	Intent intent = new Intent(&quot;android.intent.action.ALL_APPS&quot;);</div><div class="line">//调用Intent中的addCategory（）方法来添加一个category。</div><div class="line">//每个Intent中只能指定一个action，但却能指定多个category。</div><div class="line">  intent.addCategory(&quot;com.example.intent_test.MY_CATEGORY&quot;);</div><div class="line">    	        startActivity (intent);</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<p>为了能使SecondActivity能继续响应该Intent，我们需要在AndroidManifest.xml文件下的<activity>标签下配置<intent -filter="">的内容，来指定当前活动能够响应的action和category。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;intent-filter &gt;</div><div class="line">      &lt;action android:name=&quot;android.intent.action.ALL_APPS&quot;/&gt;</div><div class="line">          &lt;category android:name=&quot;android.intent.category.DEFAULT&quot;&gt;        </div><div class="line">          &lt;/category&gt;</div><div class="line">                &lt;category android:name=&quot;com.example.intent_test.MY_CATEGORY&quot;/&gt;</div><div class="line">            &lt;/intent-filter&gt;</div></pre></td></tr></table></figure></intent></activity></p>
+<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p><img src="http://upload-images.jianshu.io/upload_images/944365-8f518070eff52d05.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="目录"></p>
 <hr>
-<h5 id="3-2-不同组件之间传递数据传递"><a href="#3-2-不同组件之间传递数据传递" class="headerlink" title="3.2 不同组件之间传递数据传递"></a>3.2 不同组件之间传递数据传递</h5><ol>
-<li><p>使用方法<br>在当前活动中调用PutExtra（）方法把要传递的数据暂存在Intent中，并在新启动的Activity中取出Intent中的数据即可</p>
+<h1 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h1><ul>
+<li>介绍：Picasso，可译为“毕加索”，是Android中一个图片加载开源库<blockquote>
+<p>大概是因为其使用使用方法简单、优雅所以这样取名</p>
+</blockquote>
 </li>
-<li><p>可传递的数据类型<br>a. 八种基本数据类型（boolean byte char short int long float double）<br>b. String、Bundle、Parcelable、Serializable和CharSequence类型</p>
-</li>
-<li><p>实例：</p>
+<li>主要作用：实现图片加载</li>
+</ul>
+<h1 id="2-功能特点"><a href="#2-功能特点" class="headerlink" title="2. 功能特点"></a>2. 功能特点</h1><h2 id="2-1-功能列表"><a href="#2-1-功能列表" class="headerlink" title="2.1 功能列表"></a>2.1 功能列表</h2><p><img src="http://upload-images.jianshu.io/upload_images/944365-1464f8627b71f758.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="功能列表"></p>
 <ul>
-<li>目的：将FristActivity中的一个字符串传递到SecondActivity中，并在SecondActivity中将Intent对象中的数据（FristActivity传递过来的数据）取出</li>
-<li>实现代码及解析<br>a. 数据传递代码<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">mybutton.setOnClickListener(new OnClickListener() &#123;</div><div class="line">     @Override</div><div class="line">     public void onClick(View v) &#123;</div><div class="line">      Intent intent = new       </div><div class="line">//使用显示Intent的方式来启动SecondActivity；        </div><div class="line">      Intent(FirstActivity.this,SecondActivity.class);</div><div class="line">      String data = &quot;I com from FirstActivity&quot;;</div><div class="line">//通过putExtra（）方法传递一个字符串到SecondActivity；</div><div class="line">//putExtra（）方法接收两个参数：第一个是键，第二个是值，代表真正要传递的数据。</div><div class="line">              intent.putExtra(&quot;extra_data&quot;,data);</div><div class="line">              startActivity(intent);</div><div class="line">             &#125;</div><div class="line">      &#125;）；</div></pre></td></tr></table></figure>
+<li>从上面可以看出，Picasso不仅实现了图片异步加载的功能，还解决了Android中加载图片时需要解决的一些常见问题</li>
+<li>接下来，我会对Picasso的每个功能点进行详细的介绍</li>
+</ul>
+<h2 id="2-2-功能介绍"><a href="#2-2-功能介绍" class="headerlink" title="2.2 功能介绍"></a>2.2 功能介绍</h2><p><strong>2.2.1 图片的异步加载（最基础功能）</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">ImageView targetImageView = (ImageView) findViewById(R.id.ImageView);</div><div class="line">        String Url = &quot;http://218.192.170.132/1.jpg&quot;;</div><div class="line"></div><div class="line">//Picasso使用了流式接口的调用方式</div><div class="line">//Picasso类是核心实现类。</div><div class="line">//实现图片加载功能至少需要三个参数：</div><div class="line">        Picasso</div><div class="line">//with(Context context)</div><div class="line">//Context对于很多Android API的调用都是必须的，这里就不多说了</div><div class="line">                .with(context)</div><div class="line"></div><div class="line">//load(String imageUrl)：被加载图像的Url地址。</div><div class="line">//大多情况下，一个字符串代表一个网络图片的URL。</div><div class="line">                .load(Url)</div><div class="line"></div><div class="line">//into(ImageView targetImageView)：图片最终要展示的地方。</div><div class="line">                .into(targetImageView);</div></pre></td></tr></table></figure>
+<p><strong>2.2.2 图片转换</strong><br>使用最少的内存完成复杂的图片转换，转换图片以适合所显示的ImageView，来减少内存消耗</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Picasso.with(context)</div><div class="line">  .load(url)</div><div class="line">//裁剪图片尺寸</div><div class="line">  .resize(50, 50)</div><div class="line">//设置图片圆角</div><div class="line">  .centerCrop()</div><div class="line">  .into(imageView)</div></pre></td></tr></table></figure>
+<p><strong>2.2.3 加载过重 &amp; 错误处理</strong><br>Picasso支持加载过程中和加载错误时显示对应图片</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">Picasso.with(context)</div><div class="line">    .load(url)</div><div class="line">//加载过程中的图片显示</div><div class="line">    .placeholder(R.drawable.user_placeholder)</div><div class="line">//加载失败中的图片显示</div><div class="line">//如果重试3次（下载源代码可以根据需要修改）还是无法成功加载图片，则用错误占位符图片显示。</div><div class="line">    .error(R.drawable.user_placeholder_error)</div><div class="line">    .into(imageView);</div></pre></td></tr></table></figure>
+<p><strong>2.2.4 在Adapter中的回收不在视野的ImageView和取消已经回收的ImageView下载进程</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">@Override </div><div class="line">public void getView(int position, View convertView, ViewGroup parent) &#123;</div><div class="line">  SquaredImageView view = (SquaredImageView) convertView;</div><div class="line">  if (view == null) &#123;</div><div class="line">    view = new SquaredImageView(context);</div><div class="line">  &#125;</div><div class="line">  String url = getItem(position);</div><div class="line"> </div><div class="line">  Picasso.with(context).load(url).into(view);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>2.2.5 从不同资源源加载</strong><br>支持多种数据源  网络、本地、资源、Assets 等</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//加载资源文件</div><div class="line">Picasso.with(context).load(R.drawable.landing_screen).into(imageView1);</div><div class="line">//加载本地文件</div><div class="line">Picasso.with(context).load(new File(&quot;/images/oprah_bees.gif&quot;)).into(imageView2);</div></pre></td></tr></table></figure>
+<p><strong>2.2.6 自动添加磁盘和内存二级缓存功能</strong></p>
+<p><strong>2.2.7 支持优先级处理</strong><br>每次任务调度前会选择优先级高的任务，比如 App 页面中 Banner 的优先级高于 Icon 时就很适用。</p>
+<p><strong>2.2.8 支持飞行模式、并发线程数根据网络类型而变</strong><br>手机切换到飞行模式或网络类型变换时会自动调整线程池最大并发数，比如 wifi 最大并发为 4， 4g 为 3，3g 为 2</p>
+<p><strong>2.2.9 “无”本地缓存</strong><br>无”本地缓存，不是说没有本地缓存，而是 Picasso 自己没有实现，交给了 Square 的另外一个网络库 okhttp 去实现，这样的好处是可以通过请求 Response Header 中的 Cache-Control 及 Expired 控制图片的过期时间。</p>
+<h1 id="3-Demo实例"><a href="#3-Demo实例" class="headerlink" title="3. Demo实例"></a>3. Demo实例</h1><p>没有Demo的代码讲解不是好文章，让我们来一步步学会使用Picasso。</p>
+<p><strong>步骤1：在gradle添加依赖</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">compile &apos;com.squareup.picasso:picasso:2.5.2&apos;</div></pre></td></tr></table></figure>
+<p><strong>步骤2：添加网络权限</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;uses-permission android:name=&quot;android.permission.INTERNET&quot;/&gt;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>步骤1和步骤2是Picasso使用的前提，千万别忘了！！！！</p>
+</blockquote>
+<p><strong>步骤3：在MainActivity中</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">ImageView targetImageView = (ImageView) findViewById(R.id.ImageView);</div><div class="line">        String Url = &quot;http://218.192.170.132/1.jpg&quot;;</div><div class="line"></div><div class="line">        Picasso</div><div class="line">                .with(this)</div><div class="line">                .load(Url)</div><div class="line">                .into(targetImageView);</div></pre></td></tr></table></figure>
+<blockquote>
+<p>还有具体其他功能需要配置的自己按照我上面写的进行配置就好了~</p>
+</blockquote>
+<p>这里再贴上Picasso的Github地址：<a href="https://github.com/square/picasso" target="_blank" rel="external">请点击这里</a></p>
+<h1 id="4-特点"><a href="#4-特点" class="headerlink" title="4. 特点"></a>4. 特点</h1><h4 id="4-1-优点"><a href="#4-1-优点" class="headerlink" title="4.1 优点"></a>4.1 优点</h4><ul>
+<li>使用简单、方便（一行代码的事情）</li>
+<li>由于同样是出品自Square的，Square 公司的其他开源库如 Retrofit 或者 OkHttp和Picasso搭配使用兼容性会更好些，占用体积也会少些<blockquote>
+<p>所以，如果项目已经使用了 Square 公司的其他开源库（如 Retrofit 或者 OkHttp），在满足需求的前提下建议使用Picasso</p>
+</blockquote>
 </li>
 </ul>
+<h4 id="4-2-缺点"><a href="#4-2-缺点" class="headerlink" title="4.2 缺点"></a>4.2 缺点</h4><ul>
+<li>功能较为简单-图片加载；</li>
+<li>性能（加载速度等等）较其他图片加载库（Glide、Fresco）较差</li>
+<li>自身无实现“本地缓存”</li>
+</ul>
+<h1 id="5-总结"><a href="#5-总结" class="headerlink" title="5. 总结"></a>5. 总结</h1><ul>
+<li>Picasso使用起来是不是非常简单？相信你看完这篇文章后你能全面掌握Picasso的用法</li>
+<li>但是Picasso的源码却不简单，接下来我会对<strong>Picasso的源码</strong>进行详细分析，如果感兴趣的话请继续关注<a href="http://www.jianshu.com/users/383970bef0a0/latest_articles" target="_blank" rel="external">Carson_Ho的安卓开发笔记</a><blockquote>
+<p>CSDN博客<a href="http://blog.csdn.net/carson_ho/article/details/52437910" target="_blank" rel="external">已同步发布</a></p>
+</blockquote>
 </li>
-</ol>
-<p>b. 数据取出代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">public class SecondActivity extends Activity &#123;</div><div class="line">          @Override</div><div class="line">          protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">              super.onCreate(savedInstanceState);</div><div class="line">              setContentView(R.layout.activity_second);</div><div class="line">//调用getInstent（）方法获取用于启动SecondActivit的Intent</div><div class="line">              Intent intent = getIntent();</div><div class="line">//调用getStringExtra（）方法，传入相应的键名，就可以得到传来的数据。</div><div class="line">              String data = intent.getStringExtra(&quot;data&quot;);</div><div class="line">            </div><div class="line">          &#125;</div><div class="line">      &#125;</div></pre></td></tr></table></figure></p>
-<hr>
-<h1 id="四、总结"><a href="#四、总结" class="headerlink" title="四、总结"></a>四、总结</h1><p>本文对Android中的Intent组件进行了全面的介绍。接下来我会介绍继续介绍Android开发中的相关知识，有兴趣可以继续关注<a href="http://www.jianshu.com/users/383970bef0a0/latest_articles" target="_blank" rel="external">Carson_Ho的安卓开发笔记</a></p>
+</ul>
+<p>-</p>
 <hr>
 <h3 id="欢迎关注Carson-Ho的简书！"><a href="#欢迎关注Carson-Ho的简书！" class="headerlink" title="欢迎关注Carson_Ho的简书！"></a>欢迎关注<a href="http://www.jianshu.com/users/383970bef0a0/latest_articles" target="_blank" rel="external">Carson_Ho</a>的简书！</h3><p>不定期分享关于<strong>安卓开发</strong>的干货，追求<strong>短、平、快</strong>，但<strong>却不缺深度</strong>。</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/944365-9b76fa3c52d478a7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
@@ -297,13 +313,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/03/12/Intent详解/">Android开发：  Intent介绍及使用方法</a></p>
+        <p><span>本文标题:</span><a href="/2016/09/15/Android图片加载库：Picasso讲解/">Android图片加载库：最全面的Picasso讲解</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Carson_Ho 的个人博客">Carson_Ho</a></p>
-        <p><span>发布时间:</span>2016年03月12日 - 19时33分</p>
-        <p><span>最后更新:</span>2016年10月02日 - 09时58分</p>
+        <p><span>发布时间:</span>2016年09月15日 - 19时33分</p>
+        <p><span>最后更新:</span>2016年10月09日 - 09时13分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/03/12/Intent详解/" title="Android开发：  Intent介绍及使用方法">http://yoursite.com/2016/03/12/Intent详解/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/03/12/Intent详解/　　作者: Carson_Ho" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2016/09/15/Android图片加载库：Picasso讲解/" title="Android图片加载库：最全面的Picasso讲解">http://yoursite.com/2016/09/15/Android图片加载库：Picasso讲解/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/09/15/Android图片加载库：Picasso讲解/　　作者: Carson_Ho" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
@@ -316,18 +332,9 @@
 
 <nav id="article-nav">
   
-    <a href="/2016/03/23/五大布局属性大全/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          Android开发： 五大布局属性设置大全
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/03/05/XML简介及DOM、SAX、PULL解析对比/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Android开发：XML简介及DOM、SAX、PULL解析对比</div>
+    <a href="/2016/08/21/图片开源库/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">3分钟全面了解Android主流图片加载库</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -338,7 +345,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#目录"><span class="toc-number">2.</span> <span class="toc-text">目录</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#一、定义"><span class="toc-number">3.</span> <span class="toc-text">一、定义</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、作用"><span class="toc-number">4.</span> <span class="toc-text">二、作用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三、使用方法"><span class="toc-number">5.</span> <span class="toc-text">三、使用方法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#3-1指定当前组件要完成的动作"><span class="toc-number">5.0.0.0.1.</span> <span class="toc-text">3.1指定当前组件要完成的动作</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-2-不同组件之间传递数据传递"><span class="toc-number">5.0.0.0.2.</span> <span class="toc-text">3.2 不同组件之间传递数据传递</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四、总结"><span class="toc-number">6.</span> <span class="toc-text">四、总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#欢迎关注Carson-Ho的简书！"><span class="toc-number">6.0.1.</span> <span class="toc-text">欢迎关注Carson_Ho的简书！</span></a></li></ol></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#目录"><span class="toc-number">2.</span> <span class="toc-text">目录</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-简介"><span class="toc-number">3.</span> <span class="toc-text">1. 简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-功能特点"><span class="toc-number">4.</span> <span class="toc-text">2. 功能特点</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-功能列表"><span class="toc-number">4.1.</span> <span class="toc-text">2.1 功能列表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-功能介绍"><span class="toc-number">4.2.</span> <span class="toc-text">2.2 功能介绍</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-Demo实例"><span class="toc-number">5.</span> <span class="toc-text">3. Demo实例</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-特点"><span class="toc-number">6.</span> <span class="toc-text">4. 特点</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-优点"><span class="toc-number">6.0.0.1.</span> <span class="toc-text">4.1 优点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-缺点"><span class="toc-number">6.0.0.2.</span> <span class="toc-text">4.2 缺点</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-总结"><span class="toc-number">7.</span> <span class="toc-text">5. 总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#欢迎关注Carson-Ho的简书！"><span class="toc-number">7.0.1.</span> <span class="toc-text">欢迎关注Carson_Ho的简书！</span></a></li></ol></li></ol></li></ol>
 </div>
 <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
 
@@ -386,7 +393,7 @@
     
       <div class="duoshuo" id="comments">
     <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="2016/03/12/Intent详解/" data-title="Android开发：  Intent介绍及使用方法" data-url="http://yoursite.com/2016/03/12/Intent详解/"></div>
+    <div class="ds-thread" data-thread-key="2016/09/15/Android图片加载库：Picasso讲解/" data-title="Android图片加载库：最全面的Picasso讲解" data-url="http://yoursite.com/2016/09/15/Android图片加载库：Picasso讲解/"></div>
     <!-- 多说评论框 end -->
     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
     <script type="text/javascript">
@@ -409,13 +416,11 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2016/03/23/五大布局属性大全/" title="上一篇: Android开发： 五大布局属性设置大全">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a href="/2016/03/05/XML简介及DOM、SAX、PULL解析对比/" title="下一篇: Android开发：XML简介及DOM、SAX、PULL解析对比">
+            <a href="/2016/08/21/图片开源库/" title="下一篇: 3分钟全面了解Android主流图片加载库">
                 <i class="fa fa-angle-right"></i>
             </a>
         
